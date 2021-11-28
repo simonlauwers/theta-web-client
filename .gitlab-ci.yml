@@ -9,6 +9,8 @@ stages:
   - get-version
   - package
   - push
+  - deploy-staging
+  - deploy-production
 
 get-version:
   stage: get-version
@@ -40,3 +42,32 @@ docker-push:
     - CONTAINER="$(echo $CONTAINER_NAME):$(cat version.txt)"
     - docker load -i image.tar
     - docker push $(echo $CONTAINER)
+
+gcloud-deploy-staging:
+  stage: deploy-staging
+  image: google/cloud-sdk
+  only:
+    - staging
+  script:
+    - CONTAINER="$(echo $CONTAINER_NAME):$(cat version.txt)"
+    - base64 -d $GCP_SA_KEY > ~/encoded_serviceaccount.json
+    - gcloud auth activate-service-account --key-file ~/encoded_serviceaccount.json
+    - gcloud config set project ip2-test
+    - chmod +x ./update-deployment.sh
+    - echo $CONTAINER
+    - ./update-deployment.sh $CONTAINER staging
+
+gcloud-deploy-production:
+  stage: deploy-production
+  image: google/cloud-sdk
+  only:
+    - main
+  script:
+    - CONTAINER="$(echo $CONTAINER_NAME):$(cat version.txt)"
+    - base64 -d $GCP_SA_KEY > ~/encoded_serviceaccount.json
+    - gcloud auth activate-service-account --key-file ~/encoded_serviceaccount.json
+    - gcloud config set project ip2-test
+    - chmod +x ./update-deployment.sh
+    - echo $CONTAINER
+    - ./update-deployment.sh $CONTAINER production
+

@@ -16,6 +16,6 @@ else
     kubectl set image deployment/frontend-deployment "web=$1" -n=staging
   else
     echo "Deploying production env with image $1"
-    kubectl set image deployment/frontend-deployment "weby=$1" -n=production
+    kubectl set image deployment/frontend-deployment "web=$1" -n=production
   fi
 fi

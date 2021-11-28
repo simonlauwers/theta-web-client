@@ -13,9 +13,9 @@ else
   gcloud container clusters get-credentials --region=europe-west1 risk-cluster
   if [ $2 = "staging" ]; then
     echo "Deploying staging env with image $1"
-    kubectl set image deployment/api-gateway "web=$1" -n=staging
+    kubectl set image deployment/frontend-deployment "web=$1" -n=staging
   else
     echo "Deploying production env with image $1"
-    kubectl set image deployment/api-gateway "weby=$1" -n=production
+    kubectl set image deployment/frontend-deployment "weby=$1" -n=production
   fi
 fi

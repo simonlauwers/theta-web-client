@@ -11,7 +11,7 @@ const Login = () => {
             <Grid item xs={12} md={6} lg={6} style={{ backgroundColor: "#141124", height: "100vh" }}>
                 <Breadcrumbs style={{ marginLeft: "2em", marginTop: "1em", color: "ghostwhite" }}>
                     <Typography color="ghostwhite"><b>LOGIN</b></Typography>
-                    <Link underline="hover" color="inherit" href="/">
+                    <Link underline="hover" color="inherit" href="/signup">
                         JOIN
                     </Link>
                 </Breadcrumbs>

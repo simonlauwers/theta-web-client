@@ -1,4 +1,5 @@
 import { Grid, Breadcrumbs, Link, Typography } from "@mui/material"
+import SignupForm from "./SignupForm";
 
 
 const Signup = () => {
@@ -13,9 +14,9 @@ const Signup = () => {
                     </Link>
                     <Typography color="ghostwhite"><b>JOIN</b></Typography>
                 </Breadcrumbs>
-                <div style={{ marginTop: "25%", marginLeft: "25%" }}>
+                <div style={{ marginTop: "18%", marginLeft: "25%" }}>
                     <h1 style={{ color: "ghostwhite" }}>Ready to conquer the world?</h1>
-
+                    <SignupForm/>
                 </div>
 
             </Grid>

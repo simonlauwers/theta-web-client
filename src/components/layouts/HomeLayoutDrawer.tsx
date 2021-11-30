@@ -7,10 +7,14 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import MailIcon from '@mui/icons-material/Mail';
 import Toolbar from '@mui/material/Toolbar';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import SettingsIcon from '@mui/icons-material/Settings';
+import HelpIcon from '@mui/icons-material/Help';
+import BarChartIcon from '@mui/icons-material/BarChart';
 
-const drawerWidth = 240;
+const drawerWidth = "10%";
+const iconColor = "989898";
 
 export interface HomeLayoutDrawerProps {
     children: JSX.Element
@@ -25,13 +29,16 @@ export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
 
     const drawer = (
         <div>
-            <Toolbar />
-            <Divider />
-            <List>
+            <Toolbar><img src="https://www.pngkit.com/png/full/969-9692405_jordan-logo-gray-amtrak-white-logo.png" alt="" width="70" height="70" style={{ marginTop: "25%", marginLeft: "10%" }} /></Toolbar>
+            <Divider style={{ marginTop: "25%", marginBottom: "25%" }} />
+            <List >
                 {['Profile', 'Stats', 'Settings', 'Help'].map((text, index) => (
                     <ListItem button key={text}>
                         <ListItemIcon >
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                            {index === 0 ? <AccountCircleIcon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }} /> : null}
+                            {index === 1 ? <BarChartIcon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }} /> : null}
+                            {index === 2 ? <SettingsIcon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }} /> : null}
+                            {index === 3 ? <HelpIcon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }} /> : null}
                         </ListItemIcon>
 
                     </ListItem>
@@ -71,10 +78,14 @@ export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
                     {drawer}
                 </Drawer>
                 <Drawer
+                    ModalProps={{
+                        keepMounted: true,
+                    }}
                     variant="permanent"
                     sx={{
                         display: { xs: 'none', sm: 'block' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, background: "linear-gradient(90deg, rgba(0,0,0,0.49093140674238445) 0%, rgba(0,0,0,0) 100%)", border: "none" },
+                        '& ': {},
                     }}
                     open
                 >

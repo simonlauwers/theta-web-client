@@ -5,30 +5,103 @@ import Particles from "react-tsparticles";
 import { Container, Main } from "react-tsparticles"
 import { loadFirePreset } from "tsparticles-preset-fire";
 
+
 { /* We use the GameLayout to share markup across all 
 the Game related pages */}
 
 const HomeLayout = () => {
-    const particlesInit = (main: Main) => {
-        console.log(main);
-        loadFirePreset(main);
 
-        // you can initialize the tsParticles instance (main) here, adding custom shapes or presets
+    const particlesInit = (main: Main) => {
+        loadFirePreset(main);
     };
 
     const options = {
         preset: "fire",
-      };
-  
+    };
+
     return (
-        
-        <div id="particles">
-            <Particles id="tsparticles" options={options} init={particlesInit} />
-            <div style={{ backgroundImage: `url("/media/game-visuals/FireTemple.png")`, minHeight: '100vh' }}>
-                <HomeLayoutDrawer>
-                    <Outlet />
-                </HomeLayoutDrawer>
-            </div>
+
+        <div style={{ backgroundImage: `url("/media/game-visuals/FireTemple.png")`, minHeight: '100vh' }}>
+            <HomeLayoutDrawer>
+                <Outlet />
+            </HomeLayoutDrawer>
+            <Particles options={{
+                background: {
+                    color: {
+                        value: "",
+                    },
+                },
+                fpsLimit: 60,
+                interactivity: {
+                    events: {
+                        onClick: {
+                            enable: false,
+                        },
+                        onHover: {
+                            enable: true,
+                            mode: "bubble",
+                        },
+                        resize: true,
+                    },
+                    modes: {
+                        bubble: {
+                            distance: 250,
+                            duration: 8,
+                            opacity: 0.8,
+                            size: 6,
+                        },
+                        push: {
+                            quantity: 4,
+                        },
+                        repulse: {
+                            distance: 40,
+                            duration: 5,
+                        },
+                    },
+                },
+                particles: {
+                    color: {
+                        value: "#ffffff",
+                    },
+                    links: {
+                        color: "#ffffff",
+                        distance: 150,
+                        enable: true,
+                        opacity: 0.5,
+                        width: 2,
+                    },
+                    collisions: {
+                        enable: false,
+                    },
+                    move: {
+                        direction: "none",
+                        enable: true,
+                        outMode: "bounce",
+                        random: false,
+                        speed: 1,
+                        straight: false,
+                    },
+                    number: {
+                        density: {
+                            enable: true,
+                            value_area: 800,
+                        },
+                        value: 60,
+                    },
+                    opacity: {
+                        value: 0.1,
+                    },
+                    shape: {
+                        type: "circle",
+                    },
+                    size: {
+                        random: true,
+                        value: 5,
+                    },
+                },
+                detectRetina: true,
+            }}
+                init={particlesInit} />
         </div>
     );
 }

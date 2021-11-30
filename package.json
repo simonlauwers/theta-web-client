@@ -24,6 +24,8 @@
     "react-scripts": "4.0.3",
     "react-tsparticles": "^1.37.5",
     "tsparticles-preset-fire": "^1.22.5",
+    "tsparticles-preset-links": "^1.22.5",
+    "tsparticles-preset-triangles": "^1.22.5",
     "typescript": "^4.5.2",
     "web-vitals": "^1.1.2",
     "yup": "^0.32.11"

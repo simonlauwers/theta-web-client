@@ -1,6 +1,6 @@
-import { Alert, Button, IconButton, InputAdornment, Snackbar, Stack, TextField } from '@mui/material';
+import { Alert, Button, Fade, IconButton, InputAdornment, Snackbar, Stack, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import WhiteTextField from '../formInputs/WhiteTextField';
+import WhiteTextField from '../theme/formInputs/WhiteTextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useFormik, ErrorMessage } from 'formik';
@@ -65,8 +65,6 @@ const SignupForm = () => {
         },
     });
 
-
-
     return (
         <form onSubmit={formik.handleSubmit}>
             <Stack style={{ maxWidth: "50%" }}>
@@ -128,36 +126,38 @@ const SignupForm = () => {
                         </InputAdornment>
                     }}
                 />
+
                 <PasswordStrengthBar password={formik.values.password} minLength={8} />
+
                 {formik.errors.password && formik.touched.password ? (<div style={{ color: "white" }}>{"Uh oh... " + formik.errors.password}</div>) : null}
 
-                <WhiteTextField
-                    label="Confirm your password"
-                    style={{ marginTop: 25 }}
-                    id="email"
-                    name="passwordConfirmation"
-                    type={showPasswordConfirmation ? 'text' : 'password'}
-                    variant="filled"
-                    value={formik.values.passwordConfirmation}
-                    onChange={formik.handleChange}
-                    error={formik.touched.passwordConfirmation && Boolean(formik.errors.passwordConfirmation)}
+                    <WhiteTextField
+                        label="Confirm your password"
+                        style={{ marginTop: 25 }}
+                        id="email"
+                        name="passwordConfirmation"
+                        type={showPasswordConfirmation ? 'text' : 'password'}
+                        variant="filled"
+                        value={formik.values.passwordConfirmation}
+                        onChange={formik.handleChange}
+                        error={formik.touched.passwordConfirmation && Boolean(formik.errors.passwordConfirmation)}
 
-                    InputProps={{
-                        endAdornment: <InputAdornment position="end">
-                            <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={() => { handleClickShowPassword(true) }}
-                                edge="end"
-                            >
-                                {showPasswordConfirmation ? <VisibilityOff /> : <Visibility />}
-                            </IconButton>
-                        </InputAdornment>
-                    }}
-                />
+                        InputProps={{
+                            endAdornment: <InputAdornment position="end">
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={() => { handleClickShowPassword(true) }}
+                                    edge="end"
+                                >
+                                    {showPasswordConfirmation ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                        }}
+                    />
                 {formik.errors.passwordConfirmation && formik.touched.passwordConfirmation ? (<div style={{ color: "white" }}>{"Uh oh... " + formik.errors.passwordConfirmation}</div>) : null}
 
-
                 <Button style={{ marginTop: 25, backgroundColor: "ghostwhite", color: "#141124", fontWeight: "bold" }} type="submit" variant="contained">Signup</Button>
+
             </Stack>
         </form >
     );

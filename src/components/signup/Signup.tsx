@@ -1,30 +1,28 @@
 import { Grid, Breadcrumbs, Link, Typography } from "@mui/material"
-import LoginForm from "./LoginForm";
+import SignupForm from "./SignupForm";
 
 
-const Login = () => {
-
+const Signup = () => {
     return (
         <Grid container>
             <Grid item xs={0} md={6} lg={6} style={{ height: "100vh", backgroundImage: `url("/media/photos/bgRiskThetaLoginForm.png")`, backgroundSize: "cover" }}>
             </Grid>
             <Grid item xs={12} md={6} lg={6} style={{ backgroundColor: "#141124", height: "100vh" }}>
                 <Breadcrumbs style={{ marginLeft: "2em", marginTop: "1em", color: "ghostwhite" }}>
-                    <Typography color="ghostwhite"><b>LOGIN</b></Typography>
-                    <Link underline="hover" color="inherit" href="/signup">
-                        JOIN
+                    <Link underline="hover" color="inherit" href="/auth/login">
+                        LOGIN
                     </Link>
+                    <Typography color="ghostwhite"><b>JOIN</b></Typography>
                 </Breadcrumbs>
-                <div style={{ marginTop: "25%", marginLeft: "25%" }}>
-                    <h1 style={{ color: "ghostwhite" }}>Welcome back.</h1>
-                    <LoginForm />
+                <div style={{ marginTop: "10%", marginLeft: "25%" }}>
+                    <h1 style={{ color: "ghostwhite" }}>Ready to conquer the world?</h1>
+                    <SignupForm />
                 </div>
 
             </Grid>
 
         </Grid>
-
     )
 }
 
-export default Login;
+export default Signup;

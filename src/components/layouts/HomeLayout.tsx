@@ -12,7 +12,7 @@ const HomeLayout = () => {
 
     return (
 
-        <div style={{ backgroundImage: `url("/media/game-visuals/FireTemple.png")`, minHeight: '100vh' }}>
+        <div style={{ backgroundImage: `url("/media/photos/game-visuals/FireTemple.png")`, minHeight: '100vh' }}>
             <HomeLayoutDrawer>
                 <Outlet />
             </HomeLayoutDrawer>

@@ -33,7 +33,7 @@ const Home = () => {
                         <Grid container spacing={4} style={{ display: "flex", flexWrap: "nowrap", maxWidth: "100%" }}  >
                             <Grid item xs={12} style={{ color: "white" }}>
                                 <HomeGameplayCard
-                                    backgroundImage={`url("/media/game-visuals/Badlands.png")`}
+                                    backgroundImage={`url("/media/photos/game-visuals/Badlands.png")`}
                                     title="Singleplayer"
                                     firstButtonText="PLAY"
                                     secondButtonText="MORE INFO"
@@ -41,7 +41,7 @@ const Home = () => {
                             </Grid>
                             <Grid item xs={12} style={{ color: "white" }}>
                                 <HomeGameplayCard
-                                    backgroundImage={`url("/media/game-visuals/FireTemple.png")`}
+                                    backgroundImage={`url("/media/photos/game-visuals/FireTemple.png")`}
                                     title="Global domination"
                                     firstButtonText="PLAY"
                                     secondButtonText="MORE INFO"
@@ -49,7 +49,7 @@ const Home = () => {
                             </Grid>
                             <Grid item xs={12} style={{ color: "white" }}>
                                 <HomeGameplayCard
-                                    backgroundImage={`url("/media/game-visuals/IcePalace.png")`}
+                                    backgroundImage={`url("/media/photos/game-visuals/IcePalace.png")`}
                                     title="Friends Only"
                                     firstButtonText="PLAY"
                                     secondButtonText="MORE INFO"

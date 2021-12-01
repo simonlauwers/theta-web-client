@@ -8,6 +8,8 @@ interface HomeGameplayCardProps {
 }
 
 const HomeGameplayCard = (props: HomeGameplayCardProps) => {
+    let audio = new Audio("./media/sounds/ui-sounds/button_click_1.mp3")
+
     return (
         <Card sx={{
             minWidth: 200, '&:hover': {
@@ -22,7 +24,8 @@ const HomeGameplayCard = (props: HomeGameplayCardProps) => {
                 </Typography>
             </CardContent>
             <CardActions>
-                {props.firstButtonText === undefined ? null : <Button sx={{ color: "white" }} size="small">{props.firstButtonText}</Button>}
+                {props.firstButtonText === undefined ? null : <Button sx={{ color: "white" }} onClick={() => {console.log(audio);
+                 return audio.play()}} size="small">{props.firstButtonText}</Button>}
                 {props.secondButtonText === undefined ? null : <Button sx={{ color: "white" }} size="small">{props.secondButtonText}</Button>}
             </CardActions>
         </Card>

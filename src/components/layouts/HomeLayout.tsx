@@ -1,8 +1,7 @@
-import { Drawer } from "@mui/material";
-import { Routes, Route, Outlet, Link } from "react-router-dom";
-import HomeLayoutDrawer from "./HomeLayoutDrawer"
+import { Outlet } from "react-router-dom";
+import HomeLayoutDrawer from "./HomeLayoutDrawer";
 import Particles from "react-tsparticles";
-import { Container, Main } from "react-tsparticles"
+import { Main } from "react-tsparticles"
 import { loadFirePreset } from "tsparticles-preset-fire";
 
 
@@ -11,20 +10,15 @@ the Game related pages */}
 
 const HomeLayout = () => {
 
-    const particlesInit = (main: Main) => {
-        loadFirePreset(main);
-    };
-
-    const options = {
-        preset: "fire",
-    };
-
     return (
 
         <div style={{ backgroundImage: `url("/media/game-visuals/FireTemple.png")`, minHeight: '100vh' }}>
             <HomeLayoutDrawer>
                 <Outlet />
             </HomeLayoutDrawer>
+            
+
+
             <Particles options={{
                 background: {
                     color: {
@@ -101,7 +95,9 @@ const HomeLayout = () => {
                 },
                 detectRetina: true,
             }}
-                init={particlesInit} />
+         />
+
+
         </div>
     );
 }

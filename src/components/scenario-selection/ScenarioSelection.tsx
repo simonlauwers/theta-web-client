@@ -4,26 +4,29 @@ import ScenarioCard from "./ScenarioCard";
 
 
 const ScenarioSelection = () => {
-    const {isLoading, error, entities} = useGetScenarios();
+    const { isLoading, error, entities } = useGetScenarios();
 
-    return(
-        <div>
-            <Grid container>
-                <Grid item md={6} sx={{ display: { xs: "none", md: "block" }}}>
-                    <img src="" alt="scenario preview" />
+    if (isLoading) {
+        return (<div>Loading...</div>)
+    } else {
+        return (
+            <div>
+                <Grid container>
+                    <Grid item md={6} sx={{ display: { xs: "none", md: "block" } }}>
+                        <img src="" alt="scenario preview" />
+                    </Grid>
+                    <Grid item xs={12} md={6} style={{ overflowY: "scroll" }}>
+                        {entities.map(scenario =>
+                            <ScenarioCard scenario={scenario} />
+                        )
+                        }
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} md={6} style={{overflowY: "scroll"}}>
-                    {isLoading?
-                        <div>Loading</div>
-                        :
-                        entities.map(scenario => 
-                            <ScenarioCard scenario={scenario}/>
-                            )
-                    }
-                </Grid>
-            </Grid>
-        </div>
-    )
+            </div>
+        )
+    }
+
+
 }
 
 export default ScenarioSelection;

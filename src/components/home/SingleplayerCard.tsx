@@ -1,4 +1,5 @@
 import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
+import { Navigate, useNavigate } from "react-router";
 
 interface SingleplayerCardProps {
     backgroundImage: string
@@ -6,9 +7,11 @@ interface SingleplayerCardProps {
 
 const SingleplayerCard = (props: SingleplayerCardProps) => {
     const audio = new Audio("./media/sounds/ui-sounds/button_click_1.mp3")
+    const navigate = useNavigate();
 
     const handlePlayButtonClick = () => {
-        audio.play()
+        audio.play();
+        navigate("/scenarios");
     }
 
     const handleLearnMoreButtonClick = () => {

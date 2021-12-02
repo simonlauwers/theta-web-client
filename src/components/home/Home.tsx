@@ -1,9 +1,9 @@
-import { Avatar, Button, Fade, Grid } from "@mui/material";
+import { Avatar, Button, Card, Fade, Grid } from "@mui/material";
 import HomeGameplayCard from "./HomeGameplayCard";
 
 const Home = () => {
     return (
-        <div style={{ zIndex: 9999, marginLeft: 50 }}>
+        <div style={{ zIndex: 9999, marginLeft: 50, marginTop:"-4%" }}>
             <Fade in={true} style={{ transitionDelay: '800ms' }}>
                 <Grid container spacing={6} >
                     <Grid item xs={12} md={6} style={{ color: "white" }}>
@@ -15,9 +15,12 @@ const Home = () => {
                             }
                         }}>See all stats</Button>
                     </Grid>
-                    <Grid item xs={12} md={6} style={{ color: "white", paddingTop: "13%", justifyContent: "center" }}>
-                        <Avatar sx={{ bgcolor: "grey", marginLeft: "6%", width: 200, height: 200, boxShadow: 5 }}>STRIJDER-</Avatar><br />
-                        <p style={{ fontSize: "1.5em" }}>Welcome back, <strong>STRIJDER-</strong></p>
+                    <Grid item xs={12} md={6} style={{ color: "white", paddingTop: "13%" }}>
+                        <Card style={{ display: "flex", backgroundColor: "rgba(0, 0, 0, 0.35)", alignItems: "center", justifyContent: "center", flexDirection: "row", flexWrap: "wrap", maxWidth: 400, padding: 20 }} sx={{ boxShadow: 5 }}>
+                            <Avatar sx={{ bgcolor: "grey", width: 200, height: 200, boxShadow: 5 }}>STRIJDER-</Avatar>
+                            <p style={{ color: "white", fontSize: "1.5em" }}>Welcome back, <strong>STRIJDER-</strong></p>
+                        </Card>
+
                     </Grid>
                 </Grid>
             </Fade>

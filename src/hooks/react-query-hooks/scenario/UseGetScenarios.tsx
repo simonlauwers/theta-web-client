@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { useQuery } from "react-query";
-import Scenario from "../../types/Scenario";
-import fetchData from "../FetchData";
+import Scenario from "../../../types/ScenarioType";
+import fetchData from "../../../utils/data/FetchData";
 
-const UseGetScenarios = () => {
+const useGetScenarios = () => {
     const [isLoading, setIsloading] = useState(true);
     const [entities, setEntities] = useState<Scenario[]>([]);
     const [error, setError] = useState(false);
@@ -26,4 +26,4 @@ const UseGetScenarios = () => {
     return {isLoading, error, entities};
 }
 
-export default UseGetScenarios
+export default useGetScenarios;

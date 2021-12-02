@@ -1,11 +1,10 @@
 import { Grid } from "@mui/material";
-import { useQuery } from "react-query";
-import UseGetScenarios from "../../query/scenario/UseGetScenarios";
+import useGetScenarios from "../../hooks/react-query-hooks/scenario/UseGetScenarios";
 import ScenarioCard from "./ScenarioCard";
 
 
 const ScenarioSelection = () => {
-    const {isLoading, error, entities} = UseGetScenarios();
+    const {isLoading, error, entities} = useGetScenarios();
 
     return(
         <div>

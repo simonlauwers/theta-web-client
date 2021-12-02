@@ -1,4 +1,4 @@
-export default interface Scenario {
+export default interface ScenarioType {
     uuid: string,
     name: string,
     description: string

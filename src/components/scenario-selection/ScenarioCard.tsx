@@ -1,8 +1,8 @@
 import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
-import Scenario from "../../types/Scenario";
+import ScenarioType from "../../types/ScenarioType";
 
 interface ScenarioCardProps {
-    scenario : Scenario;
+    scenario : ScenarioType;
 }
 
 const ScenarioCard = (props: ScenarioCardProps) => {

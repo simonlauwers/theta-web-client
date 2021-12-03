@@ -10,12 +10,33 @@ import ScenarioLayout from './components/layouts/ScenarioLayout';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 function App() {
-  const queryClient = new QueryClient()
-  
+
+  // A React Query client used for the React Query Provider that will wrap game related components
+  const queryGameClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        retry: true,
+        staleTime: 1000,
+      },
+    },
+  });
+
+  // A React Query client used for the React Query Provider that will wrap general components
+  const queryGeneralClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        retry: false,
+        staleTime: 15000,
+      },
+    },
+  });
+
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <Router>
-      
+    <Router>
+      <QueryClientProvider client={queryGeneralClient}>
         <Routes>
           <Route
             path="/"
@@ -25,15 +46,15 @@ function App() {
             <Route path="/auth/login" element={<Login />} />
             <Route path="/auth/signup" element={<Signup />} />
           </Route>
-    
+
           <Route path="/home" element={<HomeLayout />}>
             <Route path="/home" element={<Home />} />
           </Route>
-    
+
           <Route path="/scenarios" element={<ScenarioLayout />}>
             <Route path="/scenarios" element={<ScenarioSelection />} />
           </Route>
-    
+          
           <Route
             path="*"
             element={
@@ -42,10 +63,9 @@ function App() {
               </main>
             }
           />
-  
         </Routes>
-      </Router>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </Router >
   );
 }
 

@@ -8,21 +8,5 @@ const UserContext = createContext({
     updateUser: () => { },
 });
 
-const UserProvider = (props: any) => {
-    const [user, setUser] = useState<UserType>(emptyUser)
 
-    const updateUser = () => {
-        setUser(user);
-    };
-
-    const { children } = props;
-
-    return (
-        <UserContext.Provider value={{ user: user, updateUser: updateUser }}>
-            {children}
-        </UserContext.Provider>
-    );
-
-}
-
-export const UserConsumer = UserContext.Consumer;
+export default UserContext;

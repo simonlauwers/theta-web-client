@@ -8,6 +8,7 @@ import Home from './components/home/Home';
 import ScenarioSelection from './components/scenario-selection/ScenarioSelection';
 import ScenarioLayout from './components/layouts/ScenarioLayout';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import AuthProvider from './contexts/AuthProvider';
 
 function App() {
 
@@ -36,35 +37,37 @@ function App() {
 
   return (
     <Router>
-      <QueryClientProvider client={queryGeneralClient}>
-        <Routes>
-          <Route
-            path="/"
-            element={<Login />}
-          />
-          <Route path="/auth" element={<AuthLayout />}>
-            <Route path="/auth/login" element={<Login />} />
-            <Route path="/auth/signup" element={<Signup />} />
-          </Route>
+      <AuthProvider>
+        <QueryClientProvider client={queryGeneralClient}>
+          <Routes>
+            <Route
+              path="/"
+              element={<Login />}
+            />
+            <Route path="/auth" element={<AuthLayout />}>
+              <Route path="/auth/login" element={<Login />} />
+              <Route path="/auth/signup" element={<Signup />} />
+            </Route>
 
-          <Route path="/home" element={<HomeLayout />}>
-            <Route path="/home" element={<Home />} />
-          </Route>
+            <Route path="/home" element={<HomeLayout />}>
+              <Route path="/home" element={<Home />} />
+            </Route>
 
-          <Route path="/scenarios" element={<ScenarioLayout />}>
-            <Route path="/scenarios" element={<ScenarioSelection />} />
-          </Route>
-          
-          <Route
-            path="*"
-            element={
-              <main style={{ padding: "1rem" }}>
-                <p>404 | Page not found!</p>
-              </main>
-            }
-          />
-        </Routes>
-      </QueryClientProvider>
+            <Route path="/scenarios" element={<ScenarioLayout />}>
+              <Route path="/scenarios" element={<ScenarioSelection />} />
+            </Route>
+
+            <Route
+              path="*"
+              element={
+                <main style={{ padding: "1rem" }}>
+                  <p>404 | Page not found!</p>
+                </main>
+              }
+            />
+          </Routes>
+        </QueryClientProvider>
+      </AuthProvider>
     </Router >
   );
 }

@@ -5,6 +5,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import useAuth from "../../hooks/UseAuth";
 
 const validationSchemaLogin = yup.object({
     email: yup
@@ -25,6 +26,8 @@ interface LoginValues {
 const LoginForm = () => {
     const [showPassword, setShowPassword] = useState<Boolean>(false);
 
+    const { login, loading, error, user } = useAuth();
+
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     }
@@ -35,8 +38,9 @@ const LoginForm = () => {
             password: '',
         },
         validationSchema: validationSchemaLogin,
-        onSubmit: (values: LoginValues) => {
-            alert(JSON.stringify(values, null, 2));
+        onSubmit: async (values: LoginValues) => {
+            await login(values.email, values.password);
+            alert(user);
         },
     });
 

@@ -1,14 +1,15 @@
-import {ReactNode, useEffect, useMemo, useState} from "react";
-import {useLocation, useNavigate} from "react-router";
+import { ReactNode, useEffect, useMemo, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
 import UserType from "../types/UserType";
 import * as userApi from "../api/user/UserApi";
 import AuthContext from "./AuthContext";
 
 
-const AuthProvider = ({children}: { children: ReactNode }): JSX.Element => {
+const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element => {
     const [user, setUser] = useState<UserType>();
     const [error, setError] = useState<any>();
     const [loading, setLoading] = useState<boolean>(false);
+    const [loadingInitial, setLoadingInitial] = useState<boolean>(true);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -20,10 +21,19 @@ const AuthProvider = ({children}: { children: ReactNode }): JSX.Element => {
         if (error) setError(null);
     }, [location.pathname]);
 
+    useEffect(() => {
+        setTimeout(() => {
+            userApi.whoami()
+                .then((user: UserType) => setUser(user))
+                .catch((error: any) => { alert(error) })
+                .finally(() => setLoadingInitial(false));
+        }, 5000)
+    }, []);
+
     const login = async (email: string, password: string) => {
         setLoading(true);
         try {
-            const user = await userApi.login({email, password});
+            const user = await userApi.login({ email, password });
             console.log(user);
             setUser(user);
             navigate("/home");
@@ -37,7 +47,7 @@ const AuthProvider = ({children}: { children: ReactNode }): JSX.Element => {
         setLoading(true);
 
         try {
-            const user = await userApi.signup({email, displayName, password});
+            const user = await userApi.signup({ email, displayName, password });
             setUser(user);
             navigate("/auth/login");
         } catch (error) {
@@ -59,6 +69,7 @@ const AuthProvider = ({children}: { children: ReactNode }): JSX.Element => {
         () => ({
             user,
             loading,
+            loadingInitial,
             error,
             login,
             signUp,

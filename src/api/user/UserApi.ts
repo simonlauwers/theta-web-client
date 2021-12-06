@@ -41,10 +41,9 @@ export async function logout() {
 
 export async function whoami(){
   const response = await api.get('/whoami');
-  console.log(response.data);
+  return response.data as unknown as UserType;
 }
 
-whoami();
 
 
 

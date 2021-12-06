@@ -37,46 +37,45 @@ function App() {
     },
   });
 
+
   if (loadingInitial || loading) {
-    alert(loadingInitial);
     return (
       <h1>LOAAAAAAAAAADING</h1>
     );
   } else {
+
+    console.log(user)
     return (
-      <Router>
-        <AuthProvider>
-          <QueryClientProvider client={queryGeneralClient}>
-            <Routes>
-              <Route
-                path="/"
-                element={<Login />}
-              />
-              <Route path="/auth" element={<AuthLayout />}>
-                <Route path="/auth/login" element={<Login />} />
-                <Route path="/auth/signup" element={<Signup />} />
-              </Route>
 
-              <Route path="/home" element={<HomeLayout />}>
-                <Route path="/home" element={<Home />} />
-              </Route>
+      <QueryClientProvider client={queryGeneralClient}>
+        <Routes>
+          <Route
+            path="/"
+            element={<Login />}
+          />
+          <Route path="/auth" element={<AuthLayout />}>
+            <Route path="/auth/login" element={<Login />} />
+            <Route path="/auth/signup" element={<Signup />} />
+          </Route>
 
-              <Route path="/scenarios" element={<ScenarioLayout />}>
-                <Route path="/scenarios" element={<ScenarioSelection />} />
-              </Route>
+          <Route path="/home" element={<HomeLayout />}>
+            <Route path="/home" element={<Home />} />
+          </Route>
 
-              <Route
-                path="*"
-                element={
-                  <main style={{ padding: "1rem" }}>
-                    <p>404 | Page not found!</p>
-                  </main>
-                }
-              />
-            </Routes>
-          </QueryClientProvider>
-        </AuthProvider>
-      </Router >
+          <Route path="/scenarios" element={<ScenarioLayout />}>
+            <Route path="/scenarios" element={<ScenarioSelection />} />
+          </Route>
+
+          <Route
+            path="*"
+            element={
+              <main style={{ padding: "1rem" }}>
+                <p>404 | Page not found!</p>
+              </main>
+            }
+          />
+        </Routes>
+      </QueryClientProvider>
     );
   }
 

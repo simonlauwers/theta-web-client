@@ -24,10 +24,11 @@ const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element => {
     useEffect(() => {
         setTimeout(() => {
             userApi.whoami()
-                .then((user: UserType) => setUser(user))
-                .catch((error: any) => { alert(error) })
-                .finally(() => setLoadingInitial(false));
-        }, 5000)
+            .then((user: UserType) => setUser(user))
+            .catch((error: any) => { alert(error) })
+            .finally(() => setLoadingInitial(false));
+        }, 2000)
+      
     }, []);
 
     const login = async (email: string, password: string) => {
@@ -65,18 +66,15 @@ const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element => {
     * Make the provider update only when it should.
     * We want to keep things very performant :-)
     */
-    const memoedValue = useMemo(
-        () => ({
-            user,
-            loading,
-            loadingInitial,
-            error,
-            login,
-            signUp,
-            logout,
-        }),
-        [user, loading, error]
-    );
+    const memoedValue = {
+        user,
+        loading,
+        loadingInitial,
+        error,
+        login,
+        signUp,
+        logout,
+    }
 
 
     return (

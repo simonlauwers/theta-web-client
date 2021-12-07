@@ -22,23 +22,29 @@ const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element => {
     }, [location.pathname]);
 
     useEffect(() => {
+        const initialUserCheck = async () => {
+            try {
+                const user = await userApi.whoami();
+                setUser(user);
+            } catch (e) {
+                setError(e);
+            }
+        }
+
         setTimeout(() => {
-            userApi.whoami()
-            .then((user: UserType) => setUser(user))
-            .catch((error: any) => { alert(error) })
-            .finally(() => setLoadingInitial(false));
-        }, 2000)
-      
+            initialUserCheck();
+            setLoadingInitial(false);
+        }, 1200);
     }, []);
 
     const login = async (email: string, password: string) => {
         setLoading(true);
         try {
             const user = await userApi.login({ email, password });
-            console.log(user);
             setUser(user);
             navigate("/home");
         } catch (error) {
+            console.log("error in auth provider",error);
             setError(error);
         }
         setLoading(false);
@@ -66,16 +72,18 @@ const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element => {
     * Make the provider update only when it should.
     * We want to keep things very performant :-)
     */
-    const memoedValue = {
-        user,
-        loading,
-        loadingInitial,
-        error,
-        login,
-        signUp,
-        logout,
-    }
-
+    const memoedValue = useMemo(
+        () => ({
+            user,
+            loading,
+            loadingInitial,
+            error,
+            login,
+            signUp,
+            logout,
+        }),
+        [user, loading, error]
+    );
 
     return (
         <AuthContext.Provider value={memoedValue}>

@@ -1,4 +1,4 @@
-import { Button, IconButton, InputAdornment, Stack, TextField } from '@mui/material';
+import { Button, IconButton, InputAdornment, Snackbar, Stack, TextField } from '@mui/material';
 import { useState } from 'react';
 import WhiteTextField from '../theme/formInputs/WhiteTextField';
 import Visibility from '@mui/icons-material/Visibility';
@@ -39,16 +39,21 @@ const LoginForm = () => {
         },
         validationSchema: validationSchemaLogin,
         onSubmit: async (values: LoginValues) => {
-            await login(values.email, values.password);
-            alert(user);
+            login(values.email, values.password);
         },
     });
+
+
 
     if (loading) {
         return (<div />)
     }
     else {
+        console.log("error",error);
+        
         return (
+            <>
+            {error && "User not found"}
             <form onSubmit={formik.handleSubmit}>
                 <Stack style={{ maxWidth: "50%" }}>
                     <WhiteTextField
@@ -90,6 +95,7 @@ const LoginForm = () => {
                     <Button style={{ marginTop: 25, backgroundColor: "ghostwhite", color: "#141124", fontWeight: "bold" }} type="submit" variant="contained">Login</Button>
                 </Stack>
             </form >
+            </>
         );
     }
 

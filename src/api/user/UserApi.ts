@@ -19,12 +19,24 @@ const api = axios.create({
 
 });
 
-export async function login(params: LoginProps): Promise<UserType> {
-  //const response = await axiosFetch({ url: 'login', method: 'post', data: params });
-  const response = await api.post('/login', params);
-  console.log(response.data);
+interface ErrorType {
+  message: string;
+  status: number;
+  timestamp: string;
+}
 
-  return response.data.data;
+export async function login(params: LoginProps): Promise<any> {
+
+  try {
+    return await api.post('login', params);
+  } catch (e: any) {
+    let error = e as unknown as ErrorType;
+    console.log(e);
+    console.log("errorType",error.timestamp);
+    
+    throw new Error(error.message);
+  }
+
 }
 
 export async function signup(params: SignUpValues): Promise<SignUpValues> {
@@ -39,7 +51,7 @@ export async function logout() {
   return response.data.data;
 }
 
-export async function whoami(){
+export async function whoami() {
   const response = await api.get('/whoami');
   return response.data as unknown as UserType;
 }

@@ -1,6 +1,37 @@
-import {createContext} from 'react';
-import AuthContextType from "../types/AuthContextType";
+import React, { createContext } from 'react';
+import UserType from '../types/UserType';
+import { useMemo, useState, FC } from "react";
 
-const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
-export default AuthContext;
+export interface AuthContextType {
+    user: UserType | null,
+    setUser: React.Dispatch<React.SetStateAction<UserType | null>>
+}
+
+export const AuthContext = createContext<AuthContextType>({
+    user: null,
+    setUser: () => { }
+});
+
+export const AuthProvider: FC = ({
+    children
+}) => {
+    const [user, setUser] = useState<UserType | null>(null);
+
+    const memoedValue = useMemo(
+        () => ({
+            user,
+        }),
+        [user]
+    );
+
+    return (
+        <AuthContext.Provider value={{ user, setUser }}>
+            {children}
+        </AuthContext.Provider>
+    );
+
+}
+
+
+

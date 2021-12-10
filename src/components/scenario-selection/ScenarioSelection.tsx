@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import useGetScenarios from "../../hooks/react-query-hooks/scenario/UseGetScenarios";
+import useGetScenarios from "../../hooks/react-query-hooks/game/UseGetScenarios";
 import ScenarioCard from "./ScenarioCard";
 
 

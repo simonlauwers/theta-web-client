@@ -1,5 +1,5 @@
 import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 interface SingleplayerCardProps {
     backgroundImage: string

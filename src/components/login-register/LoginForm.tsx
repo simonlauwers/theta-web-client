@@ -1,0 +1,117 @@
+import { Alert, Button, CircularProgress, IconButton, InputAdornment, LinearProgress, Snackbar, Stack, TextField } from '@mui/material';
+import { useEffect, useState } from 'react';
+import WhiteTextField from '../theme/formInputs/WhiteTextField';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import useAuth from "../../hooks/UseAuth";
+import LoginType from '../../types/LoginType'
+import * as userApi from '../../api/user/UserApi';
+import UserType from '../../types/UserType';
+import { useMutation, useQueryClient } from 'react-query';
+import ResponseMessageType from '../../types/ResponseMessageType';
+import { Link } from 'react-router-dom';
+
+const validationSchemaLogin = yup.object({
+    email: yup
+        .string()
+        .email('Enter a valid email')
+        .required('Email is required'),
+    password: yup
+        .string()
+        .required('Password is required'),
+});
+
+const LoginForm = () => {
+    const [showPassword, setShowPassword] = useState<Boolean>(false);
+    const { setUser } = useAuth();
+    const queryClient = useQueryClient();
+    const [error, setError] = useState<ResponseMessageType | null>(null);
+
+    const { mutate, isLoading } = useMutation(userApi.login, {
+        onSuccess: (data: UserType) => {
+            setUser(data)
+            console.log(data)
+        },
+        onError: (e: any) => {
+            const rmt = e.response.data as ResponseMessageType;
+            console.log(rmt)
+            setError(rmt)
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries('create');
+        }
+    });
+
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword);
+    }
+
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+        },
+        validationSchema: validationSchemaLogin,
+        onSubmit: async (values: LoginType) => {
+            const user = { ...values }
+            mutate(user)
+            console.log(user)
+        },
+    });
+
+    return (
+        <>
+            {error && "User not found"}
+            <form onSubmit={formik.handleSubmit}>
+                <Stack style={{ maxWidth: "50%" }}>
+                    <WhiteTextField
+                        label="Email"
+                        id="email"
+                        variant="filled"
+                        name="email"
+                        autoComplete="email"
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
+                        error={formik.touched.email && Boolean(formik.errors.email)}
+                    />
+                    {formik.errors.email && formik.touched.email ? (<div style={{ color: "white" }}>{"Uh oh... " + formik.errors.email}</div>) : null}
+
+                    <WhiteTextField
+                        label="Password"
+                        style={{ marginTop: 25 }}
+                        id="password"
+                        name="password"
+                        autoComplete="current-password"
+                        type={showPassword ? 'text' : 'password'}
+                        variant="filled"
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                        error={formik.touched.password && Boolean(formik.errors.password)}
+
+                        InputProps={{
+                            endAdornment: <InputAdornment position="end">
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    edge="end"
+                                >
+                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                        }}
+                    />
+                    {formik.errors.password && formik.touched.password ? (<div style={{ color: "white" }}>{"Uh oh... " + formik.errors.password}</div>) : null}
+                    <Button style={{ marginTop: 25, backgroundColor: "ghostwhite", color: "#141124", fontWeight: "bold" }} type="submit" variant="contained">Login</Button>
+
+                    {isLoading && <LinearProgress color="secondary" />}
+                    {error && <Alert sx={{ mt: "25px" }} severity="error">{error.message}</Alert>}
+                    <Link to="/auth/reset-password-email">Forgot password?</Link>
+                </Stack>
+            </form >
+        </>
+    );
+}
+
+export default LoginForm;

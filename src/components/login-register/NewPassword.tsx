@@ -14,8 +14,8 @@ import ResetPasswordType from '../../types/ResetPasswordType';
 import { useParams } from 'react-router-dom';
 
 const validationSchemaNewPassword = yup.object({
-    password: yup.string().matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.{8,})/, "Must contain 8 characters, one uppercase and one lowercase").required('Password is required'),
-    passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match'),
+    newPassword: yup.string().matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.{8,})/, "Must contain 8 characters, one uppercase and one lowercase").required('Password is required'),
+    confirmNewPassword: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match')
 });
 
 export const NewPassword = () => {
@@ -63,7 +63,6 @@ export const NewPassword = () => {
         },
         validationSchema: validationSchemaNewPassword,
         onSubmit: (values: any) => {
-            console.log("submitting new password")
             setSuccessAlert(null)
             const resetPassword = { ...values };
             mutate(resetPassword);
@@ -121,6 +120,7 @@ export const NewPassword = () => {
                 color: "#141124",
                 fontWeight: "bold"
             }} type="submit" variant="contained">Reset</Button>
+
             {isLoading && <LinearProgress color="secondary" />}
             {error && <Alert sx={{ mt: "25px" }} severity="error">{error.message}</Alert>}
             {successAlert && <Alert sx={{ mt: "25px" }} severity="success">{successAlert}</Alert>}

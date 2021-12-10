@@ -1,28 +1,37 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext } from 'react';
 import UserType from '../types/UserType';
+import { useMemo, useState, FC } from "react";
 
-const emptyUser: UserType = { email: "", displayName: "" }
 
-const UserContext = createContext({
-    user: emptyUser,
-    updateUser: () => { },
+export interface AuthContextType {
+    user: UserType | null,
+    setUser: React.Dispatch<React.SetStateAction<UserType | null>>
+}
+
+export const AuthContext = createContext<AuthContextType>({
+    user: null,
+    setUser: () => { }
 });
 
-const UserProvider = (props: any) => {
-    const [user, setUser] = useState<UserType>(emptyUser)
+export const AuthProvider: FC = ({
+    children
+}) => {
+    const [user, setUser] = useState<UserType | null>(null);
 
-    const updateUser = () => {
-        setUser(user);
-    };
-
-    const { children } = props;
+    const memoedValue = useMemo(
+        () => ({
+            user,
+        }),
+        [user]
+    );
 
     return (
-        <UserContext.Provider value={{ user: user, updateUser: updateUser }}>
+        <AuthContext.Provider value={{ user, setUser }}>
             {children}
-        </UserContext.Provider>
+        </AuthContext.Provider>
     );
 
 }
 
-export const UserConsumer = UserContext.Consumer;
+
+

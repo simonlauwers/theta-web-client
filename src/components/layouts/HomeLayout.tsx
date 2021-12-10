@@ -3,11 +3,6 @@ import HomeLayoutDrawer from "./HomeLayoutDrawer";
 import Particles from "react-tsparticles";
 import { Main } from "react-tsparticles"
 import { loadFirePreset } from "tsparticles-preset-fire";
-
-
-{ /* We use the GameLayout to share markup across all 
-the Game related pages */}
-
 const HomeLayout = () => {
 
     return (
@@ -16,7 +11,7 @@ const HomeLayout = () => {
             <HomeLayoutDrawer>
                 <Outlet />
             </HomeLayoutDrawer>
-            
+
 
 
             <Particles options={{
@@ -95,7 +90,7 @@ const HomeLayout = () => {
                 },
                 detectRetina: true,
             }}
-         />
+            />
 
 
         </div>

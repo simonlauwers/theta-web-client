@@ -1,12 +1,13 @@
+import React from "react";
 
 const ScenarioLayout = () => {
-    return (
-        <div>
-            <nav>
-            </nav>
+	return (
+		<div>
+			<nav>
+			</nav>
 
-        </div>
-    );
-}
+		</div>
+	);
+};
 
 export default ScenarioLayout;

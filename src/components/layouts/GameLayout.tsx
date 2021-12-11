@@ -1,13 +1,14 @@
+import React from "react";
 
 const GameLayout = () => {
-    return (
-        <div>
-            <nav>
-            </nav>
+	return (
+		<div>
+			<nav>
+			</nav>
 
 
-        </div>
-    );
-}
+		</div>
+	);
+};
 
 export default GameLayout;

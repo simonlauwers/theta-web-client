@@ -6,4 +6,4 @@ export default interface UserType {
     isEnabled: boolean,
     isBanned: boolean,
     lastLogin: string
-}
+};

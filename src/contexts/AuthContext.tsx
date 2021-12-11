@@ -1,5 +1,5 @@
-import React, { createContext } from 'react';
-import UserType from '../types/UserType';
+import React, { createContext } from "react";
+import UserType from "../types/UserType";
 import { useMemo, useState, FC } from "react";
 
 
@@ -9,29 +9,29 @@ export interface AuthContextType {
 }
 
 export const AuthContext = createContext<AuthContextType>({
-    user: null,
-    setUser: () => { }
+	user: null,
+	setUser: () => { }
 });
 
 export const AuthProvider: FC = ({
-    children
+	children
 }) => {
-    const [user, setUser] = useState<UserType | null>(null);
+	const [user, setUser] = useState<UserType | null>(null);
 
-    const memoedValue = useMemo(
-        () => ({
-            user,
-        }),
-        [user]
-    );
+	const memoedValue = useMemo(
+		() => ({
+			user,
+		}),
+		[user]
+	);
 
-    return (
-        <AuthContext.Provider value={{ user, setUser }}>
-            {children}
-        </AuthContext.Provider>
-    );
+	return (
+		<AuthContext.Provider value={{ user, setUser }}>
+			{children}
+		</AuthContext.Provider>
+	);
 
-}
+};
 
 
 

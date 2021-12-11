@@ -1,10 +1,12 @@
 import React from "react";
+import { GameProvider } from "../../contexts/GameContext";
+import GameInitializer from "./GameInitializer";
 
 const Game = () => {
 	return (
-		<div>
-            Hello world
-		</div>
+		<GameProvider>
+			<GameInitializer/>
+		</GameProvider>
 	);
 };
 

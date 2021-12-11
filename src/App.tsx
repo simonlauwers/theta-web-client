@@ -49,7 +49,7 @@ function App() {
 								<Route path="/scenarios" element={<ScenarioSelection />} />
 							</Route>
 
-							<Route path="/game" element={<Game />} />
+							<Route path="/game/:gameUuid" element={<Game />} />
 
 							<Route
 								path="*"

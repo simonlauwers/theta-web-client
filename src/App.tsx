@@ -18,6 +18,7 @@ import { Confirm } from "./components/login-register/Confirm";
 import { ResetPasswordEmail } from "./components/login-register/ResetPasswordEmail";
 import { NewPassword } from "./components/login-register/NewPassword";
 import React from "react";
+import Game from "./components/game/Game";
 
 function App() {
 	const queryClient = new QueryClient();
@@ -47,6 +48,8 @@ function App() {
 							<Route path="/scenarios" element={<ScenarioLayout />}>
 								<Route path="/scenarios" element={<ScenarioSelection />} />
 							</Route>
+
+							<Route path="/game" element={<Game />} />
 
 							<Route
 								path="*"

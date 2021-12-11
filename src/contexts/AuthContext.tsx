@@ -10,7 +10,8 @@ export interface AuthContextType {
 
 export const AuthContext = createContext<AuthContextType>({
 	user: null,
-	setUser: () => { }
+	// eslint-disable-next-line @typescript-eslint/no-empty-function
+	setUser: () => {}
 });
 
 export const AuthProvider: FC = ({

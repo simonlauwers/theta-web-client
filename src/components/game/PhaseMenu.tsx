@@ -1,9 +1,9 @@
 import React from "react";
-import useGame from "../../hooks/UseGame";
+import usePhase from "../../hooks/context-hooks/game/UsePhase";
 
 const PhaseMenu = () => {
-	const { phase } = useGame();
-
+	const { phase } = usePhase();
+	
 	return (
 		<div>
 			{phase}

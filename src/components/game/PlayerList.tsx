@@ -1,9 +1,9 @@
 import React from "react";
-import useGame from "../../hooks/UseGame";
+import usePlayer from "../../hooks/context-hooks/game/UsePlayer";
 import PlayerCard from "./PlayerCard";
 
 const PlayerList = () => {
-	const { players, currentPlayer } = useGame();
+	const { players, currentPlayer } = usePlayer();
 
 	return (
 		<div>

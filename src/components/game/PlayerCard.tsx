@@ -7,6 +7,8 @@ interface PlayerCardProps {
 }
 
 const PlayerCard = (playerCardProps : PlayerCardProps) => {
+	
+
 	return (
 		<div>
             name: {playerCardProps.player.name}, color: {playerCardProps.player.playerColor}, {playerCardProps.current && "CURRENT"}

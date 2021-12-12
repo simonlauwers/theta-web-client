@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import { useParams } from "react-router-dom";
-import useGame from "../../hooks/UseGame";
 import GameType from "../../types/Game/GameType";
 import ResponseMessageType from "../../types/ResponseMessageType";
 import * as gameApi from "../../api/game/GameApi";
+import useGame from "../../hooks/context-hooks/game/UseGame";
+import useMap from "../../hooks/context-hooks/game/UseMap";
+import usePhase from "../../hooks/context-hooks/game/UsePhase";
+import usePlayer from "../../hooks/context-hooks/game/UsePlayer";
 
-const GameInitializer = () => {
+interface GameInitializerProps {
+	setInitializing : React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-	const { setMeta, setMap, setPhase, setPlayers, setCurrentPlayer } = useGame();
+const GameInitializer = (gameInitializerProps : GameInitializerProps) => {
+	const { setMeta } = useGame();
+	const { setMap } = useMap();
+	const { setPhase } = usePhase();
+	const { setPlayers, setCurrentPlayer } = usePlayer();
 	const [ error, setError ] = useState<any>();
 
 	const { gameUuid } = useParams<string>();
@@ -20,7 +29,7 @@ const GameInitializer = () => {
 			setPhase(data.gamePhase);
 			setPlayers(data.players);
 			setCurrentPlayer(data.currentPlayer);
-			console.log(data);
+			gameInitializerProps.setInitializing(false);
 		},
 		onError: (e: any) => {
 			const rmt = e.response.data as ResponseMessageType;

@@ -1,6 +1,8 @@
+import TerritoryType from "./TerritoryType";
+
 export default interface PlayerTerritoryType {
     uuid: string;
-    territoryUuid: string;
+    territory: TerritoryType;
     borderUuids: string[];
     troops: number;
 };

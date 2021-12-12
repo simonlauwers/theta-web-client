@@ -1,4 +1,5 @@
 import React from "react";
+import useGame from "../../hooks/context-hooks/game/UseGame";
 import PlayerType from "../../types/Game/PlayerType";
 
 interface PlayerCardProps {
@@ -7,8 +8,6 @@ interface PlayerCardProps {
 }
 
 const PlayerCard = (playerCardProps : PlayerCardProps) => {
-	
-
 	return (
 		<div>
             name: {playerCardProps.player.name}, color: {playerCardProps.player.playerColor}, {playerCardProps.current && "CURRENT"}

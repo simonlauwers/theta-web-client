@@ -1,9 +1,16 @@
 import React from "react";
+import { Mesh } from "three";
 
-const MapMesh = () => {
+interface MapMeshProps {
+	mesh : Mesh
+}
+
+const MapMesh = (mapMeshProps : MapMeshProps) => {
 	return (
-		<mesh>
-            
+		<mesh geometry={mapMeshProps.mesh.geometry}
+			position={mapMeshProps.mesh.position}
+		>
+			<meshStandardMaterial color={"#212121"} />
 		</mesh>
 	);
 };

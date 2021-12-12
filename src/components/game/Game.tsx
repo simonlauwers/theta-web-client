@@ -21,9 +21,9 @@ const Game = () => {
 								<GameInitializer setInitializing={setInitializing}/>
 								:
 								<>
-									<World />
 									<PlayerList />
 									<PhaseMenu />
+									<World />
 								</>
 						}
 					</PlayerProvider>

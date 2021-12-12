@@ -14,8 +14,6 @@ export const PrivateRoute = () => {
 			}
 		}
 	}, [user, loading, error]);
-
-
 	return (
 		<>
 			{loading ? <div> loading</div> : !error && user ? <Outlet /> : <Navigate to="/login" />}

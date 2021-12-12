@@ -7,9 +7,7 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../../hooks/UseAuth";
 
 const Home = () => {
-	const [show, setShow] = useState(false);
 	const { user, loading } = useAuth();
-	console.log(user);
 
 	useEffect(() => {
 		if (!loading) {

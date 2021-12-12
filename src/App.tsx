@@ -22,6 +22,9 @@ import { whoAmI } from "./api/user/UserApi";
 import useAuth from "./hooks/UseAuth";
 import { useWhoAmI } from "./hooks/react-query-hooks/UseWhoAmI";
 import { AuthProvider } from "./contexts/AuthContext";
+import { Stats } from "./components/home/Stats";
+import { Profile } from "./components/home/Profile";
+import { Settings } from "./components/home/Settings";
 
 
 function App() {
@@ -32,9 +35,15 @@ function App() {
 				<Router>
 					<Routes>
 						<Route path="/" element={<PrivateRoute />}>
-							<Route path="/" element={<HomeLayout />} />
-							<Route path="/home" element={<HomeLayout />} />
+							<Route element={<HomeLayout />}>
+								<Route path="/home" element={<Home />} />
+								<Route path="/stats" element={<Stats />} />
+								<Route path="/settings" element={<Settings />} />
+								<Route path="/profile" element={<Profile />} />
+							</Route>
 						</Route>
+
+
 
 						<Route element={<AuthLayout />}>
 							<Route path="/login" element={<Login />} />

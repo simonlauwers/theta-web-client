@@ -5,11 +5,12 @@ import React from "react";
 
 
 const Login = () => {
+	console.log("rendering login");
 	return (
 		<Grid item xs={12} md={6} lg={6} style={{ backgroundColor: "#141124", height: "100vh" }}>
 			<Breadcrumbs style={{ marginLeft: "2em", marginTop: "1em", color: "ghostwhite" }}>
 				<Typography color="ghostwhite"><b>LOGIN</b></Typography>
-				<Link to="/auth/signup">Join</Link>
+				<Link to="/signup">Join</Link>
 
 			</Breadcrumbs>
 			<div style={{ marginTop: "25%", marginLeft: "25%" }}>

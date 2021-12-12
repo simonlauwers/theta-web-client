@@ -11,7 +11,7 @@ import * as userApi from "../../api/user/UserApi";
 import UserType from "../../types/UserType";
 import { useMutation, useQueryClient } from "react-query";
 import ResponseMessageType from "../../types/ResponseMessageType";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const validationSchemaLogin = yup.object({
 	email: yup
@@ -28,11 +28,13 @@ const LoginForm = () => {
 	const { setUser } = useAuth();
 	const queryClient = useQueryClient();
 	const [error, setError] = useState<ResponseMessageType | null>(null);
+	const navigate = useNavigate();
+
 
 	const { mutate, isLoading } = useMutation(userApi.login, {
 		onSuccess: (data: UserType) => {
 			setUser(data);
-			console.log(data);
+			navigate("/home");
 		},
 		onError: (e: any) => {
 			const rmt = e.response.data as ResponseMessageType;
@@ -57,7 +59,6 @@ const LoginForm = () => {
 		onSubmit: async (values: LoginType) => {
 			const user = { ...values };
 			mutate(user);
-			console.log(user);
 		},
 	});
 

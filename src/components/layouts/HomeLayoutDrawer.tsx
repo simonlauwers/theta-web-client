@@ -17,7 +17,7 @@ const drawerWidth = "10%";
 const iconColor = "989898";
 
 export interface HomeLayoutDrawerProps {
-    children: JSX.Element
+	children: JSX.Element
 }
 
 export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
@@ -40,7 +40,6 @@ export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
 							{index === 2 ? <SettingsIcon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }} /> : null}
 							{index === 3 ? <HelpIcon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }} /> : null}
 						</ListItemIcon>
-
 					</ListItem>
 				))}
 			</List>

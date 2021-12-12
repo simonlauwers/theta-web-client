@@ -18,7 +18,7 @@ const ScenarioSelection = () => {
 					</Grid>
 					<Grid item xs={12} md={6} style={{ overflowY: "scroll" }}>
 						{scenarios.map(scenario =>
-							<ScenarioCard scenario={scenario} />
+							<ScenarioCard key={scenario.name} scenario={scenario} />
 						)
 						}
 					</Grid>

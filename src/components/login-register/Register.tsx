@@ -13,7 +13,7 @@ const Register = () => {
 			marginTop: "1em",
 			color: "ghostwhite"
 		}}>
-			<Link to="/auth/login">LOGIN</Link>
+			<Link to="/login">LOGIN</Link>
 			<Typography color="ghostwhite"><b>JOIN</b></Typography>
 		</Breadcrumbs>
 		<div style={{

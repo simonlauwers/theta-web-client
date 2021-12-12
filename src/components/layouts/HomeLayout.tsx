@@ -1,20 +1,18 @@
-import { Outlet } from "react-router-dom";
 import HomeLayoutDrawer from "./HomeLayoutDrawer";
 import Particles from "react-tsparticles";
 import { Main } from "react-tsparticles";
 import { loadFirePreset } from "tsparticles-preset-fire";
 import React from "react";
+import useAuth from "../../hooks/UseAuth";
+import Home from "../home/Home";
 
 const HomeLayout = () => {
-
 	return (
 
 		<div style={{ backgroundImage: "url(\"/media/photos/game-visuals/FireTemple.png\")", minHeight: "100vh" }}>
 			<HomeLayoutDrawer>
-				<Outlet />
+				<Home />
 			</HomeLayoutDrawer>
-
-
 
 			<Particles options={{
 				background: {

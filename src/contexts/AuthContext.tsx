@@ -27,20 +27,19 @@ export const AuthProvider: FC = ({
 	const { data, status, isError, isLoading } = useQuery("whoami", whoAmI);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<boolean>(false);
+
 	useEffect(() => {
 		if (!isLoading && !isError) {
-			console.log("setting user in context");
 			setUser(data);
 			setLoading(false);
 		}
 		if (!isLoading && isError) {
-			console.log("an error occured");
 			setUser(null);
 			setLoading(false);
 			setError(true);
 			setLoading(false);
 		}
-	}, [data]);
+	}, [data, isError]);
 
 	return (
 		<AuthContext.Provider value={{ user, setUser, loading, error }}>

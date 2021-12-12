@@ -3,45 +3,81 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Toolbar from "@mui/material/Toolbar";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
 import HelpIcon from "@mui/icons-material/Help";
 import BarChartIcon from "@mui/icons-material/BarChart";
+import { IconButton } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import ListItemText from "@mui/material/ListItemText";
+import HomeIcon from "@mui/icons-material/Home";
 
-const drawerWidth = "10%";
+const drawerWidth = 240;
 const iconColor = "989898";
 
 export interface HomeLayoutDrawerProps {
 	children: JSX.Element
 }
 
+
 export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
+	const navigate = useNavigate();
 	const [mobileOpen, setMobileOpen] = React.useState(false);
 
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
 	};
 
+	const handleLogOut = () => {
+		console.log("todo: implement logout!");
+	};
+
+	const itemList = [
+		{
+			key: "home",
+			icon: <HomeIcon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }} />,
+			onClick: () => navigate("/home")
+		},
+		{
+			key: "profile",
+			icon: <AccountCircleIcon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }} />,
+			onClick: () => navigate("/profile")
+		},
+		{
+			key: "stats",
+			icon: <BarChartIcon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }} />,
+			onClick: () => navigate("/stats")
+		},
+		{
+			key: "settings",
+			icon: <SettingsIcon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }} />,
+			onClick: () => navigate("/settings")
+		},
+		{
+			key: "logout",
+			icon: <LogoutIcon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }} />,
+			onClick: () => handleLogOut()
+		}
+	];
+
 	const drawer = (
 		<div>
 			<Toolbar><img src="https://developer.sas.com/guides/r/_jcr_content/par/styledcontainer_1d31/par/image.img.png/1630325230865.png" alt="" width="70" height="70" style={{ marginTop: "25%", marginLeft: "4%" }} /></Toolbar>
 			<Divider style={{ marginTop: "25%", marginBottom: "25%" }} />
-			<List >
-				{["Profile", "Stats", "Settings", "Help"].map((text, index) => (
-					<ListItem button key={text}>
-						<ListItemIcon >
-							{index === 0 ? <AccountCircleIcon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }} /> : null}
-							{index === 1 ? <BarChartIcon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }} /> : null}
-							{index === 2 ? <SettingsIcon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }} /> : null}
-							{index === 3 ? <HelpIcon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }} /> : null}
-						</ListItemIcon>
-					</ListItem>
-				))}
+			<List>
+				{itemList.map((item, key) => {
+					const { icon, onClick } = item;
+					return (
+						<ListItem button key={key} onClick={onClick}>
+							{icon && <ListItemIcon>{icon}</ListItemIcon>}
+						</ListItem>
+					);
+				})}
 			</List>
 		</div>
 	);
@@ -97,4 +133,5 @@ export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
 		</Box>
 
 	);
+
 }

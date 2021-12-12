@@ -5,7 +5,6 @@ import React from "react";
 
 
 const Login = () => {
-	console.log("rendering login");
 	return (
 		<Grid item xs={12} md={6} lg={6} style={{ backgroundColor: "#141124", height: "100vh" }}>
 			<Breadcrumbs style={{ marginLeft: "2em", marginTop: "1em", color: "ghostwhite" }}>

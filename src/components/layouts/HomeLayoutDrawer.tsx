@@ -49,7 +49,7 @@ export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
 
 
 	return (
-		<Box sx={{ display: "flex" }}>
+		<Box component="div" sx={{ display: "flex" }}>
 			<AppBar
 				position="fixed"
 				sx={{

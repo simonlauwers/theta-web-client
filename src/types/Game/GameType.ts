@@ -1,4 +1,4 @@
-import ScenarioType from "../ScenarioType";
+import ScenarioType from "./ScenarioType";
 import PlayerType from "./PlayerType";
 
 export default interface GameType {

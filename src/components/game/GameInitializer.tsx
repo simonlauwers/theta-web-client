@@ -8,7 +8,7 @@ import * as gameApi from "../../api/game/GameApi";
 
 const GameInitializer = () => {
 
-	const { setMeta, setPhase, setPlayers, setCurrentPlayer } = useGame();
+	const { setMeta, setMap, setPhase, setPlayers, setCurrentPlayer } = useGame();
 	const [ error, setError ] = useState<any>();
 
 	const { gameUuid } = useParams<string>();
@@ -16,6 +16,7 @@ const GameInitializer = () => {
 	const { mutate, isLoading } = useMutation(gameApi.game, {
 		onSuccess: (data: GameType) => {
 			setMeta({uuid: data.uuid, scenarioUuid: data.scenario.uuid});
+			setMap(data.scenario.map);
 			setPhase(data.gamePhase);
 			setPlayers(data.players);
 			setCurrentPlayer(data.currentPlayer);

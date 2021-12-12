@@ -1,5 +1,5 @@
 import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
-import ScenarioType from "../../types/ScenarioType";
+import ScenarioType from "../../types/Game/ScenarioType";
 import React from "react";
 
 

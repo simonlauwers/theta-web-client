@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import ScenarioType from "../../../types/ScenarioType";
+import ScenarioType from "../../../types/Game/ScenarioType";
 import fetchData from "../../../utils/data/FetchData";
 
 const useGetScenarios = () => {

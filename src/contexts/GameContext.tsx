@@ -2,16 +2,19 @@
 import React, { createContext, useEffect } from "react";
 import { useState, FC } from "react";
 import GameMetaType from "../types/Game/GameMetaType";
+import MapType from "../types/Game/MapType";
 import PlayerType from "../types/Game/PlayerType";
 
 export interface GameContextType {
     meta : GameMetaType | null;
+	map : MapType | null;
     phase : string;
     players : PlayerType[];
     currentPlayer : PlayerType | null;
     attackerRoll : number[];
     defenderRoll : number[];
     setMeta : React.Dispatch<React.SetStateAction<GameMetaType | null>>;
+    setMap : React.Dispatch<React.SetStateAction<MapType | null>>;
     setPhase : React.Dispatch<React.SetStateAction<string>>;
     setPlayers : React.Dispatch<React.SetStateAction<PlayerType[]>>;
     setCurrentPlayer : React.Dispatch<React.SetStateAction<PlayerType | null>>;
@@ -21,12 +24,14 @@ export interface GameContextType {
 
 export const GameContext = createContext<GameContextType>({
 	meta : null,
+	map : null,
 	phase : "",
 	players : [],
 	currentPlayer : null,
 	attackerRoll : [],
 	defenderRoll : [],
 	setMeta : () => {},
+	setMap : () => {},
 	setPhase : () => {},
 	setPlayers : () => {},
 	setCurrentPlayer : () => {},
@@ -36,6 +41,7 @@ export const GameContext = createContext<GameContextType>({
 
 export const GameProvider: FC = ({children}) => {
 	const [meta, setMeta] = useState<GameMetaType | null>(null);
+	const [map, setMap] = useState<MapType | null>(null);
 	const [phase, setPhase] = useState<string>("");
 	const [players, setPlayers] = useState<PlayerType[]>([]);
 	const [currentPlayer, setCurrentPlayer] = useState<PlayerType | null>(null);
@@ -43,8 +49,8 @@ export const GameProvider: FC = ({children}) => {
 	const [defenderRoll, setDefenderRoll] = useState<number[]>([]);
 
 	return (
-		<GameContext.Provider value={{meta, phase, players, currentPlayer, attackerRoll, defenderRoll,
-			setMeta, setPhase, setPlayers, setCurrentPlayer, setAttackerRoll, setDefenderRoll}}>
+		<GameContext.Provider value={{meta, map, phase, players, currentPlayer, attackerRoll, defenderRoll,
+			setMeta, setMap, setPhase, setPlayers, setCurrentPlayer, setAttackerRoll, setDefenderRoll}}>
 			{children}
 		</GameContext.Provider>
 	);

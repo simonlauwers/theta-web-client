@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 module.exports = {
 	"env": {
 		"browser": true,
@@ -21,10 +22,6 @@ module.exports = {
 		"@typescript-eslint"
 	],
 	"rules": {
-		"indent": [
-			"error",
-			"tab"
-		],
 		"linebreak-style": [
 			"error",
 			"windows"
@@ -36,6 +33,10 @@ module.exports = {
 		"semi": [
 			"error",
 			"always"
-		]
+		],
+		"@typescript-eslint/explicit-function-return-type": "off",
+		"@typescript-eslint/explicit-module-boundary-types": "off",
+		"@typescript-eslint/no-explicit-any": "off",
+		"@typescript-eslint/no-empty-function": "off"
 	}
 };

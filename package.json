@@ -1,6 +1,6 @@
 {
   "name": "risk-theta-webclient",
-  "version": "0.4.0",
+  "version": "0.6.1",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.6.0",
@@ -60,6 +60,7 @@
     ]
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.1",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",
     "eslint": "^7.32.0",

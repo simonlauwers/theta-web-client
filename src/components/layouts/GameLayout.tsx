@@ -5,8 +5,6 @@ const GameLayout = () => {
 		<div>
 			<nav>
 			</nav>
-
-
 		</div>
 	);
 };

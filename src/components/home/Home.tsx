@@ -1,11 +1,25 @@
-import { Avatar, Button, Card, Fade, Grid } from "@mui/material";
+import { Button, Fade, Grid } from "@mui/material";
 import FriendsOnlyCard from "./FriendsOnlyCard";
 import HomeProfileCard from "./HomeProfileCard";
 import MultiplayerCard from "./MultiplayerCard";
 import SingleplayerCard from "./SingleplayerCard";
-import React from "react";
+import React, { useEffect } from "react";
+import useAuth from "../../hooks/UseAuth";
 
 const Home = () => {
+	const { user, loading } = useAuth();
+
+	useEffect(() => {
+		if (!loading) {
+			if (!user) {
+				console.log("we checked and user is still null");
+
+			} else {
+				console.log("we checked and found a user");
+			}
+		}
+	}, [user, loading]);
+
 	return (
 		<>
 			<div style={{ zIndex: 9999, marginLeft: 50, marginTop: "-4%" }}>
@@ -13,7 +27,7 @@ const Home = () => {
 					<Grid container spacing={6} >
 						<Grid item xs={12} md={6} style={{ color: "white" }}>
 							<h1 style={{ fontSize: "9em", fontFamily: "fantasy" }}>RISK</h1>
-							<p style={{ marginTop: "-3em", fontSize: "2em" }}>You've played 10 hours in total.</p>
+							<p style={{ marginTop: "-3em", fontSize: "2em" }}>You played 10 hours in total.</p>
 							<Button style={{ marginTop: "-2em" }} variant="contained" sx={{
 								backgroundColor: "#989898", "&:hover": {
 									backgroundColor: "#131B2A",
@@ -30,7 +44,7 @@ const Home = () => {
 					<Grid style={{ marginBottom: "5%", marginTop: "2.5%" }} container spacing={2} >
 
 						<Grid item xs={12} md={12} style={{ color: "white" }}>
-							<p style={{ fontSize: "2em" }}>Ready to conquer the world?</p>
+							<p style={{ fontSize: "2em" }}>Ready to conquer the world, {user?.displayName}?</p>
 						</Grid>
 
 						<Grid item xs={6} md={12} style={{ marginTop: "-1%", color: "white" }}>
@@ -55,6 +69,7 @@ const Home = () => {
 					</Grid>
 				</Fade>
 			</div >
+
 		</>
 	);
 };

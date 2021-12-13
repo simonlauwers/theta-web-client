@@ -5,7 +5,7 @@ import ScenarioCard from "./ScenarioCard";
 
 
 const ScenarioSelection = () => {
-	const { isLoading, isError, scenarios } = useGetScenarios();
+	const { isLoading, scenarios } = useGetScenarios();
 
 	if (isLoading) {
 		return (<div>Loading...</div>);

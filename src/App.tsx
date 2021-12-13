@@ -32,6 +32,7 @@ function App() {
 						<Route path="/" element={<PrivateRoute />}>
 							<Route element={<HomeLayout />}>
 								<Route path="/home" element={<Home />} />
+								<Route path="/" element={<Home />} />
 								<Route path="/stats" element={<Stats />} />
 								<Route path="/settings" element={<Settings />} />
 								<Route path="/profile" element={<Profile />} />

@@ -71,9 +71,6 @@ const thetaTheme = createTheme({
 					fontFamily,
 					fontSize
 				},
-				".MuiRating-sizeSmall": {
-					fontSize: "20px"
-				},
 				"#nprogress .bar": {
 					position: "fixed",
 					top: 0,

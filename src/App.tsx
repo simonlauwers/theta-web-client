@@ -40,8 +40,6 @@ function App() {
 							</Route>
 						</Route>
 
-
-
 						<Route element={<AuthLayout />}>
 							<Route path="/login" element={<Login />} />
 							<Route path="/signup" element={<Register />} />

@@ -38,7 +38,7 @@ export async function resetPassword(resetPasswordValues: ResetPasswordType) {
 }
 
 export async function logOut() {
-	const response = await api.get("/logout");
+	const response = await api.post("/logout");
 	return response.data;
 }
 

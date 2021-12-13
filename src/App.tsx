@@ -12,7 +12,6 @@ import Register from "./components/login-register/Register";
 import AuthLayout from "./components/layouts/AuthLayout";
 import { PrivateRoute } from "./utils/PrivateRoute";
 import { Confirm } from "./components/login-register/Confirm";
-import { ResetPasswordEmail } from "./components/login-register/ResetPasswordEmail";
 import { NewPassword } from "./components/login-register/NewPassword";
 import Game from "./components/game/Game";
 import { NotFound } from "./components/Error/NotFound";
@@ -21,6 +20,7 @@ import { Stats } from "./components/home/Stats";
 import { Profile } from "./components/home/Profile";
 import { Settings } from "./components/home/Settings";
 import Home from "./components/home/Home";
+import ResetPasswordEmail from "./components/login-register/ResetPasswordEmail";
 
 
 function App() {

@@ -77,7 +77,7 @@ export const NewPassword = () => {
 				<Alert onClose={handleCloseSnackbar} severity="error" sx={{
 					width: "100%"
 				}}>
-                    Please check your input.
+					Please check your input.
 				</Alert>
 			</Snackbar>
 

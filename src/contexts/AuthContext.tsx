@@ -1,6 +1,6 @@
 import React, { createContext, useEffect } from "react";
 import UserType from "../types/UserType";
-import { useMemo, useState, FC } from "react";
+import { useState, FC } from "react";
 import { useQuery } from "react-query";
 import { whoAmI } from "../api/user/UserApi";
 
@@ -24,7 +24,7 @@ export const AuthProvider: FC = ({
 	children
 }) => {
 	const [user, setUser] = useState<UserType | null>(null);
-	const { data, status, isError, isLoading } = useQuery("whoami", whoAmI);
+	const { data, isError, isLoading } = useQuery("whoami", whoAmI);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<boolean>(false);
 

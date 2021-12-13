@@ -1,9 +1,9 @@
-import { Avatar, Button, Card, CircularProgress, Fade, Grid } from "@mui/material";
+import { Button, Fade, Grid } from "@mui/material";
 import FriendsOnlyCard from "./FriendsOnlyCard";
 import HomeProfileCard from "./HomeProfileCard";
 import MultiplayerCard from "./MultiplayerCard";
 import SingleplayerCard from "./SingleplayerCard";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import useAuth from "../../hooks/UseAuth";
 
 const Home = () => {

@@ -1,10 +1,10 @@
-import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
+import { Card, CardContent, Typography } from "@mui/material";
 import ScenarioType from "../../types/Game/ScenarioType";
 import React from "react";
 
 
 interface ScenarioCardProps {
-    scenario : ScenarioType;
+	scenario: ScenarioType;
 }
 
 const ScenarioCard = (props: ScenarioCardProps) => {

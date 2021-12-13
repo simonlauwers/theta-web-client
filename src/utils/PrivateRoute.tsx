@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import useAuth from "../hooks/UseAuth";
-import { Route, Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 export const PrivateRoute = () => {
 	const { user, loading, error } = useAuth();

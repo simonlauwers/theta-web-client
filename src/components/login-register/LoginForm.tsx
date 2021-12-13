@@ -1,5 +1,5 @@
-import { Alert, Button, CircularProgress, IconButton, InputAdornment, LinearProgress, Snackbar, Stack, TextField } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Alert, Button, IconButton, InputAdornment, LinearProgress, Stack } from "@mui/material";
+import React, { useState } from "react";
 import WhiteTextField from "../theme/formInputs/WhiteTextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";

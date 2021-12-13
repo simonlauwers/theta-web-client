@@ -1,5 +1,4 @@
 import React from "react";
-import useGame from "../../hooks/context-hooks/game/UseGame";
 import usePlayer from "../../hooks/context-hooks/game/UsePlayer";
 import PlayerCard from "./PlayerCard";
 

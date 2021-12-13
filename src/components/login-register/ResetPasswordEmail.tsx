@@ -5,7 +5,6 @@ import { useQueryClient, useMutation } from "react-query";
 import * as userApi from "../../api/user/UserApi";
 import EmailType from "../../types/EmailType";
 import ResponseMessageType from "../../types/ResponseMessageType";
-import UserType from "../../types/UserType";
 import WhiteTextField from "../theme/formInputs/WhiteTextField";
 import * as yup from "yup";
 

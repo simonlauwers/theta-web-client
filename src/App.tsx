@@ -20,10 +20,10 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { Stats } from "./components/home/Stats";
 import { Profile } from "./components/home/Profile";
 import { Settings } from "./components/home/Settings";
+import Home from "./components/home/Home";
 
 
 function App() {
-
 	return (
 		<>
 			<AuthProvider>

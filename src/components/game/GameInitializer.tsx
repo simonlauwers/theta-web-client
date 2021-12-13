@@ -10,21 +10,21 @@ import usePhase from "../../hooks/context-hooks/game/UsePhase";
 import usePlayer from "../../hooks/context-hooks/game/UsePlayer";
 
 interface GameInitializerProps {
-	setInitializing : React.Dispatch<React.SetStateAction<boolean>>;
+	setInitializing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const GameInitializer = (gameInitializerProps : GameInitializerProps) => {
+const GameInitializer = (gameInitializerProps: GameInitializerProps) => {
 	const { setMeta } = useGame();
 	const { setMap } = useMap();
 	const { setPhase } = usePhase();
 	const { setPlayers, setCurrentPlayer } = usePlayer();
-	const [ error, setError ] = useState<any>();
+	const [setError] = useState<any>();
 
 	const { gameUuid } = useParams<string>();
 
 	const { mutate, isLoading } = useMutation(gameApi.game, {
 		onSuccess: (data: GameType) => {
-			setMeta({uuid: data.uuid, scenarioUuid: data.scenario.uuid});
+			setMeta({ uuid: data.uuid, scenarioUuid: data.scenario.uuid });
 			setMap(data.scenario.map);
 			setPhase(data.gamePhase);
 			setPlayers(data.players);
@@ -39,20 +39,21 @@ const GameInitializer = (gameInitializerProps : GameInitializerProps) => {
 	});
 
 	useEffect(() => {
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		mutate(gameUuid!);
 	}, []);
 
 	return (
-        
-		isLoading?
+
+		isLoading ?
 			<div>
-                    Loading
+				Loading
 			</div>
 			:
 			<div>
-                    Game loaded
+				Game loaded
 			</div>
-        
+
 
 	);
 };

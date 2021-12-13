@@ -1,10 +1,6 @@
 import HomeLayoutDrawer from "./HomeLayoutDrawer";
 import Particles from "react-tsparticles";
-import { Main } from "react-tsparticles";
-import { loadFirePreset } from "tsparticles-preset-fire";
 import React from "react";
-import useAuth from "../../hooks/UseAuth";
-import Home from "../home/Home";
 import { Outlet } from "react-router-dom";
 
 const HomeLayout = () => {

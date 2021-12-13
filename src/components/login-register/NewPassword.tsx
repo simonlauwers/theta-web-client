@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { VisibilityOff, Visibility } from "@mui/icons-material";
 import { Stack, Snackbar, Alert, InputAdornment, IconButton, Button, LinearProgress } from "@mui/material";
 
@@ -10,7 +11,6 @@ import ResponseMessageType from "../../types/ResponseMessageType";
 import UserType from "../../types/UserType";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import ResetPasswordType from "../../types/ResetPasswordType";
 import { useParams } from "react-router-dom";
 
 const validationSchemaNewPassword = yup.object({
@@ -77,7 +77,7 @@ export const NewPassword = () => {
 				<Alert onClose={handleCloseSnackbar} severity="error" sx={{
 					width: "100%"
 				}}>
-                    Please check your input.
+					Please check your input.
 				</Alert>
 			</Snackbar>
 

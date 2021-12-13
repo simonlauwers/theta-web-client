@@ -1,9 +1,9 @@
-import { Alert, Button, Fade, IconButton, InputAdornment, LinearProgress, Snackbar, Stack, TextField } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Alert, Button, IconButton, InputAdornment, LinearProgress, Snackbar, Stack } from "@mui/material";
+import React, { useState } from "react";
 import WhiteTextField from "../theme/formInputs/WhiteTextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { useFormik, ErrorMessage } from "formik";
+import { useFormik } from "formik";
 import PasswordStrengthBar from "react-password-strength-bar";
 import * as yup from "yup";
 import useAuth from "../../hooks/UseAuth";
@@ -20,10 +20,10 @@ const validationSchemaSignup = yup.object({
 	displayName: yup.string().min(6, "Displayname should have a minimum of 6 characters").required("Displayname is required")
 });
 interface SignupValues {
-  email: string;
-  password: string;
-  passwordConfirmation: string;
-  displayName: string;
+	email: string;
+	password: string;
+	passwordConfirmation: string;
+	displayName: string;
 }
 
 const RegisterForm = () => {
@@ -88,7 +88,7 @@ const RegisterForm = () => {
 				<Alert onClose={handleCloseSnackbar} severity="error" sx={{
 					width: "100%"
 				}}>
-          Please check your input.
+					Please check your input.
 				</Alert>
 
 			</Snackbar>

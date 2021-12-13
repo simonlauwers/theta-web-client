@@ -3,7 +3,8 @@ import { Mesh } from "three";
 import { Text } from "@react-three/drei";
 import TerritoryType from "../../../types/Game/TerritoryType";
 import usePlayer from "../../../hooks/context-hooks/game/UsePlayer";
-import parsePlayerColor from "../../../utils/PlayerColorParser";
+import parsePlayerColor from "../../../utils/game/PlayerColorParser";
+import useTerritory from "../../../hooks/context-hooks/game/UseTerritory";
 
 
 interface TerritoryMeshProps {
@@ -14,6 +15,7 @@ interface TerritoryMeshProps {
 const TerritoryMesh = (territoryMeshProps : TerritoryMeshProps) => {
 	const [hover, setHover] = useState(false);
 	const { players } = usePlayer();
+	const { outgoingSelectedTerritory, incomingSelectedTerritory, setSelectedTerritory } = useTerritory();
 
 	const player = players.filter(player => player.playerTerritories
 		.filter(pt => pt.territory.uuid === territoryMeshProps.territory.uuid).length > 0)[0];
@@ -24,9 +26,15 @@ const TerritoryMesh = (territoryMeshProps : TerritoryMeshProps) => {
 
 	return (
 		<mesh geometry={territoryMeshProps.mesh.geometry}
-			position={territoryMeshProps.mesh.position}
+			position={outgoingSelectedTerritory?.uuid === territoryMeshProps.territory.uuid ||
+				incomingSelectedTerritory?.uuid === territoryMeshProps.territory.uuid ? [
+				territoryMeshProps.mesh.position.x,
+				territoryMeshProps.mesh.position.y + 0.02,
+				territoryMeshProps.mesh.position.z
+			] : territoryMeshProps.mesh.position}
 			onPointerOver={() => setHover(true)}
 			onPointerOut={() => setHover(false)}
+			onClick={() => setSelectedTerritory(territoryMeshProps.territory)}
 		>
 			<meshStandardMaterial color={determineColor(player.playerColor, hover)} />
 			<Text

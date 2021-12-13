@@ -54,7 +54,7 @@ const ScenarioModel = (scenarioModelProps: ScenarioModelProps) => {
 			{
 				territoryMeshes.map((territoryMesh) => (
 					<TerritoryMesh key={territoryMesh.name} mesh={territoryMesh as Mesh}
-						territory={scenarioModelProps.map.areas.map(area => area.territories).flat()
+						territory={scenarioModelProps.map.areas.flatMap(area => area.territories)
 							.find((territory: TerritoryType) => territory.resourceIndex === parseInt(territoryMesh.name.slice(1)))!} />
 				))
 			}

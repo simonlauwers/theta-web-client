@@ -1,7 +1,6 @@
 import "./App.css";
 import Login from "./components/login-register/Login";
 import HomeLayout from "./components/layouts/HomeLayout";
-import ScenarioLayout from "./components/layouts/ScenarioLayout";
 import {
 	BrowserRouter as Router,
 	Route,
@@ -21,6 +20,7 @@ import { Stats } from "./components/home/Stats";
 import { Profile } from "./components/home/Profile";
 import { Settings } from "./components/home/Settings";
 import Home from "./components/home/Home";
+import ScenarioSelection from "./components/scenario-selection/ScenarioSelection";
 
 
 function App() {
@@ -36,6 +36,7 @@ function App() {
 								<Route path="/stats" element={<Stats />} />
 								<Route path="/settings" element={<Settings />} />
 								<Route path="/profile" element={<Profile />} />
+								<Route path="/scenarios" element={<ScenarioSelection />} />
 							</Route>
 						</Route>
 
@@ -50,7 +51,6 @@ function App() {
 						</Route>
 						<Route path="/game/:gameUuid" element={<Game />} />
 
-						<Route path="/scenarios" element={<ScenarioLayout />} />
 						<Route path="*" element={<NotFound />} />
 					</Routes>
 				</Router>

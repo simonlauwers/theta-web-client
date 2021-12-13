@@ -9,6 +9,10 @@ export async function game(gameUuid: string) {
 	return response.data;
 }
 
+export async function getAllScenarios() {
+	const response = await api.get("map/allScenarios");
+	return response.data;
+}
 
 
 

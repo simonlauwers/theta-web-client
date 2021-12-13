@@ -1,29 +1,26 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import useGetScenarios from "../../hooks/react-query-hooks/game/UseGetScenarios";
 import ScenarioCard from "./ScenarioCard";
-
+import { useQuery } from "react-query";
+import * as gameApi from "../../api/game/GameApi";
+import ScenarioType from "../../types/Game/ScenarioType";
 
 const ScenarioSelection = () => {
-	const { isLoading, scenarios } = useGetScenarios();
+	const { data, isLoading } = useQuery("scenarios", () => gameApi.getAllScenarios());
 
 	if (isLoading) {
 		return (<div>Loading...</div>);
 	} else {
 		return (
-			<div>
-				<Grid container>
-					<Grid item md={6} sx={{ display: { xs: "none", md: "block" } }}>
-						<img src="" alt="scenario preview" />
-					</Grid>
-					<Grid item xs={12} md={6} style={{ overflowY: "scroll" }}>
-						{scenarios.map(scenario =>
-							<ScenarioCard key={scenario.uuid} scenario={scenario} />
-						)
-						}
-					</Grid>
+			<Grid sx={{ pt: "13%" }} container>
+				<Grid item xs={12} md={6}>
+					{data.map((scenario: ScenarioType) =>
+						<ScenarioCard key={scenario.uuid} scenario={scenario} />
+					)
+					}
 				</Grid>
-			</div>
+			</Grid>
+
 		);
 	}
 

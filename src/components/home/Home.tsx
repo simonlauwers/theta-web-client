@@ -4,9 +4,11 @@ import HomeProfileCard from "./HomeProfileCard";
 import React from "react";
 import useAuth from "../../hooks/UseAuth";
 import { GameModeCard } from "./GameModeCard";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
 	const { user } = useAuth();
+	const navigate = useNavigate();
 
 	const gamemodeList =
 		[
@@ -39,7 +41,7 @@ const Home = () => {
 								backgroundColor: "#989898", "&:hover": {
 									backgroundColor: "#131B2A",
 								}
-							}}>See all stats</Button>
+							}} onClick={() => navigate("/stats")}>See all stats</Button>
 						</Grid>
 						<Grid item xs={12} md={6} style={{ color: "white", paddingTop: "13%" }}>
 							<HomeProfileCard {...user!} />
@@ -66,6 +68,7 @@ const Home = () => {
 										</Grid>
 									);
 								})}
+
 							</Grid>
 						</Grid>
 					</Grid>

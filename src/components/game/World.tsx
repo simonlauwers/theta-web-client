@@ -1,4 +1,4 @@
-import { OrbitControls } from "@react-three/drei";
+import { MapControls, PerspectiveCamera } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import React, { Suspense } from "react";
 import { PlayerContext } from "../../contexts/game/PlayerContext";
@@ -21,7 +21,9 @@ const World = () => {
             <Suspense fallback={null}>
               <ambientLight intensity={0.5} />
               <spotLight position={[10, 100, 10]} angle={0.3} />
-              <OrbitControls />
+              <PerspectiveCamera position={[0, 1, 0.3]} fov={100} makeDefault/>
+              <MapControls enableRotate={false} minDistance={0.3} maxDistance={1}/>
+
               {
                 map !== null && <ScenarioModel map={map} />
               }

@@ -7,7 +7,6 @@ import UserType from "../../types/UserType";
 import TokenType from "../../types/TokenType";
 import * as userApi from "../../api/user/UserApi";
 import { backgroundColor } from "../../theme/colors";
-import redConfetti from "../../lotties/confetti-red.json";
 
 export const Confirm = () => {
 	const { token } = useParams();
@@ -36,7 +35,7 @@ export const Confirm = () => {
 	// todo display errors, maybe refactor user-service to always return responsemessages and not user objects
 	return (
 		<>
-			{isLoading ? /*<CircularProgress />*/ "" :
+			{isLoading ? <CircularProgress /> :
 				<>
 					{error && <div> An error occured </div>}
 					<Grid item xs={12} md={6} lg={6} style={{

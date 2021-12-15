@@ -11,16 +11,17 @@ import TerritoryType from "../../../types/Game/TerritoryType";
 import * as gameApi from "../../../api/game/GameApi";
 import ResponseMessageType from "../../../types/ResponseMessageType";
 import { useMutation } from "react-query";
+import { Slider } from "@mui/material";
 
 interface DraftControlProps {
     setGame : React.Dispatch<React.SetStateAction<GameType | null>>;
+    setError : React.Dispatch<React.SetStateAction<ResponseMessageType | null>>;
 }
 
 const DraftControl = (draftControlProps : DraftControlProps) => {
     const { meta } = useGame();
     const { currentPlayer } = usePlayer();
     const { selectedTerritory, outgoingSelectedTerritory, setSelectedTerritory, setOutgoingSelectedTerritory } = useTerritory();
-    const [ error, setError] = useState<ResponseMessageType | null>(null);
     const [ troops, setTroops] = useState<number>(1);
 
     const { mutate, isLoading } = useMutation(gameApi.draft, {
@@ -30,7 +31,7 @@ const DraftControl = (draftControlProps : DraftControlProps) => {
 		onError: (e: any) => {
 			const rmt = e.response.data as ResponseMessageType;
 			console.log(rmt);
-			setError(rmt);
+			draftControlProps.setError(rmt);
 		}
 	});
 
@@ -51,16 +52,26 @@ const DraftControl = (draftControlProps : DraftControlProps) => {
         }
     }, [selectedTerritory]); 
 
+    if (isLoading) {
+        return (
+            <div>
+                Drafting
+            </div>
+        );
+    }
+
     return (
         <div>
             Troops left : { currentPlayer?.troops } <br/>
+            {outgoingSelectedTerritory !== null && 
+            <div>
+                Selected Territory : {outgoingSelectedTerritory.name} <br/>
+                <Slider min={1} max={currentPlayer?.troops} defaultValue={1} aria-label="Default" valueLabelDisplay="auto" 
+                onChange={(e, val) => {setTroops(val as number);}}/>
+                <button onClick={draft}>Draft</button>
+            </div>}
 
-            Territory selected : {outgoingSelectedTerritory?.name} <br/>
 
-            Assign amount of troops : <input onChange={(event) => {setTroops(parseInt(event.target.value));}}
-            type={"number"} min={1} max={currentPlayer?.troops} defaultValue={1}/> <br/>
-
-            <button onClick={draft}>Draft</button>
         </div>
     );
 };

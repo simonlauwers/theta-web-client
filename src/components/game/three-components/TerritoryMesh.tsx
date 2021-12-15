@@ -6,7 +6,6 @@ import usePlayer from "../../../hooks/context-hooks/game/UsePlayer";
 import parsePlayerColor from "../../../utils/game/PlayerColorParser";
 import useTerritory from "../../../hooks/context-hooks/game/UseTerritory";
 
-
 interface TerritoryMeshProps {
 	mesh : Mesh
 	territory : TerritoryType
@@ -36,7 +35,8 @@ const TerritoryMesh = (territoryMeshProps : TerritoryMeshProps) => {
 			onPointerOut={() => setHover(false)}
 			onClick={() => setSelectedTerritory(territoryMeshProps.territory)}
 		>
-			<meshStandardMaterial color={determineColor(player.playerColor, hover)} />
+			<meshToonMaterial color={determineColor(player.playerColor, hover)} />
+
 			<Text
 				scale={[0.8, 0.8, 0.8]}
 				color="black"
@@ -47,7 +47,6 @@ const TerritoryMesh = (territoryMeshProps : TerritoryMeshProps) => {
 			>
 				{playerTerritory.troops}
 			</Text>
-
 		</mesh>
 	);
 };

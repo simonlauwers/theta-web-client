@@ -11,9 +11,11 @@ import TerritoryType from "../../../types/Game/TerritoryType";
 import * as gameApi from "../../../api/game/GameApi";
 import ResponseMessageType from "../../../types/ResponseMessageType";
 import { useMutation } from "react-query";
+import { Slider } from "@mui/material";
 
 interface FortifyControlProps {
     setGame : React.Dispatch<React.SetStateAction<GameType | null>>;
+    setError : React.Dispatch<React.SetStateAction<ResponseMessageType | null>>;
 }
 
 const FortifyControl = (fortifyControlProps : FortifyControlProps) => {
@@ -21,8 +23,8 @@ const FortifyControl = (fortifyControlProps : FortifyControlProps) => {
     const { currentPlayer } = usePlayer();
     const { selectedTerritory, outgoingSelectedTerritory, incomingSelectedTerritory, 
         setSelectedTerritory, setOutgoingSelectedTerritory, setIncomingSelectedTerritory } = useTerritory();
-    const [ error, setError] = useState<ResponseMessageType | null>(null);
     const [ troops, setTroops] = useState<number>(1);
+    const [ availableTroops, setAvailableTroops ] = useState<number>(1);
     
     const { mutate, isLoading } = useMutation(gameApi.fortify, {
 		onSuccess: (data: GameType) => {
@@ -31,13 +33,20 @@ const FortifyControl = (fortifyControlProps : FortifyControlProps) => {
 		onError: (e: any) => {
 			const rmt = e.response.data as ResponseMessageType;
 			console.log(rmt);
-			setError(rmt);
+			fortifyControlProps.setError(rmt);
 		}
 	});
 
     const fortify = () => {
         mutate({gameId: meta?.uuid!, outgoingTerritoryId: outgoingSelectedTerritory?.uuid!, 
             incomingTerritoryId: incomingSelectedTerritory?.uuid!, troops});
+            setOutgoingSelectedTerritory(null);
+            setIncomingSelectedTerritory(null);
+    };
+
+    const skip = () => {
+        mutate({gameId: meta?.uuid!, outgoingTerritoryId: "", 
+            incomingTerritoryId: "", troops: 0});
             setOutgoingSelectedTerritory(null);
             setIncomingSelectedTerritory(null);
     };
@@ -52,8 +61,12 @@ const FortifyControl = (fortifyControlProps : FortifyControlProps) => {
                 setIncomingSelectedTerritory(null);
                 setSelectedTerritory(null);
             } else if (outgoingSelectedTerritory === null && validatePlayerTerritory(currentPlayer!, selectedTerritory!)){
-                setOutgoingSelectedTerritory(selectedTerritory);
-                setSelectedTerritory(null);
+                const territoryTroops = getAvailableTroops(currentPlayer!, selectedTerritory!) - 1;
+                if (territoryTroops > 0) {
+                    setOutgoingSelectedTerritory(selectedTerritory);
+                    setAvailableTroops(territoryTroops);
+                    setSelectedTerritory(null);
+                }
             } else if (validatePlayerTerritory(currentPlayer!, selectedTerritory!)) {
                 setIncomingSelectedTerritory(selectedTerritory);
                 setSelectedTerritory(null);
@@ -61,16 +74,31 @@ const FortifyControl = (fortifyControlProps : FortifyControlProps) => {
         }
     }, [selectedTerritory]); 
 
+    if (isLoading) {
+        return (
+            <div>
+                Fortifying
+            </div>
+        );
+    }
+
     return (
         <div>
-            Outgoing Territory selected : {outgoingSelectedTerritory?.name} <br/>
-            Incoming Territory selected : {incomingSelectedTerritory?.name} <br/>
+            {outgoingSelectedTerritory !== null && 
+            <div>
+                Outgoing Territory selected : {outgoingSelectedTerritory?.name} <br/>
+                {incomingSelectedTerritory !== null &&  
+                <>
+                    Incomming Territory selected : {incomingSelectedTerritory?.name} <br/>
 
-            Fortify with amount of troops : <input onChange={(event) => {setTroops(parseInt(event.target.value));}}
-            type={"number"} min={1} max={20} defaultValue={1}/> <br/>
-    
-            <button onClick={fortify}>Fortify</button>
+                    <Slider min={1} max={availableTroops} defaultValue={1} aria-label="Default" valueLabelDisplay="auto" 
+                    onChange={(e, val) => {setTroops(val as number);}}/>
 
+                    <button onClick={fortify}>Fortify</button>
+                </>
+                }
+            </div>}
+            <button onClick={skip}>Next Phase</button>
         </div>
     );
 };
@@ -79,4 +107,8 @@ export default FortifyControl;
 
 function validatePlayerTerritory(player : PlayerType, territory : TerritoryType) {
     return player.playerTerritories.filter(pt => pt.territory.uuid === territory.uuid).length > 0;
+}
+
+function getAvailableTroops(player : PlayerType, territory : TerritoryType) {
+    return player.playerTerritories.filter(pt => pt.territory.uuid === territory.uuid)[0].troops;
 }

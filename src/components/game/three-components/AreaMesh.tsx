@@ -21,7 +21,7 @@ const AreaMesh = (areaMeshProps : AreaMeshProps) => {
 		<mesh geometry={areaMeshProps.mesh.geometry}
 			position={areaMeshProps.mesh.position}
 		>
-			<meshStandardMaterial color={ player !== undefined ? parsePlayerColor(player.playerColor)?.light : "#000000"} />
+			<meshToonMaterial color={ player !== undefined ? parsePlayerColor(player.playerColor)?.light : "#000000"} />
 		</mesh>
 	);
 };

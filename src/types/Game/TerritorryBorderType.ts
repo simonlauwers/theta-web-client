@@ -1,4 +1,3 @@
-"territoryBorders";
 import TerritoryType from "./TerritoryType";
 
 export default interface TerritoryBorderType {

@@ -4,8 +4,8 @@ import React, { useRef } from "react";
 import { Mesh, Object3D } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import MapType from "../../../types/Game/MapType";
-import TerritoryType from "../../../types/Game/TerritoryType";
 import AreaMesh from "./AreaMesh";
+import LineModel from "./LineModel";
 import MapMesh from "./MapMesh";
 import PropMesh from "./PropMesh";
 import TerritoryMesh from "./TerritoryMesh";
@@ -55,9 +55,11 @@ const ScenarioModel = (scenarioModelProps: ScenarioModelProps) => {
 				territoryMeshes.map((territoryMesh) => (
 					<TerritoryMesh key={territoryMesh.name} mesh={territoryMesh as Mesh}
 						territory={scenarioModelProps.map.areas.flatMap(area => area.territories)
-							.find((territory: TerritoryType) => territory.resourceIndex === parseInt(territoryMesh.name.slice(1)))!} />
+							.find(territory => territory.resourceIndex === parseInt(territoryMesh.name.slice(1)))!} />
 				))
 			}
+			
+			<LineModel territories={scenarioModelProps.map.areas.flatMap(area => area.territories)} territoryMeshes={territoryMeshes}/>
 		</group>
 	);
 };

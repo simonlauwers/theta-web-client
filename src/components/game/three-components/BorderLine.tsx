@@ -21,7 +21,7 @@ const BorderLine = (borderLineProps : BorderLineProps) => {
             borderLineProps.end.y + 0.015,
             borderLineProps.end.z
         ]}
-        color="gray"
+        color="black"
         linewidth={3}
         dashScale={20}
         dashed={true}

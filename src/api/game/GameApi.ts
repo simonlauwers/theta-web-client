@@ -17,6 +17,11 @@ export async function draft(draftValues: DraftType) {
 	return response.data;
 }
 
+export async function getAllScenarios() {
+	const response = await api.get("map/allScenarios");
+	return response.data;
+}
+
 export async function attack(attackValues: AttackType) {
 	const response = await api.post("game/executeAttackPhase", attackValues);
 	return response.data;

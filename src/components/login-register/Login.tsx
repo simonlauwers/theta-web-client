@@ -9,7 +9,7 @@ const Login = () => {
 		<Grid item xs={12} md={6} lg={6} style={{ backgroundColor: "#141124", height: "100vh" }}>
 			<Breadcrumbs style={{ marginLeft: "2em", marginTop: "1em", color: "ghostwhite" }}>
 				<Typography color="ghostwhite"><b>LOGIN</b></Typography>
-				<Link to="/signup">Join</Link>
+				<Link to="/signup">JOIN</Link>
 
 			</Breadcrumbs>
 			<div style={{ marginTop: "25%", marginLeft: "25%" }}>

@@ -4,6 +4,8 @@ import "./index.css";
 import App from "./App";
 import { version } from "./../package.json";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { AuthProvider } from "./contexts/AuthContext";
+import ThetaTheme from "./theme/ThetaTheme";
 
 const queryGeneralClient = new QueryClient({
 	defaultOptions: {
@@ -18,9 +20,13 @@ const queryGeneralClient = new QueryClient({
 ReactDOM.render(
 	<React.StrictMode>
 		{console.log("Running Thèta webclient version " + version)}
-		<QueryClientProvider client={queryGeneralClient} contextSharing={true}>
-			<App />
-		</QueryClientProvider>
+		<ThetaTheme>
+			<QueryClientProvider client={queryGeneralClient} contextSharing={true}>
+				<AuthProvider>
+					<App />
+				</AuthProvider>
+			</QueryClientProvider>
+		</ThetaTheme>
 	</React.StrictMode>,
 	document.getElementById("root")
 );

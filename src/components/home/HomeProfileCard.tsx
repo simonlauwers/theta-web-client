@@ -1,5 +1,6 @@
 import { Avatar, Card } from "@mui/material";
 import React from "react";
+import UserType from "../../types/UserType";
 
 const styling: React.CSSProperties = {
 	display: "flex",
@@ -13,11 +14,11 @@ const styling: React.CSSProperties = {
 	boxShadow: "0px 2px 10px black"
 };
 
-const HomeProfileCard = () => {
+const HomeProfileCard = ({ displayName, profilePicture }: UserType) => {
 	return (
 		<Card style={styling}>
-			<Avatar sx={{ bgcolor: "grey", width: 200, height: 200, boxShadow: 5 }}>STRIJDER-</Avatar>
-			<p style={{ color: "white", fontSize: "1.5em" }}>Welcome back, <strong>STRIJDER-</strong></p>
+			<Avatar sx={{ bgcolor: "grey", width: 200, height: 200, boxShadow: 5 }}><img src={profilePicture} /></Avatar>
+			<p style={{ color: "white", fontSize: "1.5em" }}>Welcome back, <strong>{displayName}-</strong></p>
 		</Card>
 	);
 };

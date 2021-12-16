@@ -3,7 +3,7 @@ import useAuth from "../hooks/UseAuth";
 import { Navigate, Outlet } from "react-router-dom";
 
 export const PrivateRoute = () => {
-	const { user, loading, error } = useAuth();
+	const { user, loading, isError } = useAuth();
 
 	useEffect(() => {
 		if (!loading) {
@@ -13,10 +13,11 @@ export const PrivateRoute = () => {
 				console.log("we checked and found a user");
 			}
 		}
-	}, [user, loading, error]);
+	}, [user, loading, isError]);
+
 	return (
 		<>
-			{loading ? <div> loading</div> : !error && user ? <Outlet /> : <Navigate to="/login" />}
+			{loading ? <div> loading</div> : !isError && user ? <Outlet /> : <Navigate to="/login" />}
 		</>
 	);
 };

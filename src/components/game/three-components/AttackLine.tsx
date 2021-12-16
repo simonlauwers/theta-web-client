@@ -28,7 +28,7 @@ const AttackLine = (attackLineProps : AttackLineProps) => {
         ]}
         midB={[
             ((attackLineProps.start.x - attackLineProps.end.x) / 2) + attackLineProps.end.x,
-            attackLineProps.start.y + 0.1,
+            attackLineProps.end.y + 0.1,
             ((attackLineProps.start.z - attackLineProps.end.z) / 2) + attackLineProps.end.z
         ]}
         color="red"

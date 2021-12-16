@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import { useParams } from "react-router-dom";
@@ -39,7 +40,6 @@ const GameInitializer = (gameInitializerProps: GameInitializerProps) => {
 	});
 
 	useEffect(() => {
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		mutate(gameUuid!);
 	}, []);
 

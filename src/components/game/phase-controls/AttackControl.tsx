@@ -6,12 +6,11 @@ import useGame from "../../../hooks/context-hooks/game/UseGame";
 import usePlayer from "../../../hooks/context-hooks/game/UsePlayer";
 import useTerritory from "../../../hooks/context-hooks/game/UseTerritory";
 import GameType from "../../../types/Game/GameType";
-import PlayerType from "../../../types/Game/PlayerType";
-import TerritoryType from "../../../types/Game/TerritoryType";
 import * as gameApi from "../../../api/game/GameApi";
 import ResponseMessageType from "../../../types/ResponseMessageType";
 import { useMutation } from "react-query";
 import { Slider } from "@mui/material";
+import * as gameUtils from "../../../utils/game/GameUtils";
 
 interface AttackControlProps {
     setGame : React.Dispatch<React.SetStateAction<GameType | null>>;
@@ -60,15 +59,15 @@ const AttackControl = (attackControlProps : AttackControlProps) => {
             } else if (selectedTerritory?.uuid === incomingSelectedTerritory?.uuid) {
                 setIncomingSelectedTerritory(null);
                 setSelectedTerritory(null);
-            } else if (validatePlayerTerritory(currentPlayer!, selectedTerritory!)){
-                const territoryTroops = getAvailableTroops(currentPlayer!, selectedTerritory!) - 1;
+            } else if (gameUtils.validatePlayerTerritory(currentPlayer!, selectedTerritory!)){
+                const territoryTroops = gameUtils.getAvailableTroops(currentPlayer!, selectedTerritory!) - 1;
                 if (territoryTroops > 0) {
                     setOutgoingSelectedTerritory(selectedTerritory);
                     setAvailableTroops(territoryTroops);
                     setIncomingSelectedTerritory(null);
                     setSelectedTerritory(null);
                 }
-            } else if (outgoingSelectedTerritory !== null && validateBorder(outgoingSelectedTerritory, selectedTerritory)) {
+            } else if (outgoingSelectedTerritory !== null && gameUtils.validateBorder(outgoingSelectedTerritory, selectedTerritory)) {
                 setIncomingSelectedTerritory(selectedTerritory);
                 setSelectedTerritory(null);
             }
@@ -107,15 +106,3 @@ const AttackControl = (attackControlProps : AttackControlProps) => {
 };
 
 export default AttackControl;
-
-function validatePlayerTerritory(player : PlayerType, territory : TerritoryType) {
-    return player.playerTerritories.filter(pt => pt.territory.uuid === territory.uuid).length > 0;
-}
-
-function validateBorder(outgoingTerritory : TerritoryType, incommingTerritory : TerritoryType) {
-    return outgoingTerritory.territoryBorders.filter(tb => tb.borderingTerritory.uuid === incommingTerritory.uuid).length > 0;
-}
-
-function getAvailableTroops(player : PlayerType, territory : TerritoryType) {
-    return player.playerTerritories.filter(pt => pt.territory.uuid === territory.uuid)[0].troops;
-}

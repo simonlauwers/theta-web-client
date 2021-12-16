@@ -6,12 +6,11 @@ import useGame from "../../../hooks/context-hooks/game/UseGame";
 import usePlayer from "../../../hooks/context-hooks/game/UsePlayer";
 import useTerritory from "../../../hooks/context-hooks/game/UseTerritory";
 import GameType from "../../../types/Game/GameType";
-import PlayerType from "../../../types/Game/PlayerType";
-import TerritoryType from "../../../types/Game/TerritoryType";
 import * as gameApi from "../../../api/game/GameApi";
 import ResponseMessageType from "../../../types/ResponseMessageType";
 import { useMutation } from "react-query";
 import { Slider } from "@mui/material";
+import * as gameUtils from "../../../utils/game/GameUtils";
 
 interface DraftControlProps {
     setGame : React.Dispatch<React.SetStateAction<GameType | null>>;
@@ -45,7 +44,7 @@ const DraftControl = (draftControlProps : DraftControlProps) => {
             if (selectedTerritory?.uuid === outgoingSelectedTerritory?.uuid) {
                 setOutgoingSelectedTerritory(null);
                 setSelectedTerritory(null);
-            } else if (validatePlayerTerritory(currentPlayer!, selectedTerritory!)){
+            } else if (gameUtils.validatePlayerTerritory(currentPlayer!, selectedTerritory!)){
                 setOutgoingSelectedTerritory(selectedTerritory);
                 setSelectedTerritory(null);
             }
@@ -77,7 +76,3 @@ const DraftControl = (draftControlProps : DraftControlProps) => {
 };
 
 export default DraftControl;
-
-function validatePlayerTerritory(player : PlayerType, territory : TerritoryType) {
-    return player.playerTerritories.filter(pt => pt.territory.uuid === territory.uuid).length > 0;
-}

@@ -13,7 +13,7 @@ const PropMesh = (propMeshProps : PropMeshProps) => {
 		<mesh geometry={propMeshProps.mesh.geometry}
 			position={propMeshProps.mesh.position}
 		>
-			<meshStandardMaterial color={material.color}/>
+			<meshToonMaterial color={material.color}/>
 		</mesh>
 	);
 };

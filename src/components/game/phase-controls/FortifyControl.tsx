@@ -6,12 +6,11 @@ import useGame from "../../../hooks/context-hooks/game/UseGame";
 import usePlayer from "../../../hooks/context-hooks/game/UsePlayer";
 import useTerritory from "../../../hooks/context-hooks/game/UseTerritory";
 import GameType from "../../../types/Game/GameType";
-import PlayerType from "../../../types/Game/PlayerType";
-import TerritoryType from "../../../types/Game/TerritoryType";
 import * as gameApi from "../../../api/game/GameApi";
 import ResponseMessageType from "../../../types/ResponseMessageType";
 import { useMutation } from "react-query";
 import { Slider } from "@mui/material";
+import * as gameUtils from "../../../utils/game/GameUtils";
 
 interface FortifyControlProps {
     setGame : React.Dispatch<React.SetStateAction<GameType | null>>;
@@ -60,14 +59,14 @@ const FortifyControl = (fortifyControlProps : FortifyControlProps) => {
             } else if (selectedTerritory?.uuid === incomingSelectedTerritory?.uuid) {
                 setIncomingSelectedTerritory(null);
                 setSelectedTerritory(null);
-            } else if (outgoingSelectedTerritory === null && validatePlayerTerritory(currentPlayer!, selectedTerritory!)){
-                const territoryTroops = getAvailableTroops(currentPlayer!, selectedTerritory!) - 1;
+            } else if (outgoingSelectedTerritory === null && gameUtils.validatePlayerTerritory(currentPlayer!, selectedTerritory!)){
+                const territoryTroops = gameUtils.getAvailableTroops(currentPlayer!, selectedTerritory!) - 1;
                 if (territoryTroops > 0) {
                     setOutgoingSelectedTerritory(selectedTerritory);
                     setAvailableTroops(territoryTroops);
                     setSelectedTerritory(null);
                 }
-            } else if (validatePlayerTerritory(currentPlayer!, selectedTerritory!)) {
+            } else if (gameUtils.validatePlayerTerritory(currentPlayer!, selectedTerritory!)) {
                 setIncomingSelectedTerritory(selectedTerritory);
                 setSelectedTerritory(null);
             }
@@ -104,11 +103,3 @@ const FortifyControl = (fortifyControlProps : FortifyControlProps) => {
 };
 
 export default FortifyControl;
-
-function validatePlayerTerritory(player : PlayerType, territory : TerritoryType) {
-    return player.playerTerritories.filter(pt => pt.territory.uuid === territory.uuid).length > 0;
-}
-
-function getAvailableTroops(player : PlayerType, territory : TerritoryType) {
-    return player.playerTerritories.filter(pt => pt.territory.uuid === territory.uuid)[0].troops;
-}

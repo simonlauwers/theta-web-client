@@ -24,8 +24,6 @@ const TerritoryMesh = (territoryMeshProps : TerritoryMeshProps) => {
 	const playerTerritory = players.filter(plr => plr.uuid === player.uuid)[0].playerTerritories
 		.filter(playerTerritory => playerTerritory.territory.uuid === territoryMeshProps.territory.uuid)[0];
 
-
-
 	const [ troops, setTroops ] = useState<number>(playerTerritory.troops);
 	const [ difference, setDifference ] = useState<number>(0);
 

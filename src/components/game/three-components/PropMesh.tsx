@@ -1,16 +1,19 @@
 import React from "react";
-import { Mesh } from "three";
+import { Mesh, MeshBasicMaterial } from "three";
 
 interface PropMeshProps {
 	mesh : Mesh
 }
 
 const PropMesh = (propMeshProps : PropMeshProps) => {
+
+	const material = propMeshProps.mesh.material as MeshBasicMaterial;
+
 	return (
 		<mesh geometry={propMeshProps.mesh.geometry}
 			position={propMeshProps.mesh.position}
 		>
-			<meshStandardMaterial color={"#03A9F4"} />
+			<meshToonMaterial color={material.color}/>
 		</mesh>
 	);
 };

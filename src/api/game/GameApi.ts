@@ -1,4 +1,5 @@
 import axios from "axios";
+import NewPlayerType from "../../types/NewPlayerType";
 import AttackType from "../../types/Game/AttackType";
 import DraftType from "../../types/Game/DraftType";
 import FortifyType from "../../types/Game/FortifyType";
@@ -19,6 +20,23 @@ export async function draft(draftValues: DraftType) {
 
 export async function getAllScenarios() {
 	const response = await api.get("map/allScenarios");
+	return response.data;
+}
+
+export async function createGame(id: string) {
+	const scenario = { scenarioId: id };
+	const response = await api.post("game/createGame", scenario);
+	return response.data;
+}
+
+export async function addPlayer(player: NewPlayerType) {
+	const response = await api.post("game/addPlayerToGame", player);
+	return response.data;
+}
+
+export async function getGame(id: string) {
+	console.log("game/game/" + id);
+	const response = await api.get("game/game/" + id);
 	return response.data;
 }
 

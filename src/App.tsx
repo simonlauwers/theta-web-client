@@ -21,6 +21,7 @@ import { Profile } from "./components/home/Profile";
 import { Settings } from "./components/home/Settings";
 import Home from "./components/home/Home";
 import ScenarioSelection from "./components/scenario-selection/ScenarioSelection";
+import { Lobby } from "./components/login-register/Lobby";
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
 								<Route path="/settings" element={<Settings />} />
 								<Route path="/profile" element={<Profile />} />
 								<Route path="/scenarios" element={<ScenarioSelection />} />
+								<Route path="/:gameId/lobby" element={<Lobby />} />
 							</Route>
 						</Route>
 

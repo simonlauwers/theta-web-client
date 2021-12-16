@@ -109,7 +109,7 @@ const LoginForm = () => {
 
 					{isLoading && <LinearProgress color="secondary" />}
 					{error && <Alert sx={{ mt: "25px" }} severity="error">{error.message}</Alert>}
-					<Link to="/auth/reset-password-email">Forgot password?</Link>
+					<Link to="/reset-password-email">Forgot password?</Link>
 				</Stack>
 			</form >
 		</>

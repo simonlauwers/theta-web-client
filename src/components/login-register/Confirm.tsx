@@ -38,7 +38,7 @@ export const Confirm = () => {
 				<>
 					{error && <div> An error occured </div>}
 					<div>Email confirmed</div>
-					<Link to="/auth/login">Go back to Login</Link>
+					<Link to="/login">Go back to Login</Link>
 				</>
 			}
 		</>

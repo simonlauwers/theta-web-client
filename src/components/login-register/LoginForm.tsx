@@ -13,6 +13,7 @@ import { useMutation, useQueryClient } from "react-query";
 import ResponseMessageType from "../../types/ResponseMessageType";
 import { Link, useNavigate } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import { convertErrorMessageToFriendlyMessage } from "../../utils/Utils";
 
 const validationSchemaLogin = yup.object({
 	email: yup
@@ -39,7 +40,7 @@ const LoginForm = () => {
 		},
 		onError: (e: any) => {
 			const rmt = e.response.data as ResponseMessageType;
-			console.log(rmt);
+			rmt.message = convertErrorMessageToFriendlyMessage(rmt.message);
 			setError(rmt);
 		},
 		onSettled: () => {
@@ -65,7 +66,6 @@ const LoginForm = () => {
 
 	return (
 		<>
-			{error && "User not found"}
 			<form onSubmit={formik.handleSubmit}>
 				<Stack style={{ maxWidth: "50%" }}>
 					<WhiteTextField
@@ -114,7 +114,7 @@ const LoginForm = () => {
 
 					<div>
 						<Divider><p style={{ color: "white" }}>OR</p></Divider>
-						<Button style={{ marginTop: 25, backgroundColor: "ghostwhite", color: "#141124", fontWeight: "bold", width:"100%"}} variant="contained"><FacebookIcon style={{ color: "#141124" }} fontSize="large"></FacebookIcon> Login via Facebook</Button>
+						<Button style={{ marginTop: 25, backgroundColor: "ghostwhite", color: "#141124", fontWeight: "bold", width: "100%" }} variant="contained"><FacebookIcon style={{ color: "#141124" }} fontSize="large"></FacebookIcon> Login via Facebook</Button>
 
 
 					</div>

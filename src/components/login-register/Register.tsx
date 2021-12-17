@@ -6,7 +6,7 @@ import { backgroundColor } from "../../theme/colors";
 
 const Register = () => {
 	return <Grid item xs={12} md={6} lg={6} style={{
-		backgroundColor: backgroundColor.authScreen,
+		backgroundColor: backgroundColor.main,
 		height: "100vh"
 	}}>
 		<Breadcrumbs style={{
@@ -19,7 +19,7 @@ const Register = () => {
 		</Breadcrumbs>
 		<div style={{
 			marginTop: "10%",
-			marginLeft: "25%"
+			marginLeft: "30%"
 		}}>
 			<h1 style={{
 				color: "ghostwhite"

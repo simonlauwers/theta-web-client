@@ -67,5 +67,5 @@ export const warning = {
 	contrastText: "#FFFFFF"
 };
 export const backgroundColor = {
-	authScreen: "#141124"
+	main: "#141124"
 };

@@ -11,6 +11,7 @@ import * as userApi from "../../api/user/UserApi";
 import { useMutation, useQueryClient } from "react-query";
 import ResponseMessageType from "../../types/ResponseMessageType";
 import UserType from "../../types/UserType";
+import { convertErrorMessageToFriendlyMessage } from "../../utils/Utils";
 
 
 const validationSchemaSignup = yup.object({
@@ -43,7 +44,7 @@ const RegisterForm = () => {
 		},
 		onError: (e: any) => {
 			const rmt = e.response.data as ResponseMessageType;
-			console.log(rmt);
+			rmt.message = convertErrorMessageToFriendlyMessage(rmt.message);
 			setError(rmt);
 		},
 		onSettled: () => {
@@ -95,14 +96,14 @@ const RegisterForm = () => {
 
 			<WhiteTextField label="Email" id="email" variant="filled" name="email" value={formik.values.email} onChange={formik.handleChange} error={formik.touched.email && Boolean(formik.errors.email)} />
 			{formik.errors.email && formik.touched.email ? <div style={{
-				color: "black"
+				color: "white"
 			}}>{"Uh oh... " + formik.errors.email}</div> : null}
 
 			<WhiteTextField style={{
 				marginTop: "5%"
 			}} label="Displayname" id="displayName" variant="filled" name="displayName" autoComplete="off" value={formik.values.displayName} onChange={formik.handleChange} error={formik.touched.displayName && Boolean(formik.errors.displayName)} />
 			{formik.errors.displayName && formik.touched.displayName ? <div style={{
-				color: "black"
+				color: "white"
 			}}>{"Uh oh... " + formik.errors.displayName}</div> : null}
 
 			<WhiteTextField label="Password" style={{
@@ -120,7 +121,7 @@ const RegisterForm = () => {
 			<PasswordStrengthBar password={formik.values.password} minLength={8} />
 
 			{formik.errors.password && formik.touched.password ? <div style={{
-				color: "black"
+				color: "white"
 			}}>{"Uh oh... " + formik.errors.password}</div> : null}
 
 			<WhiteTextField label="Confirm your password" style={{
@@ -135,7 +136,7 @@ const RegisterForm = () => {
 				</InputAdornment>
 			}} />
 			{formik.errors.passwordConfirmation && formik.touched.passwordConfirmation ? <div style={{
-				color: "black"
+				color: "white"
 			}}>{"Uh oh... " + formik.errors.passwordConfirmation}</div> : null}
 
 			<Button style={{

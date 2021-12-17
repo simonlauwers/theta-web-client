@@ -39,7 +39,7 @@ export const Confirm = () => {
 				<>
 					{error && <div> An error occured </div>}
 					<Grid item xs={12} md={6} lg={6} style={{
-						backgroundColor: backgroundColor.authScreen,
+						backgroundColor: backgroundColor.main,
 						height: "100vh"
 					}}>
 						<div style={{

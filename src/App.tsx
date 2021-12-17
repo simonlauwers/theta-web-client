@@ -14,7 +14,7 @@ import { PrivateRoute } from "./utils/PrivateRoute";
 import { Confirm } from "./components/login-register/Confirm";
 import { NewPassword } from "./components/login-register/NewPassword";
 import Game from "./components/game/Game";
-import { NotFound } from "./components/Error/NotFound";
+import { NotFoundScreen } from "./components/extra/NotFoundScreen";
 import { AuthProvider } from "./contexts/AuthContext";
 import { Stats } from "./components/home/Stats";
 import { Profile } from "./components/home/Profile";
@@ -50,7 +50,7 @@ function App() {
 						<Route path="/game/:gameUuid" element={<Game />} />
 
 						<Route path="/scenarios" element={<ScenarioLayout />} />
-						<Route path="*" element={<NotFound />} />
+						<Route path="*" element={<NotFoundScreen />} />
 					</Routes>
 				</Router>
 			</AuthProvider>

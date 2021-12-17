@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import useAuth from "../hooks/UseAuth";
 import { Navigate, Outlet } from "react-router-dom";
+import { LoadingScreen } from "../components/extra/LoadingScreen";
 
 export const PrivateRoute = () => {
 	const { user, loading, error } = useAuth();
@@ -14,9 +15,10 @@ export const PrivateRoute = () => {
 			}
 		}
 	}, [user, loading, error]);
+
 	return (
 		<>
-			{loading ? <div> loading</div> : !error && user ? <Outlet /> : <Navigate to="/login" />}
+			{loading ? <LoadingScreen></LoadingScreen> : !error && user ? <Outlet /> : <Navigate to="/login" />}
 		</>
 	);
 };

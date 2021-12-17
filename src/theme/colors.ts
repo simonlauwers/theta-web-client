@@ -66,3 +66,6 @@ export const warning = {
 	main: "#FFCD4E",
 	contrastText: "#FFFFFF"
 };
+export const backgroundColor = {
+	main: "#141124"
+};

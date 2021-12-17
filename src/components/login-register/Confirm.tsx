@@ -1,4 +1,4 @@
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useQueryClient, useMutation } from "react-query";
 import { Link, useParams } from "react-router-dom";
@@ -6,6 +6,7 @@ import ResponseMessageType from "../../types/ResponseMessageType";
 import UserType from "../../types/UserType";
 import TokenType from "../../types/TokenType";
 import * as userApi from "../../api/user/UserApi";
+import { backgroundColor } from "../../theme/colors";
 
 export const Confirm = () => {
 	const { token } = useParams();
@@ -37,10 +38,22 @@ export const Confirm = () => {
 			{isLoading ? <CircularProgress /> :
 				<>
 					{error && <div> An error occured </div>}
-					<div>Email confirmed</div>
-					<Link to="/login">Go back to Login</Link>
+					<Grid item xs={12} md={6} lg={6} style={{
+						backgroundColor: backgroundColor.main,
+						height: "100vh"
+					}}>
+						<div style={{
+							marginTop: "10%",
+							marginLeft: "25%"
+						}}>
+							<h1 style={{ color: "ghostwhite" }}>Yeeha! Email is confirmed.</h1>
+							<Link style={{ color: "white" }} to="/login">Back to Login.</Link>
+						</div>
+					</Grid>
 				</>
 			}
+
+
 		</>
 	);
 };

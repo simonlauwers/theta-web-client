@@ -49,3 +49,9 @@ export async function fortify(fortifyValues: FortifyType) {
 	const response = await api.post("game/executeFortifyPhase", fortifyValues);
 	return response.data;
 }
+
+export async function initializeGame(gameId: string) {
+	console.log(gameId);
+	const response = await api.patch("game/initializeGame/" + gameId);
+	return response.data;
+}

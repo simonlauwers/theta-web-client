@@ -2,7 +2,7 @@
 import { Button, Card, CardContent, Typography } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as gameApi from "../../api/game/GameApi";
 import useAuth from "../../hooks/UseAuth";
 import GameType from "../../types/Game/GameType";
@@ -20,6 +20,7 @@ export const Lobby = () => {
     const [players, setPlayers] = useState<Player[]>([]);
     const { user } = useAuth();
     const { data, isLoading } = useQuery("getGame", () => gameApi.getGame(gameId!));
+    const navigate = useNavigate();
 
     useEffect(() => {
         console.log("using effect");
@@ -32,13 +33,13 @@ export const Lobby = () => {
             console.log(data.players.length);
             if (data.players.length == 0) {
                 console.log("adding user to game");
-                mutate({ name: user!.displayName, aiPlayer: false, gameId: gameId! });
+                addPlayer({ name: user!.displayName, aiPlayer: false, gameId: gameId! });
             }
         }
     }, []);
 
 
-    const { mutate } = useMutation(gameApi.addPlayer, {
+    const { mutate: addPlayer } = useMutation(gameApi.addPlayer, {
         onSuccess: (data: GameType) => {
             setPlayers(data.players);
         },
@@ -46,6 +47,18 @@ export const Lobby = () => {
             console.log(e);
         }
     });
+
+    const { mutate: initGame } = useMutation(gameApi.initializeGame, {
+        onSuccess: (data: GameType) => {
+            navigate(`/game/${data.uuid}`);
+        },
+        onError: (e: any) => {
+            console.log(e);
+        }
+    });
+
+
+
     const addRandomPlayer = async () => {
         const firstnames = ["Youssef", "Bart", "Siemen", "Nathan", "Daniel", "Quinten", "Simon"];
         const lastnames = ["Taouil", "Vochten", "Van de Mosselaer", "Tetroashvilii", "Savin", "Verhelst", "Lauwers"];
@@ -53,7 +66,11 @@ export const Lobby = () => {
         const randomLn = Math.floor(Math.random() * 6) + 1;
         const randomName = firstnames[randomFn] + " " + lastnames[randomLn];
         const newPlayer = { name: randomName, aiPlayer: false, gameId: gameId! };
-        mutate(newPlayer);
+        addPlayer(newPlayer);
+    };
+
+    const initializeGame = () => {
+        initGame(gameId!);
     };
 
     return (
@@ -74,6 +91,7 @@ export const Lobby = () => {
                     );
                 })}
                 <Button variant="contained" disabled={players.length === 6} onClick={() => addRandomPlayer()}>Add random player</Button>
+                <Button variant="contained" onClick={() => initializeGame()}>Start game</Button>
 
             </div>
     );

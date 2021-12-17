@@ -10,7 +10,7 @@ const MapMesh = (mapMeshProps : MapMeshProps) => {
 		<mesh geometry={mapMeshProps.mesh.geometry}
 			position={mapMeshProps.mesh.position}
 		>
-			<meshStandardMaterial color={"#212121"} />
+			<meshToonMaterial color={"#212121"} />
 		</mesh>
 	);
 };

@@ -4,7 +4,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { LoadingScreen } from "../components/extra/LoadingScreen";
 
 export const PrivateRoute = () => {
-	const { user, loading, error } = useAuth();
+	const { user, loading, isError } = useAuth();
 
 	useEffect(() => {
 		if (!loading) {

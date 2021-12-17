@@ -1,7 +1,6 @@
 import "./App.css";
 import Login from "./components/login-register/Login";
 import HomeLayout from "./components/layouts/HomeLayout";
-import ScenarioLayout from "./components/layouts/ScenarioLayout";
 import {
 	BrowserRouter as Router,
 	Route,
@@ -21,6 +20,8 @@ import { Profile } from "./components/home/Profile";
 import { Settings } from "./components/home/Settings";
 import Home from "./components/home/Home";
 import ResetPasswordEmail from "./components/login-register/ResetPasswordEmail";
+import ScenarioSelection from "./components/scenario-selection/ScenarioSelection";
+import { Lobby } from "./components/login-register/Lobby";
 
 
 function App() {
@@ -32,13 +33,14 @@ function App() {
 						<Route path="/" element={<PrivateRoute />}>
 							<Route element={<HomeLayout />}>
 								<Route path="/home" element={<Home />} />
+								<Route path="/" element={<Home />} />
 								<Route path="/stats" element={<Stats />} />
 								<Route path="/settings" element={<Settings />} />
 								<Route path="/profile" element={<Profile />} />
+								<Route path="/scenarios" element={<ScenarioSelection />} />
+								<Route path="/:gameId/lobby" element={<Lobby />} />
 							</Route>
 						</Route>
-
-
 
 						<Route element={<AuthLayout />}>
 							<Route path="/login" element={<Login />} />
@@ -48,7 +50,6 @@ function App() {
 							<Route path="/:token/reset" element={<NewPassword />} />
 						</Route>
 						<Route path="/game/:gameUuid" element={<Game />} />
-
 						<Route path="/scenarios" element={<ScenarioLayout />} />
 						<Route path="*" element={<NotFoundScreen />} />
 					</Routes>

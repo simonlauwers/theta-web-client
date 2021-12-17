@@ -13,6 +13,9 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import { useNavigate } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
+import * as userApi from "../../api/user/UserApi";
+import { useMutation } from "react-query";
+import ResponseMessageType from "../../types/ResponseMessageType";
 
 const drawerWidth = 240;
 const iconColor = "989898";
@@ -25,13 +28,19 @@ export interface HomeLayoutDrawerProps {
 export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
 	const navigate = useNavigate();
 	const [mobileOpen, setMobileOpen] = React.useState(false);
+	const { mutate } = useMutation(userApi.logOut, {
+		onSuccess: (data: ResponseMessageType) => {
+			console.log(data);
+			navigate("/login");
+		}
+	});
 
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
 	};
 
 	const handleLogOut = () => {
-		console.log("todo: implement logout!");
+		mutate();
 	};
 
 	const itemList = [

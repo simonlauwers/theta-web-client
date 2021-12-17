@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import { useParams } from "react-router-dom";
@@ -18,7 +19,7 @@ const GameInitializer = (gameInitializerProps: GameInitializerProps) => {
 	const { setMap } = useMap();
 	const { setPhase } = usePhase();
 	const { setPlayers, setCurrentPlayer } = usePlayer();
-	const [setError] = useState<any>();
+	const [ error, setError ] = useState<any>(null);
 
 	const { gameUuid } = useParams<string>();
 
@@ -39,22 +40,29 @@ const GameInitializer = (gameInitializerProps: GameInitializerProps) => {
 	});
 
 	useEffect(() => {
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		mutate(gameUuid!);
 	}, []);
 
-	return (
-
-		isLoading ?
+	if (isLoading) {
+		return (
 			<div>
 				Loading
 			</div>
-			:
+		);
+	}
+
+	if (error !== null) {
+		return (
+			<div>
+				{error.message}
+			</div>
+		);
+	}
+
+	return (
 			<div>
 				Game loaded
 			</div>
-
-
 	);
 };
 

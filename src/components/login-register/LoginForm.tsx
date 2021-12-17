@@ -27,14 +27,15 @@ const validationSchemaLogin = yup.object({
 
 const LoginForm = () => {
 	const [showPassword, setShowPassword] = useState<boolean>(false);
-	const { setUser } = useAuth();
+
 	const queryClient = useQueryClient();
 	const [error, setError] = useState<ResponseMessageType | null>(null);
 	const navigate = useNavigate();
-
+	const { setUser, refetch } = useAuth();
 
 	const { mutate, isLoading } = useMutation(userApi.login, {
 		onSuccess: (data: UserType) => {
+			refetch();
 			setUser(data);
 			navigate("/home");
 		},

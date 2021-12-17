@@ -1,25 +1,34 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Button, Fade, Grid } from "@mui/material";
-import FriendsOnlyCard from "./FriendsOnlyCard";
 import HomeProfileCard from "./HomeProfileCard";
-import MultiplayerCard from "./MultiplayerCard";
-import SingleplayerCard from "./SingleplayerCard";
-import React, { useEffect } from "react";
+import React from "react";
 import useAuth from "../../hooks/UseAuth";
+import { GameModeCard } from "./GameModeCard";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-	const { user, loading } = useAuth();
+	const { user } = useAuth();
+	const navigate = useNavigate();
 
-	useEffect(() => {
-		if (!loading) {
-			if (!user) {
-				console.log("we checked and user is still null");
+	const gamemodeList =
+		[
+			{
+				backgroundImage: "url(\"/media/photos/game-visuals/Badlands.png\")",
+				text: "Singleplayer",
+				url: "/scenarios"
+			},
+			{
 
-			} else {
-				console.log("we checked and found a user");
+				backgroundImage: "url(\"/media/photos/game-visuals/FireTemple.png\")",
+				text: "Multiplayer",
+				url: "/scenarios"
+			},
+			{
+				backgroundImage: "url(\"/media/photos/game-visuals/IcePalace.png\")",
+				text: "Friends only",
+				url: "/scenarios"
 			}
-		}
-	}, [user, loading]);
-
+		];
 	return (
 		<>
 			<div style={{ zIndex: 9999, marginLeft: 50, marginTop: "-3%" }}>
@@ -32,10 +41,10 @@ const Home = () => {
 								backgroundColor: "#989898", "&:hover": {
 									backgroundColor: "#131B2A",
 								}
-							}}>See all stats</Button>
+							}} onClick={() => navigate("/stats")}>See all stats</Button>
 						</Grid>
 						<Grid item xs={12} md={6} style={{ color: "white", paddingTop: "13%" }}>
-							<HomeProfileCard />
+							<HomeProfileCard {...user!} />
 						</Grid>
 					</Grid>
 				</Fade>
@@ -49,21 +58,17 @@ const Home = () => {
 
 						<Grid item xs={6} md={12} style={{ marginTop: "-1%", color: "white" }}>
 							<Grid container spacing={4} style={{ display: "flex", flexWrap: "nowrap", maxWidth: "100%" }}  >
-								<Grid item xs={12} style={{ color: "white" }}>
-									<SingleplayerCard
-										backgroundImage={"url(\"/media/photos/game-visuals/Badlands.png\")"}
-										key="Singleplayer" />
-								</Grid>
-								<Grid item xs={12} style={{ color: "white" }}>
-									<MultiplayerCard
-										backgroundImage={"url(\"/media/photos/game-visuals/FireTemple.png\")"}
-										key="Multiplayer" />
-								</Grid>
-								<Grid item xs={12} style={{ color: "white" }}>
-									<FriendsOnlyCard
-										backgroundImage={"url(\"/media/photos/game-visuals/IcePalace.png\")"}
-										key="FriendsOnly" />
-								</Grid>
+								{gamemodeList.map((gamemode) => {
+									return (
+										<Grid item xs={12} key={gamemode.text} style={{ color: "white" }}>
+											<GameModeCard
+												backgroundImage={gamemode.backgroundImage}
+												text={gamemode.text}
+												url={gamemode.url} />
+										</Grid>
+									);
+								})}
+
 							</Grid>
 						</Grid>
 					</Grid>

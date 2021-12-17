@@ -44,7 +44,7 @@ const ScenarioSelection = () => {
 				<Grid item xs={12} md={6}>
 					{scenarios.map((scenario: ScenarioType) =>
 						<div key={scenario.uuid} onClick={() => toggleScenarioSelected(scenario)}>
-							<ScenarioCard key={scenario.uuid} scenario={scenario} selected={scenario == scenarioSelected} />
+							<ScenarioCard key={scenario.uuid} scenario={scenario} selected={scenario === scenarioSelected} />
 						</div>
 					)
 					}

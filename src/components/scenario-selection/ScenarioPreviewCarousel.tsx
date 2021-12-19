@@ -4,8 +4,8 @@ import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import React, { useEffect, useState } from "react";
 import ScenarioType from "../../types/Game/ScenarioType";
-import ScenarioPreviewCard from "./ScenarioPreviewCard";
 import { Typography } from "@mui/material";
+import ScenarioPreviewCard from "./ScenarioPreviewCard";
 
 interface ScenarioPreviewCarouselProps {
 	scenarios: ScenarioType[];

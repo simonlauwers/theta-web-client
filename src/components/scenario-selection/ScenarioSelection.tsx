@@ -14,14 +14,26 @@ import ScenarioPreviewCarousel from "./ScenarioPreviewCarousel";
 
 
 const ScenarioSelection = () => {
+	/*
+	* A map that consists of an index (K) and a scenario (V)
+	* Used for the carousel
+	*/
 	const [scenarioPerIndex] = useState<Map<number, ScenarioType>>(new Map<number, ScenarioType>());
+	/*
+	* Index of the current scenario (based on the ScenarioPerIndex map)
+	* Used for the carousel
+	*/
 	const [currentScenarioIndex, setCurrentScenarioIndex] = useState<number>(0);
-	const { data: scenarios, isLoading } = useQuery("scenarios", () => gameApi.getAllScenarios());
 	const [scenarioSelected, setScenarioSelected] = useState<ScenarioType | null>(null);
+	/*
+	* Automatic refetching when the query mounts is set to false to prevent automatic/unnecessary creation of game when mounting
+	* createGame is used to refetch the query 
+	*/
 	const { data: createdGame, refetch: createGame, isLoading: createGameIsLoading, isFetchedAfterMount } = useQuery("createGame", () => gameApi.createGame(scenarioSelected!.uuid), {
 		refetchOnWindowFocus: false,
 		enabled: false
 	});
+	const { data: scenarios, isLoading } = useQuery("scenarios", () => gameApi.getAllScenarios());
 	const navigate = useNavigate();
 
 	const toggleScenarioSelected = (scenario: ScenarioType) => {

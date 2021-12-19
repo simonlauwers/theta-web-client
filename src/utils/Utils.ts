@@ -276,4 +276,4 @@ export const getRandomLoadingMessage = () => {
 	];
 
 	return randomMessages[Math.floor(Math.random() * randomMessages.length)];
-}
+};

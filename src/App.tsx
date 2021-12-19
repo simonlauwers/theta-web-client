@@ -22,6 +22,7 @@ import Home from "./components/home/Home";
 import ResetPasswordEmail from "./components/login-register/ResetPasswordEmail";
 import ScenarioSelection from "./components/scenario-selection/ScenarioSelection";
 import { Lobby } from "./components/login-register/Lobby";
+import ScenarioSelectionTest from "./components/scenario-selection/ScenarioSelectionTest";
 
 
 function App() {
@@ -50,8 +51,9 @@ function App() {
 							<Route path="/:token/reset" element={<NewPassword />} />
 						</Route>
 						<Route path="/game/:gameUuid" element={<Game />} />
-						<Route path="/scenarios" element={<ScenarioLayout />} />
+						<Route path="/scenarios" element={null} />
 						<Route path="*" element={<NotFoundScreen />} />
+						<Route path="/select-scenario-test" element={<ScenarioSelectionTest />} />
 					</Routes>
 				</Router>
 			</AuthProvider>

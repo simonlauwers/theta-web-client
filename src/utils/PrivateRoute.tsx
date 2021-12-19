@@ -14,11 +14,11 @@ export const PrivateRoute = () => {
 				console.log("we checked and found a user");
 			}
 		}
-	}, [user, loading, error]);
+	}, [user, loading, isError]);
 
 	return (
 		<>
-			{loading ? <LoadingScreen></LoadingScreen> : !error && user ? <Outlet /> : <Navigate to="/login" />}
+			{loading ? <LoadingScreen></LoadingScreen> : !isError && user ? <Outlet /> : <Navigate to="/login" />}
 		</>
 	);
 };

@@ -50,7 +50,6 @@ function App() {
 							<Route path="/:token/reset" element={<NewPassword />} />
 						</Route>
 						<Route path="/game/:gameUuid" element={<Game />} />
-						<Route path="/scenarios" element={<ScenarioLayout />} />
 						<Route path="*" element={<NotFoundScreen />} />
 					</Routes>
 				</Router>

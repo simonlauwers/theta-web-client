@@ -19,8 +19,8 @@ const Game = () => {
 					<PlayerProvider>
 						<TerritoryProvider>
 							{
-								initializing?
-									<GameInitializer setInitializing={setInitializing}/>
+								initializing ?
+									<GameInitializer setInitializing={setInitializing} />
 									:
 									<>
 										<World />
@@ -32,7 +32,6 @@ const Game = () => {
 					</PlayerProvider>
 				</PhaseProvider>
 			</MapProvider>
-
 		</GameProvider>
 	);
 };

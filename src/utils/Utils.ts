@@ -14,10 +14,10 @@ export const convertErrorMessageToFriendlyMessage = (error: string) => {
 
 		case "user/banned":
 			return "Sorry, you are banned from Thèta. Hihi.";
-		
+
 		case "user/invalid-password":
 			return "Uh oh! Password is incorrect. Please try again.";
-		
+
 		case "user/email-conflict":
 			return "Sorry, a user with this email already exists. Maybe it's your twin ghost?";
 
@@ -276,4 +276,4 @@ export const getRandomLoadingMessage = () => {
 	];
 
 	return randomMessages[Math.floor(Math.random() * randomMessages.length)];
-}
+};

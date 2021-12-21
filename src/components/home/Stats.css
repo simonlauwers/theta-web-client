@@ -1,0 +1,25 @@
+.container{
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+}
+
+.statsContainer{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  
+}
+.responsive-iframe {
+   /*  position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    */ width: 75%;
+    height: 75%;
+    border: none;
+   
+  }

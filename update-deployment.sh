@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RESPONSE_CODE=$(curl --write-out '%{http_code}' --silent --output /dev/null theta-risk.com)
+RESPONSE_CODE=$(curl --write-out '%{http_code}' --silent --output /dev/null https://theta-risk.com)
 
 if [[ $RESPONSE_CODE -ne 200  ]]
 then
@@ -18,4 +18,5 @@ else
     echo "Deploying production env with image $1"
     kubectl set image deployment/frontend-deployment "web=$1" -n=production
   fi
+  kubectl rollout restart frontend-deployment
 fi

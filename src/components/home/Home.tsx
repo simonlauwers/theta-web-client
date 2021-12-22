@@ -32,7 +32,7 @@ const Home = () => {
 	return (
 		<>
 			<div style={{ zIndex: 9999, marginLeft: 50, marginTop: "-3%" }}>
-				<Fade in={true} style={{ transitionDelay: "800ms" }}>
+				<Fade in={true} style={{ transitionDelay: "500ms" }}>
 					<Grid container spacing={6} >
 						<Grid item xs={12} md={6} style={{ color: "white" }}>
 							<h1 style={{ fontSize: "7em", fontFamily: "request" }}>RISK</h1>
@@ -49,7 +49,7 @@ const Home = () => {
 					</Grid>
 				</Fade>
 
-				<Fade in={true} style={{ transitionDelay: "1700ms" }}>
+				<Fade in={true} style={{ transitionDelay: "500ms" }}>
 					<Grid style={{ marginBottom: "5%", marginTop: "2.5%" }} container spacing={2} >
 
 						<Grid item xs={12} md={12} style={{ color: "white" }}>

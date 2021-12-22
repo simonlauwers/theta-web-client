@@ -1,7 +1,7 @@
 export const convertErrorMessageToFriendlyMessage = (error: string) => {
 	switch (error) {
 		case "user/not-found":
-			return "Sorry, no user find with the given email. Please check your email and password.";
+			return "Sorry, no user found with the given email. Please check your email and password.";
 
 		case "user/unauthorized":
 			return "Sorry, you are not authorized to do this action.";

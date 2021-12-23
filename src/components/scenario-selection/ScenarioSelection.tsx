@@ -58,7 +58,6 @@ const ScenarioSelection = () => {
 	} else {
 		return (
 			<>
-
 				<Grid container>
 					<Grid item md={12} style={{ marginTop: 25 }}>
 						<Link to="/home" style={{ color: "white" }}><Button variant="outlined">{"< "}Go Back</Button></Link>

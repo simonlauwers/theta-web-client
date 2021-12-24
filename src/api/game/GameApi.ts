@@ -5,7 +5,8 @@ import DraftType from "../../types/Game/DraftType";
 import FortifyType from "../../types/Game/FortifyType";
 
 const api = axios.create({
-	baseURL: process.env.REACT_APP_GAME_API_BASE_URL
+	baseURL: process.env.REACT_APP_GAME_API_BASE_URL,
+	withCredentials: true
 });
 
 export async function game(gameUuid: string) {

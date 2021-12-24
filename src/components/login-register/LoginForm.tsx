@@ -12,8 +12,8 @@ import UserType from "../../types/UserType";
 import { useMutation, useQueryClient } from "react-query";
 import ResponseMessageType from "../../types/ResponseMessageType";
 import { Link, useNavigate } from "react-router-dom";
-import FacebookIcon from "@mui/icons-material/Facebook";
 import { convertErrorMessageToFriendlyMessage } from "../../utils/Utils";
+import { GoogleLogin } from "react-google-login";
 
 const validationSchemaLogin = yup.object({
 	email: yup
@@ -24,7 +24,6 @@ const validationSchemaLogin = yup.object({
 		.string()
 		.required("Password is required"),
 });
-
 const LoginForm = () => {
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -52,6 +51,15 @@ const LoginForm = () => {
 	const handleClickShowPassword = () => {
 		setShowPassword(!showPassword);
 	};
+
+	const onSuccess = (response: any) => {
+		mutate(response.profileObj);
+	};
+
+	const onFailure = (response: any) => {
+		console.log(response);
+	};
+
 
 	const formik = useFormik({
 		initialValues: {
@@ -115,8 +123,14 @@ const LoginForm = () => {
 
 					<div>
 						<Divider><p style={{ color: "white" }}>OR</p></Divider>
-						<Button style={{ marginTop: 25, backgroundColor: "ghostwhite", color: "#141124", fontWeight: "bold", width: "100%" }} variant="contained"><FacebookIcon style={{ color: "#141124" }} fontSize="large"></FacebookIcon> Login via Facebook</Button>
-
+						<GoogleLogin
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+							clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID!}
+							buttonText="Sign in"
+							onSuccess={onSuccess}
+							onFailure={onFailure}
+							cookiePolicy={"single_host_origin"}
+						/>
 
 					</div>
 

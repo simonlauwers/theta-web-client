@@ -9,7 +9,7 @@ import useAuth from "../../hooks/UseAuth";
 import LoginType from "../../types/LoginType";
 import * as userApi from "../../api/user/UserApi";
 import UserType from "../../types/UserType";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 import ResponseMessageType from "../../types/ResponseMessageType";
 import { Link, useNavigate } from "react-router-dom";
 import { convertErrorMessageToFriendlyMessage } from "../../utils/Utils";
@@ -26,13 +26,25 @@ const validationSchemaLogin = yup.object({
 });
 const LoginForm = () => {
 	const [showPassword, setShowPassword] = useState<boolean>(false);
-
-	const queryClient = useQueryClient();
 	const [error, setError] = useState<ResponseMessageType | null>(null);
 	const navigate = useNavigate();
 	const { setUser, refetch } = useAuth();
 
-	const { mutate, isLoading } = useMutation(userApi.login, {
+	const { mutate: mutateGoogle } = useMutation(userApi.loginWithGoogle, {
+		onSuccess: (data: UserType) => {
+			console.log(data);
+			refetch();
+			setUser(data);
+			navigate("/home");
+		},
+		onError: (e: any) => {
+			const rmt = e.response.data as ResponseMessageType;
+			rmt.message = convertErrorMessageToFriendlyMessage(rmt.message);
+			setError(rmt);
+		}
+	});
+
+	const { mutate: mutateLocal, isLoading } = useMutation(userApi.login, {
 		onSuccess: (data: UserType) => {
 			refetch();
 			setUser(data);
@@ -42,9 +54,6 @@ const LoginForm = () => {
 			const rmt = e.response.data as ResponseMessageType;
 			rmt.message = convertErrorMessageToFriendlyMessage(rmt.message);
 			setError(rmt);
-		},
-		onSettled: () => {
-			queryClient.invalidateQueries("create");
 		}
 	});
 
@@ -53,7 +62,8 @@ const LoginForm = () => {
 	};
 
 	const onSuccess = (response: any) => {
-		mutate(response.profileObj);
+		console.log(response);
+		mutateGoogle(response.profileObj);
 	};
 
 	const onFailure = (response: any) => {
@@ -69,7 +79,7 @@ const LoginForm = () => {
 		validationSchema: validationSchemaLogin,
 		onSubmit: async (values: LoginType) => {
 			const user = { ...values };
-			mutate(user);
+			mutateLocal(user);
 		},
 	});
 

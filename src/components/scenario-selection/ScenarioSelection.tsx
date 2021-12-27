@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useState, useEffect } from "react";
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography, CircularProgress } from "@mui/material";
 import ScenarioCard from "./ScenarioCard";
 import { useQuery } from "react-query";
 import * as gameApi from "../../api/game/GameApi";
@@ -83,18 +83,20 @@ const ScenarioSelection = () => {
 					<Grid item xs={12} md={6} style={{ marginTop: "1%" }}>
 						<Scrollbars width={150} style={{ height: "70%" }}>
 							<div style={{ paddingRight: 25, paddingLeft: 25 }}>
-								{scenarios.map((scenario: ScenarioType) =>
+								{scenarios != undefined ? scenarios.map((scenario: ScenarioType) =>
 									<div key={scenario.uuid} onClick={() => toggleScenarioSelected(scenario)}>
 										<ScenarioCard key={scenario.uuid} scenario={scenario} selected={scenario === scenarioSelected} />
 									</div>
-								)};
+								) :  <CircularProgress/>}
 							</div>
 						</Scrollbars>
 
 					</Grid>
 					<Grid item xs={12} md={6} style={{ paddingLeft: 25, paddingRight: 25, marginTop: "1%" }}>
-						<ScenarioPreviewCarousel scenarioPerIndex={scenarioPerIndex} currentSlide={currentScenarioIndex} callbackSelectScenario={toggleScenarioSelected} scenarios={scenarios} />
+						{scenarios != undefined ? <ScenarioPreviewCarousel scenarioPerIndex={scenarioPerIndex} currentSlide={currentScenarioIndex} callbackSelectScenario={toggleScenarioSelected} scenarios={scenarios} />
+							: <CircularProgress/>}
 						<Button sx={{ minWidth: "100%", fontWeight: 700, color: "white", backgroundColor: success[400], fontSize: 30, marginTop: 5 }} disabled={scenarioSelected === null} variant="contained" onClick={() => handleStartGame()}>Start game</Button>
+
 					</Grid>
 				</Grid>
 			</>

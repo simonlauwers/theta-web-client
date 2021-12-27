@@ -17,7 +17,7 @@ const styling: React.CSSProperties = {
 const HomeProfileCard = ({ displayName, profilePicture }: UserType) => {
 	return (
 		<Card style={styling}>
-			<Avatar sx={{ bgcolor: "grey", width: 200, height: 200, boxShadow: 5 }}><img src={profilePicture} /></Avatar>
+			<Avatar sx={{ bgcolor: "grey", width: 200, height: 200, boxShadow: 5 }}><img src={profilePicture} onDragStart={(e) => { e.preventDefault(); }} /></Avatar>
 			<p style={{ color: "white", fontSize: "1.5em" }}>Welcome back, <strong>{displayName}-</strong></p>
 		</Card>
 	);

@@ -68,7 +68,16 @@ const AuthLayout = () => {
 					</Grid>}
 				<Outlet />
 			</Grid>
-
+			{mobileMediaQuery ? null :
+				<div
+					style={{
+						position: "absolute",
+						bottom: 0,
+						left: 0,
+						right: 0,
+						height: 50,
+						background: "linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%)"
+					}} />}
 		</div>
 	);
 };

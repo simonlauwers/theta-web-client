@@ -1,5 +1,6 @@
 import axios from "axios";
 import EmailType from "../../types/EmailType";
+import GoogleProfileType from "../../types/GoogleProfileType";
 import LoginType from "../../types/LoginType";
 import RegisterType from "../../types/RegisterType";
 import ResetPasswordType from "../../types/ResetPasswordType";
@@ -12,6 +13,12 @@ const api = axios.create({
 
 export async function login(loginValues: LoginType) {
 	const response = await api.post("/login", loginValues);
+	return response.data;
+}
+
+export async function loginWithGoogle(profile: GoogleProfileType) {
+	console.log(profile);
+	const response = await api.post("/google-login", profile);
 	return response.data;
 }
 

@@ -74,7 +74,7 @@ const RegisterForm = () => {
 		validationSchema: validationSchemaSignup,
 		onSubmit: (values: SignupValues) => {
 			setSuccessAlert(null);
-			const newUser = { ...values };
+			const newUser = { ...values, profilePicture: "", provider: "LOCAL" };
 			mutate(newUser);
 			console.log(newUser);
 		}

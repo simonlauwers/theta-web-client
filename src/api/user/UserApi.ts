@@ -2,6 +2,7 @@ import axios from "axios";
 import EmailType from "../../types/EmailType";
 import GoogleProfileType from "../../types/GoogleProfileType";
 import LoginType from "../../types/LoginType";
+import ProfileType from "../../types/ProfileType";
 import RegisterType from "../../types/RegisterType";
 import ResetPasswordType from "../../types/ResetPasswordType";
 import TokenType from "../../types/TokenType";
@@ -51,5 +52,15 @@ export async function logOut() {
 
 export async function whoAmI() {
 	const response = await api.get("/whoami");
+	return response.data;
+}
+
+export async function displaynameAvailable(name: ProfileType) {
+	const response = await api.post("/displayname-available", name);
+	return response.data;
+}
+
+export async function editProfile(newProfile: ProfileType) {
+	const response = await api.post("/edit-profile", newProfile);
 	return response.data;
 }

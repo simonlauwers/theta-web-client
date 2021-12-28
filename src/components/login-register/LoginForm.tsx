@@ -14,6 +14,7 @@ import ResponseMessageType from "../../types/ResponseMessageType";
 import { Link, useNavigate } from "react-router-dom";
 import { convertErrorMessageToFriendlyMessage } from "../../utils/Utils";
 import { GoogleLogin } from "react-google-login";
+import GoogleIcon from "@mui/icons-material/Google";
 
 const validationSchemaLogin = yup.object({
 	email: yup
@@ -140,6 +141,10 @@ const LoginForm = () => {
 							onSuccess={onSuccess}
 							onFailure={onFailure}
 							cookiePolicy={"single_host_origin"}
+							render={renderProps => (
+								<Button variant="contained" onClick={renderProps.onClick} sx={{ backgroundColor: "ghostwhite", color: "#141124", fontWeight: "bold", width: "100%" }} startIcon={<GoogleIcon />}>Log in with Google</Button>
+							)}
+
 						/>
 
 					</div>

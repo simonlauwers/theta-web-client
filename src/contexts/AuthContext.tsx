@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { createContext, useEffect } from "react";
 import UserType from "../types/UserType";
 import { useState, FC } from "react";
@@ -35,6 +36,7 @@ export const AuthProvider: FC = ({
 			console.log("whomai returned success!");
 			setUser(data);
 			setLoading(false);
+			localStorage.setItem("userId", data.userId);
 		}
 		if (!isLoading && isError) {
 			console.log("whoami returned an error");

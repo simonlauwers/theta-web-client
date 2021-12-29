@@ -17,7 +17,7 @@ interface GameInitializerProps {
 const GameInitializer = (gameInitializerProps: GameInitializerProps) => {
 	const { setMeta } = useGame();
 	const { setMap } = useMap();
-	const { setPhase } = usePhase();
+	const { setPhase, setLastUpdate } = usePhase();
 	const { setPlayers, setCurrentPlayer } = usePlayer();
 	const [ error, setError ] = useState<any>(null);
 
@@ -28,6 +28,7 @@ const GameInitializer = (gameInitializerProps: GameInitializerProps) => {
 			setMeta({ uuid: data.uuid, scenarioUuid: data.scenario.uuid });
 			setMap(data.scenario.map);
 			setPhase(data.gamePhase);
+			setLastUpdate(data.updateTimestamp);
 			setPlayers(data.players);
 			setCurrentPlayer(data.currentPlayer);
 			gameInitializerProps.setInitializing(false);

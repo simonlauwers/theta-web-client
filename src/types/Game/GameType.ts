@@ -1,3 +1,4 @@
+/* eslint-disable semi */
 import ScenarioType from "./ScenarioType";
 import PlayerType from "./PlayerType";
 
@@ -9,4 +10,5 @@ export default interface GameType {
 	currentPlayer: PlayerType;
 	scenario : ScenarioType;
 	gameCode : string;
+	updateTimestamp : string;
 };

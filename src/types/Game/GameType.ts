@@ -1,6 +1,7 @@
 /* eslint-disable semi */
 import ScenarioType from "./ScenarioType";
 import PlayerType from "./PlayerType";
+import DiceRollType from "./DiceRollType";
 
 export default interface GameType {
     uuid : string;
@@ -11,4 +12,5 @@ export default interface GameType {
 	scenario : ScenarioType;
 	gameCode : string;
 	updateTimestamp : string;
+	lastRoll : DiceRollType;
 };

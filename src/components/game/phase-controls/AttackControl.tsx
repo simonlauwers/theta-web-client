@@ -11,6 +11,7 @@ import ResponseMessageType from "../../../types/ResponseMessageType";
 import { useMutation } from "react-query";
 import { Slider } from "@mui/material";
 import * as gameUtils from "../../../utils/game/GameUtils";
+import useDice from "../../../hooks/context-hooks/game/UseDice";
 
 interface AttackControlProps {
     setGame : React.Dispatch<React.SetStateAction<GameType | null>>;
@@ -22,11 +23,15 @@ const AttackControl = (attackControlProps : AttackControlProps) => {
     const { currentPlayer } = usePlayer();
     const { selectedTerritory, outgoingSelectedTerritory, incomingSelectedTerritory, 
         setSelectedTerritory, setOutgoingSelectedTerritory, setIncomingSelectedTerritory } = useTerritory();
+    const { setAttackerRoll, setDefenderRoll, setShowingRoll } = useDice();
     const [ troops, setTroops] = useState<number>(1);
     const [ availableTroops, setAvailableTroops ] = useState<number>(1);
 
     const { mutate, isLoading } = useMutation(gameApi.attack, {
-		onSuccess: (data: GameType) => {
+		onSuccess: (data: GameType) => {           
+            setAttackerRoll(data.lastRoll.attackerResult);
+            setDefenderRoll(data.lastRoll.defenderResult);
+            setShowingRoll(true);
 			attackControlProps.setGame(data);
 		},
 		onError: (e: any) => {

@@ -29,7 +29,6 @@ const Controls = () => {
 			setLastUpdate(game.updateTimestamp);
 			setPlayers(game.players);
 			setCurrentPlayer(game.currentPlayer);
-			console.log(currentPlayer?.aiPlayer);
 		}
 	}, [game]);
 

@@ -8,6 +8,8 @@ import Controls from "./Controls";
 import PlayerList from "./PlayerList";
 import World from "./World";
 import { TerritoryProvider } from "../../contexts/game/TerritoryContext";
+import { DiceProvider } from "../../contexts/game/DiceContext";
+import Dice from "./Dice";
 
 const Game = () => {
 	const [initializing, setInitializing] = useState(true);
@@ -18,16 +20,19 @@ const Game = () => {
 				<PhaseProvider>
 					<PlayerProvider>
 						<TerritoryProvider>
+							<DiceProvider>
 							{
 								initializing ?
 									<GameInitializer setInitializing={setInitializing} />
 									:
 									<>
 										<World />
+										<Dice />
 										<PlayerList />
 										<Controls />
 									</>
 							}
+							</DiceProvider>
 						</TerritoryProvider>
 					</PlayerProvider>
 				</PhaseProvider>

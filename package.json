@@ -33,6 +33,7 @@
     "react-scripts": "4.0.3",
     "react-scrollbars-custom": "^4.0.27",
     "react-tsparticles": "^1.37.5",
+    "testing-library": "0.0.2",
     "three": "^0.135.0",
     "tsparticles-preset-fire": "^1.22.5",
     "tsparticles-preset-links": "^1.22.5",
@@ -71,6 +72,7 @@
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",
     "eslint": "^7.32.0",
-    "eslint-plugin-react": "^7.27.1"
+    "eslint-plugin-react": "^7.27.1",
+    "jest": "^27.4.5"
   }
 }

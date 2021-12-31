@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Button, Fade, Grid } from "@mui/material";
-import HomeProfileCard from "./HomeProfileCard";
+import ProfileCard from "./ProfileCard";
 import React from "react";
 import useAuth from "../../hooks/UseAuth";
 import { GameModeCard } from "./GameModeCard";
@@ -44,7 +44,7 @@ const Home = () => {
 							}} onClick={() => navigate("/stats")}>See all stats</Button>
 						</Grid>
 						<Grid item xs={12} md={6} style={{ color: "white", paddingTop: "13%" }}>
-							<HomeProfileCard {...user!} />
+							<ProfileCard {...user!} />
 						</Grid>
 					</Grid>
 				</Fade>
@@ -53,7 +53,7 @@ const Home = () => {
 					<Grid style={{ marginBottom: "5%", marginTop: "2.5%" }} container spacing={2} >
 
 						<Grid item xs={12} md={12} style={{ color: "white" }}>
-							<p style={{ fontSize: "2em" }}>Ready to conquer the world, {user?.displayName}?</p>
+							<p style={{ fontSize: "2em" }}>Ready to conquer the world?</p>
 						</Grid>
 
 						<Grid item xs={6} md={12} style={{ marginTop: "-1%", color: "white" }}>

@@ -14,13 +14,13 @@ const styling: React.CSSProperties = {
 	boxShadow: "0px 2px 10px black"
 };
 
-const HomeProfileCard = ({ displayName, profilePicture }: UserType) => {
+const ProfileCard = ({ displayName, profilePicture }: UserType) => {
 	return (
 		<Card style={styling}>
 			<Avatar sx={{ bgcolor: "grey", width: 200, height: 200, boxShadow: 5 }}><img src={profilePicture} onDragStart={(e) => { e.preventDefault(); }} /></Avatar>
-			<p style={{ color: "white", fontSize: "1.5em" }}>Welcome back, <strong>{displayName}-</strong></p>
+			<p style={{ color: "white", fontSize: "1.5em" }}>Welcome back, <strong>{displayName}</strong></p>
 		</Card>
 	);
 };
 
-export default HomeProfileCard;
+export default ProfileCard;

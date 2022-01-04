@@ -10,6 +10,7 @@ import MapMesh from "./MapMesh";
 import PropMesh from "./PropMesh";
 import TerritoryMesh from "./TerritoryMesh";
 
+
 interface ScenarioModelProps {
 	map: MapType;
 }

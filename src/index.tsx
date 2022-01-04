@@ -6,6 +6,7 @@ import { version } from "./../package.json";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthProvider } from "./contexts/AuthContext";
 import ThetaTheme from "./theme/ThetaTheme";
+import "./services/i18n";
 
 const queryGeneralClient = new QueryClient({
 	defaultOptions: {

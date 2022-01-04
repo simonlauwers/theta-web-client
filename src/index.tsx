@@ -20,14 +20,16 @@ const queryGeneralClient = new QueryClient({
 
 ReactDOM.render(
 	<React.StrictMode>
-		{console.log("Running Thèta webclient version " + version)}
-		<ThetaTheme>
-			<QueryClientProvider client={queryGeneralClient} contextSharing={true}>
-				<AuthProvider>
-					<App />
-				</AuthProvider>
-			</QueryClientProvider>
-		</ThetaTheme>
+		<React.Suspense fallback="Loading...">
+			{console.log("Running Thèta webclient version " + version)}
+			<ThetaTheme>
+				<QueryClientProvider client={queryGeneralClient} contextSharing={true}>
+					<AuthProvider>
+						<App />
+					</AuthProvider>
+				</QueryClientProvider>
+			</ThetaTheme>
+		</React.Suspense>
 	</React.StrictMode>,
 	document.getElementById("root")
 );

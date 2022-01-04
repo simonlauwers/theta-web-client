@@ -1,3 +1,8 @@
 {
-	"page_not_found": "Pagina niet gevonden"
+	"page_not_found": "Pagina niet gevonden",
+	"join": "JOIN",
+	"welcome_back":"Welcome back.",
+	"new_here":"New here?",
+	"join_the_squad":"Join the squad"
+
 }

@@ -143,6 +143,30 @@ const thetaTheme = createTheme({
 					borderRadius: 8
 				}
 			}
+		},
+		MuiSelect: {
+			styleOverrides: {
+				select: {
+					minWidth: 200,
+					background: "white",
+					color: "black",
+					fontWeight: 200,
+					borderStyle: "none",
+					borderWidth: 2,
+					borderRadius: 12,
+					paddingLeft: 10,
+					paddingTop: 10,
+					paddingBottom: 10,
+					"&:focus": {
+						borderRadius: 12,
+						background: "white",
+						borderStyle: "none",
+						borderColor: "white"
+					},
+
+				},
+			
+			}
 		}
 	}
 });

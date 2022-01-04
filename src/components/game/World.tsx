@@ -23,7 +23,7 @@ const World = () => {
           <TerritoryContext.Provider value={territoryContext}>
             <PhaseContext.Provider value={phaseContext}>
               <Suspense fallback={null}>
-                <ambientLight intensity={0.5} />
+                <ambientLight intensity={0} />
                 <spotLight position={[10, 100, 10]} angle={0.3} />
                 <PerspectiveCamera position={[0, 1, 0.3]} fov={100} makeDefault/>
                 <MapControls enableRotate={false} minDistance={0.3} maxDistance={1}/>

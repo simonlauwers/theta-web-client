@@ -8,6 +8,7 @@ interface DiceProps {
     result : number;
     attacker : boolean;
     offset : number;
+    winner : boolean;
 }
   
 interface Position {
@@ -31,9 +32,9 @@ function getOffset(offset : number, attacker : boolean) {
   const direction = attacker? -8 : 8;
 
   switch (offset) {
-    case 0 : return {x : direction + Math.random() - 0.5, y : 0, z : 0 + Math.random() - 0.5};
-    case 1 : return {x : direction + Math.random() - 0.5, y : 0, z : 2 + Math.random() - 0.5};
-    case 2 : return {x : direction + Math.random() - 0.5, y : 0, z : -2 + Math.random() - 0.5};
+    case 0 : return {x : direction + Math.random() - 0.5, y : 0, z : -1 + Math.random() - 0.5};
+    case 1 : return {x : direction + Math.random() - 0.5, y : 0, z : 1 + Math.random() - 0.5};
+    case 2 : return {x : direction + Math.random() - 0.5, y : 0, z : -3 + Math.random() - 0.5};
   }
 }
   
@@ -68,13 +69,19 @@ const DiceMesh = (diceProps : DiceProps) => {
       if (frame < 60) {
         mesh.current.rotation.z += diceProps.attacker ? -0.105 : 0.105;
         mesh.current.position.x += diceProps.attacker ? 0.1 : -0.1;
-  
+
         if (frame % 20 < 10) {
           mesh.current.rotation.y += 0.01;
         } else {
           mesh.current.rotation.y -= 0.01;
         }
-    }
+
+      } else if (diceProps.winner && frame > 60 && frame < 90) {
+        mesh.current.scale.x += 0.01;
+        mesh.current.scale.y += 0.01;
+        mesh.current.scale.z += 0.01;
+      }
+
     }
     setFrame(frame+1);
   });
@@ -86,7 +93,7 @@ const DiceMesh = (diceProps : DiceProps) => {
       visible={false}
     >
       <boxGeometry args={[1, 1, 1]} />
-      <meshToonMaterial color={diceProps.attacker? "red" : "blue"} />
+      <meshToonMaterial color={diceProps.attacker? "#E76F51" : "#2A9D8F"} />
       <DiceFace content={diceLayout![0]!} rotation={{x : Math.PI / 2, y : Math.PI / 1, z : Math.PI / 1}} position={{x : 0, y : 0.51, z : 0}}/>
       <DiceFace content={diceLayout![1]!} rotation={{x : Math.PI / 1, y : Math.PI / 2, z : Math.PI / 2}} position={{x : 0.51, y : 0, z : 0}}/>
       <DiceFace content={diceLayout![2]!} rotation={{x : Math.PI / 1, y : Math.PI / 1, z : Math.PI / 1}} position={{x : 0, y : 0, z : 0.51}}/>

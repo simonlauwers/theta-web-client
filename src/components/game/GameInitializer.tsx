@@ -9,6 +9,7 @@ import useGame from "../../hooks/context-hooks/game/UseGame";
 import useMap from "../../hooks/context-hooks/game/UseMap";
 import usePhase from "../../hooks/context-hooks/game/UsePhase";
 import usePlayer from "../../hooks/context-hooks/game/UsePlayer";
+import { LoadingScreen } from "../extra/LoadingScreen";
 
 interface GameInitializerProps {
 	setInitializing: React.Dispatch<React.SetStateAction<boolean>>;
@@ -23,7 +24,7 @@ const GameInitializer = (gameInitializerProps: GameInitializerProps) => {
 
 	const { gameUuid } = useParams<string>();
 
-	const { mutate, isLoading } = useMutation(gameApi.game, {
+	const { mutate } = useMutation(gameApi.game, {
 		onSuccess: (data: GameType) => {
 			setMeta({ uuid: data.uuid, scenarioUuid: data.scenario.uuid });
 			setMap(data.scenario.map);
@@ -44,14 +45,6 @@ const GameInitializer = (gameInitializerProps: GameInitializerProps) => {
 		mutate(gameUuid!);
 	}, []);
 
-	if (isLoading) {
-		return (
-			<div>
-				Loading
-			</div>
-		);
-	}
-
 	if (error !== null) {
 		return (
 			<div>
@@ -62,7 +55,7 @@ const GameInitializer = (gameInitializerProps: GameInitializerProps) => {
 
 	return (
 			<div>
-				Game loaded
+				<LoadingScreen/>
 			</div>
 	);
 };

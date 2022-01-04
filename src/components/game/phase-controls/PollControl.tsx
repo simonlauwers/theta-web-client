@@ -5,7 +5,6 @@ import React from "react";
 import useGame from "../../../hooks/context-hooks/game/UseGame";
 import * as gameApi from "../../../api/game/GameApi";
 import { useQuery } from "react-query";
-import { Typography } from "@mui/material";
 import GameType from "../../../types/Game/GameType";
 import usePhase from "../../../hooks/context-hooks/game/UsePhase";
 import ResponseMessageType from "../../../types/ResponseMessageType";
@@ -37,9 +36,7 @@ const PollControl = (pollControlProps : PollControlProps) => {
     );
 
     return (
-        <Typography>
-            It is currently not your turn.
-        </Typography>
+        <></>
     );
 };
 

@@ -8,7 +8,7 @@ import ResetPasswordType from "../../types/ResetPasswordType";
 import TokenType from "../../types/TokenType";
 
 const api = axios.create({
-	baseURL: process.env.REACT_APP_USER_API_BASE_URL,
+	baseURL: location.hostname === 'localhost' ? 'http://localhost:8081/' : '/api/user/',
 	withCredentials: true
 });
 

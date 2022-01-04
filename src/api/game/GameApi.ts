@@ -7,7 +7,7 @@ import FortifyType from "../../types/Game/FortifyType";
 import PollType from "../../types/Game/PollType";
 
 const api = axios.create({
-	baseURL: location.hostname === 'localhost' ? 'http://localhost:8080/' : '/api/game/',
+	baseURL: location.hostname === "localhost" ? "http://localhost:8080/" : "/api/game/",
 	withCredentials: false,
 	headers: {
 		"X-Authentication-Id" : localStorage.getItem("userId")!

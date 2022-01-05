@@ -9,12 +9,14 @@ import GameType from "../../../types/Game/GameType";
 import * as gameApi from "../../../api/game/GameApi";
 import ResponseMessageType from "../../../types/ResponseMessageType";
 import { useMutation } from "react-query";
-import { Slider } from "@mui/material";
+import { Button, Slider, Typography } from "@mui/material";
 import * as gameUtils from "../../../utils/game/GameUtils";
 
 interface FortifyControlProps {
     setGame : React.Dispatch<React.SetStateAction<GameType | null>>;
     setError : React.Dispatch<React.SetStateAction<ResponseMessageType | null>>;
+    setAllowAction : React.Dispatch<React.SetStateAction<boolean>>;
+    fireAction : boolean;
 }
 
 const FortifyControl = (fortifyControlProps : FortifyControlProps) => {
@@ -51,6 +53,12 @@ const FortifyControl = (fortifyControlProps : FortifyControlProps) => {
     };
 
     useEffect(() => {
+        if(fortifyControlProps.fireAction) {
+            fortify();
+        }
+    }, [fortifyControlProps.fireAction]);
+
+    useEffect(() => {
         if (selectedTerritory !== null) {
             if (selectedTerritory?.uuid === outgoingSelectedTerritory?.uuid) {
                 setOutgoingSelectedTerritory(null);
@@ -73,31 +81,58 @@ const FortifyControl = (fortifyControlProps : FortifyControlProps) => {
         }
     }, [selectedTerritory]); 
 
+    useEffect(() => {
+        if(outgoingSelectedTerritory !== null && incomingSelectedTerritory !== null) {
+            fortifyControlProps.setAllowAction(true);
+        } else {
+            fortifyControlProps.setAllowAction(false);
+        }
+    }, [outgoingSelectedTerritory, incomingSelectedTerritory]);
+
     if (isLoading) {
         return (
-            <div>
-                Fortifying
+            <div style={{display: "flex", width: "100%", alignItems:"center"}}>
+                <Typography color="ghostwhite" variant="h4">
+                    Fortifying
+                </Typography>
             </div>
         );
     }
 
     return (
-        <div>
-            {outgoingSelectedTerritory !== null && 
-            <div>
-                Outgoing Territory selected : {outgoingSelectedTerritory?.name} <br/>
-                {incomingSelectedTerritory !== null &&  
-                <>
-                    Incomming Territory selected : {incomingSelectedTerritory?.name} <br/>
-
-                    <Slider min={1} max={availableTroops} defaultValue={1} aria-label="Default" valueLabelDisplay="auto" 
-                    onChange={(e, val) => {setTroops(val as number);}}/>
-
-                    <button onClick={fortify}>Fortify</button>
-                </>
-                }
-            </div>}
-            <button onClick={skip}>Next Phase</button>
+        <div style={{width: "100%"}}>
+            {outgoingSelectedTerritory !== null ? 
+                <div style={{width: "100%"}}>
+                    {incomingSelectedTerritory !== null ?  
+                        <div style={{display: "flex", width: "100%", alignItems:"center"}}>
+                            <div style={{display: "flex", width: "25%", alignItems:"center", justifyContent:"center"}}>
+                                <Typography color="ghostwhite" variant="h4">
+                                    {troops}
+                                </Typography>
+                            </div>
+                            <div style={{display: "flex", width: "75%", marginLeft:"5%", marginRight:"5%", alignItems:"center"}}>
+                                <Slider min={1} max={availableTroops} defaultValue={1} aria-label="Default"
+                                onChange={(e, val) => {setTroops(val as number);}}/>
+                            </div>
+                        </div>
+                    :
+                    <div style={{display: "flex", width: "100%", alignItems:"center"}}>
+                        <Typography color="ghostwhite" variant="h4" sx={{width: "100%"}}>
+                            Fortifying from {outgoingSelectedTerritory.name}
+                        </Typography>
+                    </div>
+                    }
+                </div>
+            :
+            <div style={{display: "flex", width: "100%", alignItems:"center", flexWrap: "wrap"}}>
+                    <Typography color="ghostwhite" variant="h4" sx={{width: "100%"}}>
+                        Select a territory to fortify...
+                    </Typography>
+                    <Button variant="contained" onClick={skip} sx={{ backgroundColor: "ghostwhite", color: "#141124", fontWeight: "bold", width: "50%" }}>
+                        End turn
+                    </Button>
+                </div>
+            }
         </div>
     );
 };

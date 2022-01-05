@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography } from "@mui/material";
+import { Card, CardContent, Typography, useMediaQuery, Theme } from "@mui/material";
 import ScenarioType from "../../types/Game/ScenarioType";
 import React from "react";
 
@@ -46,11 +46,26 @@ const selectedScenarioCardStyling = {
 };
 
 const ScenarioCard = (props: ScenarioCardProps) => {
-	return (
-		<>
+	const mobileMediaQuery = useMediaQuery((theme: Theme) => theme.breakpoints.down("lg")); 
+
+	if (mobileMediaQuery) {
+		return (
 			<Card sx={props.selected ? selectedScenarioCardStyling : scenarioCardStyling}>
 				<CardContent>
-					<Typography style={{ fontSize: 30, fontWeight: 800 }}>
+					<Typography style={{ fontSize: 20, fontWeight: 800 }}>
+						{props.scenario.name}
+					</Typography>
+					<Typography style={{ fontSize: 16, fontWeight: 400 }}>
+						{props.scenario.description}
+					</Typography>
+				</CardContent>
+			</Card>
+		);
+	} else {
+		return (
+			<Card sx={props.selected ? selectedScenarioCardStyling : scenarioCardStyling}>
+				<CardContent>
+					<Typography style={{ fontSize: 27, fontWeight: 800 }}>
 						{props.scenario.name}
 					</Typography>
 					<Typography style={{ fontSize: 21, fontWeight: 400 }}>
@@ -58,9 +73,9 @@ const ScenarioCard = (props: ScenarioCardProps) => {
 					</Typography>
 				</CardContent>
 			</Card>
+		);
+	}
 
-		</>
-	);
 
 };
 

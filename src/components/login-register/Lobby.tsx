@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Button, Card, CardContent, Typography } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import * as gameApi from "../../api/game/GameApi";
-import useAuth from "../../hooks/UseAuth";
 import GameType from "../../types/Game/GameType";
 
 interface Player {
@@ -19,7 +18,7 @@ export const Lobby = () => {
     const navigate = useNavigate();
     const [players, setPlayers] = useState<Player[]>([]);
     const [lastUpdate, setLastUpdate] = useState<string>();
-    const { user } = useAuth();
+
     const { isLoading } = useQuery("getGame", () => gameApi.getGame(gameId!), {
         onSuccess: (data: GameType) => {
             console.log(data);

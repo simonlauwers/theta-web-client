@@ -64,15 +64,15 @@ const Controls = () => {
 						}
 					</div>
 				</div>
-				<div style={{width: "20%", height: "100%", 
+				<div style={{width: "50%", height: "100%", 
 				background: "linear-gradient(to left, rgba(20,17,36,0) 10%, rgba(20,17,36,1) 100%)", 
 				display: "flex", alignItems: "center"}}>
 					<div style={{display: "flex", alignItems: "center"}}>
 						<h1 onClick={() => {if(allowAction) {setFireAction(true);}}} style={{ 
 						fontSize: "10vh", 
-						margin: 0, color: "white", 
-						transition: "text-shadow 1s",
-						textShadow: allowAction ? "0px 0px 20px #2A9D8F" : "0px 0px 0px #2A9D8F",
+						margin: 0,
+						transition: "color 1s",
+						color: allowAction ? "#D23F57" : "white",
 						cursor: allowAction ? "pointer" : "default"
 						}}><b>{phase}</b></h1>
 					</div>

@@ -37,10 +37,15 @@ const TerritoryMesh = (territoryMeshProps : TerritoryMeshProps) => {
 	useFrame(() => {
 		const direction = selected ? 0.004 : -0.004;
 
+		if(frame === 0) {
+			mesh.current.position.y = selected ? 0 : 0.02;
+		}
+
 		if(frame < 5) {
 			mesh.current.position.y += direction;
 		}
 
+		
 		setFrame(frame+1);
 	});
 
@@ -80,6 +85,8 @@ const TerritoryMesh = (territoryMeshProps : TerritoryMeshProps) => {
 				color="black"
 				anchorX="center"
 				anchorY="middle"
+				outlineColor={parsePlayerColor(player.playerColor)?.main}
+				outlineWidth={0.01}
 				rotation={[Math.PI / 2, Math.PI / 1, Math.PI / 1]}
 				position={[0, 0.03, 0]}
 			>

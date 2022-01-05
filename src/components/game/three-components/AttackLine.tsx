@@ -43,7 +43,7 @@ const AttackLine = (attackLineProps : AttackLineProps) => {
             attackLineProps.end.y + 0.1,
             ((attackLineProps.start.z - attackLineProps.end.z) / 2) + attackLineProps.end.z
         ]}
-        color="#F44336"
+        color="#000000"
         linewidth={3}
         dashOffset={dashOffset}
         dashed

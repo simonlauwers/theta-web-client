@@ -6,8 +6,8 @@ const PlayerList = () => {
 	const { players, currentPlayer } = usePlayer();
 
 	return (
-		<div style={{position:"absolute", right: 0, top: 0, padding: "2rem"}}>
-			{players.map((player) => (
+		<div style={{position:"absolute", right: 0, top: "10vh"}}>
+			{players.sort().map((player) => (
 				<PlayerCard key={player.uuid} player={player} current={player.uuid === currentPlayer?.uuid} />
 			))}
 		</div>

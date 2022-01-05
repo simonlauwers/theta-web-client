@@ -2,37 +2,39 @@
 import React, { useState, useEffect } from "react";
 import { Button, Grid, Typography, CircularProgress } from "@mui/material";
 import ScenarioCard from "./ScenarioCard";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import * as gameApi from "../../api/game/GameApi";
 import ScenarioType from "../../types/Game/ScenarioType";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Scrollbars from "react-custom-scrollbars-2";
 import { success } from "../../theme/colors";
 import { LoadingScreen } from "../extra/LoadingScreen";
 import ScenarioPreviewCarousel from "./ScenarioPreviewCarousel";
+import useAuth from "../../hooks/UseAuth";
+import CreateGameType from "../../types/CreateGameType";
+import GameType from "../../types/Game/GameType";
 
 
 
 const ScenarioSelection = () => {
-	/*
-	* A map that consists of an index (K) and a scenario (V)
-	* Used for the carousel
-	*/
+	const { gameMode } = useParams<string>();
+	const { user } = useAuth();
+	console.log(user);
 	const [scenarioPerIndex] = useState<Map<number, ScenarioType>>(new Map<number, ScenarioType>());
-	/*
-	* Index of the current scenario (based on the ScenarioPerIndex map)
-	* Used for the carousel
-	*/
 	const [currentScenarioIndex, setCurrentScenarioIndex] = useState<number>(0);
 	const [scenarioSelected, setScenarioSelected] = useState<ScenarioType | null>(null);
-	/*
-	* Automatic refetching when the query mounts is set to false to prevent automatic/unnecessary creation of game when mounting
-	* createGame is used to refetch the query 
-	*/
-	const { data: createdGame, refetch: createGame, isLoading: createGameIsLoading, isFetchedAfterMount } = useQuery("createGame", () => gameApi.createGame(scenarioSelected!.uuid), {
-		refetchOnWindowFocus: false,
-		enabled: false
+
+
+
+	const { mutate: createGame } = useMutation(gameApi.createGame, {
+		onSuccess: (createdGame: GameType) => {
+			navigate(`/${createdGame.uuid}/lobby`);
+		},
+		onError: () => {
+			//handle error
+		}
 	});
+
 	const { data: scenarios, isLoading } = useQuery("scenarios", () => gameApi.getAllScenarios());
 	const navigate = useNavigate();
 
@@ -46,14 +48,13 @@ const ScenarioSelection = () => {
 	};
 
 	const handleStartGame = async () => {
-		createGame();
+		const body = {
+			scenarioId: scenarioSelected!.uuid,
+			gameMode: gameMode!.toUpperCase(),
+			name: user!.displayName
+		} as CreateGameType;
+		createGame(body);
 	};
-
-	useEffect(() => {
-		if (!createGameIsLoading && createdGame !== undefined && isFetchedAfterMount) {
-			navigate(`/${createdGame.uuid}/lobby`);
-		}
-	}, [createGameIsLoading, createdGame]);
 
 	useEffect(() => {
 		if (scenarios != undefined) {
@@ -62,6 +63,8 @@ const ScenarioSelection = () => {
 			});
 		}
 	}, [scenarios, isLoading]);
+
+
 
 	if (isLoading) {
 		return (
@@ -87,14 +90,14 @@ const ScenarioSelection = () => {
 									<div key={scenario.uuid} onClick={() => toggleScenarioSelected(scenario)}>
 										<ScenarioCard key={scenario.uuid} scenario={scenario} selected={scenario === scenarioSelected} />
 									</div>
-								) :  <CircularProgress/>}
+								) : <CircularProgress />}
 							</div>
 						</Scrollbars>
 
 					</Grid>
 					<Grid item xs={12} md={6} style={{ paddingLeft: 25, paddingRight: 25, marginTop: "1%" }}>
 						{scenarios != undefined ? <ScenarioPreviewCarousel scenarioPerIndex={scenarioPerIndex} currentSlide={currentScenarioIndex} callbackSelectScenario={toggleScenarioSelected} scenarios={scenarios} />
-							: <CircularProgress/>}
+							: <CircularProgress />}
 						<Button sx={{ minWidth: "100%", fontWeight: 700, color: "white", backgroundColor: success[400], fontSize: 30, marginTop: 5 }} disabled={scenarioSelected === null} variant="contained" onClick={() => handleStartGame()}>Start game</Button>
 
 					</Grid>

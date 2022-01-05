@@ -15,7 +15,6 @@ interface Player {
 };
 
 export const Lobby = () => {
-    console.log("lobby rerender");
     const { gameId } = useParams();
     const [players, setPlayers] = useState<Player[]>([]);
     const { user } = useAuth();

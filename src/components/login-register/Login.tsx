@@ -11,7 +11,7 @@ const Login = () => {
 	const { t } = useTranslation();
 
 	return (
-		<Grid item xs={12} md={6} lg={6} style={{ backgroundColor: backgroundColor.main, height: "100vh" }}>
+		<Grid item xs={12} md={12} lg={6} style={{ backgroundColor: backgroundColor.main, height: "100vh" }}>
 			<Breadcrumbs style={{ marginLeft: "2em", marginTop: "1em", color: "ghostwhite" }}>
 				<Typography color="ghostwhite"><b>LOGIN</b></Typography>
 				<Link to="/signup">{t("join")}</Link>

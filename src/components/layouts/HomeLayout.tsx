@@ -2,14 +2,15 @@ import HomeLayoutDrawer from "./HomeLayoutDrawer";
 import Particles from "react-tsparticles";
 import React from "react";
 import { Outlet } from "react-router-dom";
+import { backgroundColor } from "../../theme/colors";
 
 const HomeLayout = () => {
-	console.log("rendering homelayout.tsx");
 	return (
-		<div style={{ backgroundImage: "url(\"/media/photos/game-visuals/FireTemple.png\")", minHeight: "100vh" }}>
+		<div style={{ minHeight: "100vh", backgroundColor: backgroundColor.main }}>
 			<HomeLayoutDrawer>
 				<Outlet />
 			</HomeLayoutDrawer>
+			
 			<div
 				style={{
 					position: "absolute",
@@ -28,83 +29,48 @@ const HomeLayout = () => {
 					height: 10,
 					background: "linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%)"
 				}} />
-			<Particles options={{
-				background: {
-					color: {
-						value: "",
+
+			<div style={{ zIndex: -100 }}>
+				<Particles options={{
+					background: {
+						image: "linear-gradient(rgba(68, 2, 4, 0.25), rgba(0, 0, 0, 0.10))",
 					},
-				},
-				fpsLimit: 60,
-				interactivity: {
-					events: {
-						onClick: {
-							enable: false,
+					fpsLimit: 40,
+					interactivity: {
+						events: {
+							resize: true,
 						},
-						onHover: {
+					},
+					particles: {
+						number: {
+							value: 80,
+							density: {
+								enable: true,
+								area: 800,
+							},
+						},
+						color: {
+							value: ["#fdcf58", "#757676", "#f27d0c", "#800909", "#f07f13"],
+						},
+						opacity: {
+							value: 0.5,
+							random: true,
+						},
+						size: {
+							value: 3,
+							random: true,
+						},
+						move: {
 							enable: true,
-							mode: "bubble",
-						},
-						resize: true,
-					},
-					modes: {
-						bubble: {
-							distance: 250,
-							duration: 8,
-							opacity: 0.8,
-							size: 6,
-						},
-						push: {
-							quantity: 4,
-						},
-						repulse: {
-							distance: 40,
-							duration: 5,
+							speed: 1,
+							random: false,
 						},
 					},
-				},
-				particles: {
-					color: {
-						value: "#ffffff",
-					},
-					links: {
-						color: "#ffffff",
-						distance: 150,
-						enable: true,
-						opacity: 0.5,
-						width: 2,
-					},
-					collisions: {
-						enable: false,
-					},
-					move: {
-						direction: "none",
-						enable: true,
-						outMode: "bounce",
-						random: false,
-						speed: 1,
-						straight: false,
-					},
-					number: {
-						density: {
-							enable: true,
-							value_area: 800,
-						},
-						value: 60,
-					},
-					opacity: {
-						value: 0.1,
-					},
-					shape: {
-						type: "circle",
-					},
-					size: {
-						random: true,
-						value: 5,
-					},
-				},
-				detectRetina: true,
-			}}
-			/>
+					detectRetina: true,
+				}}
+				/>
+
+			</div>
 
 
 		</div>

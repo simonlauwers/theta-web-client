@@ -3,3 +3,7 @@
 	src: url(./fonts/Request.ttf);
 }
 
+@font-face {
+	font-family: "bebas-neue";
+	src: url("./fonts/BebasNeue.ttf");
+}

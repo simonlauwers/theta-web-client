@@ -1,10 +1,7 @@
 import "pure-react-carousel/dist/react-carousel.es.css";
-import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from "pure-react-carousel";
-import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
-import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+import { CarouselProvider, Slider, Slide } from "pure-react-carousel";
 import React, { useEffect, useState } from "react";
 import ScenarioType from "../../types/Game/ScenarioType";
-import { Typography } from "@mui/material";
 import ScenarioPreviewCard from "./ScenarioPreviewCard";
 
 interface ScenarioPreviewCarouselProps {
@@ -17,7 +14,7 @@ interface ScenarioPreviewCarouselProps {
 
 
 const ScenarioPreviewCarousel = (props: ScenarioPreviewCarouselProps) => {
-	const [indexInCarousel, setIndexInCarousel] = useState<number>(0);
+	const [indexInCarousel] = useState<number>(0);
 
 	useEffect(() => {
 		props.scenarios.map((scenario, ind) => {
@@ -32,15 +29,6 @@ const ScenarioPreviewCarousel = (props: ScenarioPreviewCarouselProps) => {
 	}, [indexInCarousel]);
 
 
-	const handleOnClickBack = () => {
-		indexInCarousel - 1 < 0 ? setIndexInCarousel(props.scenarios.length - 1) : setIndexInCarousel(indexInCarousel - 1);
-	};
-
-	const handleOnClickNext = () => {
-		indexInCarousel + 1 > props.scenarios.length - 1 ? setIndexInCarousel(0) : setIndexInCarousel(indexInCarousel + 1);
-	};
-
-
 	return (
 		<CarouselProvider
 			naturalSlideWidth={10}
@@ -50,17 +38,11 @@ const ScenarioPreviewCarousel = (props: ScenarioPreviewCarouselProps) => {
 			currentSlide={props.currentSlide ? props.currentSlide : 0}
 			dragEnabled={false}
 		>
+
 			<Slider>
 				{props.scenarios.map((scenario, ind) => <Slide key={ind} index={ind}><ScenarioPreviewCard key={ind} scenario={scenario}></ScenarioPreviewCard></Slide>)}
 			</Slider>
 
-			<div style={{ marginTop: 20 }}>
-				<Typography style={{ color: "white", fontWeight: 600, fontSize: 18 }} onDragStart={(e) => { e.preventDefault(); }}>
-					{"Scenario " + (indexInCarousel + 1) + " of " + props.scenarioPerIndex.size}
-				</Typography>
-				<ButtonBack onClick={() => handleOnClickBack()} style={{ color: "#6C676B" }}><ArrowCircleLeftIcon fontSize="large" /></ButtonBack>
-				<ButtonNext onClick={() => handleOnClickNext()} style={{ color: "#6C676B" }}><ArrowCircleRightIcon fontSize="large" /></ButtonNext>
-			</div>
 		</CarouselProvider >
 	);
 };

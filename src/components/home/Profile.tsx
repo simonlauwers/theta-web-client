@@ -19,9 +19,9 @@ export const Profile = () => {
 
     const { mutate: changeProfile } = useMutation(userApi.editProfile, {
         onSuccess: (data: UserType) => {
-            console.log(data);
             handleClose();
             setDisplayName(data.displayName);
+			window.location.reload();
         }, onError: () => {
             setError("Someting went wrong. Try again later..");
         }
@@ -34,7 +34,7 @@ export const Profile = () => {
             }
         },
         onError: () => {
-            setError("this displayname is already in use");
+            setError("This displayname is already in use");
         }
     });
 
@@ -59,7 +59,7 @@ export const Profile = () => {
 
     return (
         <div>
-            <h1 style={{ color: "white" }} >Profile and add friends go here</h1>
+            <h1 style={{ color: "white" }} >Your profile</h1>
             <ProfileCard {...user!} />
             <Button endIcon={<EditIcon />} variant="contained" onClick={() => handleOpen()}>Edit profile</Button>
             <Dialog
@@ -75,8 +75,8 @@ export const Profile = () => {
                     <TextField margin="normal" error={error !== ""} label="displayName" type="text" fullWidth name="displayName" value={displayName} onChange={(e) => displayNameChanged(e)} helperText={error} />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Close</Button>
-                    <Button disabled={error != ""} onClick={() => checkDisplayNameAvailability(displayName!)}>Changes</Button>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button disabled={error != ""} onClick={() => checkDisplayNameAvailability(displayName!)}>Save</Button>
                 </DialogActions>
             </Dialog>
         </div >

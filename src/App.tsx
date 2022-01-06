@@ -59,6 +59,7 @@ function App() {
 					</Router>
 				</SettingsProvider>
 			</AuthProvider>
+
 		</>
 	);
 }

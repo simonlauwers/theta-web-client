@@ -17,11 +17,12 @@ import { NotFoundScreen } from "./components/extra/NotFoundScreen";
 import { AuthProvider } from "./contexts/AuthContext";
 import { Stats } from "./components/home/Stats";
 import { Profile } from "./components/home/Profile";
-import { Settings } from "./components/home/Settings";
 import Home from "./components/home/Home";
 import ResetPasswordEmail from "./components/login-register/ResetPasswordEmail";
 import ScenarioSelection from "./components/scenario-selection/ScenarioSelection";
 import { Lobby } from "./components/login-register/Lobby";
+import { SettingsProvider } from "./contexts/SettingsContext";
+import { Settings } from "./components/settings/Settings";
 
 
 function App() {
@@ -40,19 +41,19 @@ function App() {
 								<Route path="/:gameMode/scenarios" element={<ScenarioSelection />} />
 								<Route path="/:gameId/lobby" element={<Lobby />} />
 							</Route>
-						</Route>
 
-						<Route element={<AuthLayout />}>
-							<Route path="/login" element={<Login />} />
-							<Route path="/signup" element={<Register />} />
-							<Route path="/:token/confirm" element={<Confirm />} />
-							<Route path="/reset-password-email" element={<ResetPasswordEmail />} />
-							<Route path="/:token/reset" element={<NewPassword />} />
-						</Route>
-						<Route path="/game/:gameUuid" element={<Game />} />
-						<Route path="*" element={<NotFoundScreen />} />
-					</Routes>
-				</Router>
+							<Route element={<AuthLayout />}>
+								<Route path="/login" element={<Login />} />
+								<Route path="/signup" element={<Register />} />
+								<Route path="/:token/confirm" element={<Confirm />} />
+								<Route path="/reset-password-email" element={<ResetPasswordEmail />} />
+								<Route path="/:token/reset" element={<NewPassword />} />
+							</Route>
+							<Route path="/game/:gameUuid" element={<Game />} />
+							<Route path="*" element={<NotFoundScreen />} />
+						</Routes>
+					</Router>
+				</SettingsProvider>
 			</AuthProvider>
 		</>
 	);

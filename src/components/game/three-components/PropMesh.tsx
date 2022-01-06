@@ -12,6 +12,7 @@ const PropMesh = (propMeshProps : PropMeshProps) => {
 	return (
 		<mesh geometry={propMeshProps.mesh.geometry}
 			position={propMeshProps.mesh.position}
+			scale={propMeshProps.mesh.scale}
 		>
 			<meshToonMaterial color={material.color}/>
 		</mesh>

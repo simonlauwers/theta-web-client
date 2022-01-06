@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import useAuth from "../hooks/UseAuth";
+import useAuth from "../hooks/context-hooks/UseAuth";
 import { Navigate, Outlet } from "react-router-dom";
 import { LoadingScreen } from "../components/extra/LoadingScreen";
 

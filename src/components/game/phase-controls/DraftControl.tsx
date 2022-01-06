@@ -17,6 +17,7 @@ interface DraftControlProps {
     setError : React.Dispatch<React.SetStateAction<ResponseMessageType | null>>;
     setAllowAction : React.Dispatch<React.SetStateAction<boolean>>;
     fireAction : boolean;
+    next: boolean;
 }
 
 const DraftControl = (draftControlProps : DraftControlProps) => {
@@ -42,11 +43,23 @@ const DraftControl = (draftControlProps : DraftControlProps) => {
         setOutgoingSelectedTerritory(null);
     };
 
+    const skip = () => {
+        mutate({gameId: meta?.uuid!, territoryId: currentPlayer!.playerTerritories[0].territory.uuid, troops: currentPlayer!.troops});
+        setTroops(1);
+        setOutgoingSelectedTerritory(null);
+    };
+
     useEffect(() => {
         if(draftControlProps.fireAction) {
             draft();
         }
     }, [draftControlProps.fireAction]);
+
+    useEffect(() => {
+        if(draftControlProps.next && !isLoading) {
+            skip();
+        }
+    }, [draftControlProps.next, isLoading]);
 
     useEffect(() => {
         if (selectedTerritory !== null) {

@@ -16,7 +16,7 @@ interface GameInitializerProps {
 }
 
 const GameInitializer = (gameInitializerProps: GameInitializerProps) => {
-	const { setMeta } = useGame();
+	const { setMeta, setCreator, setMaxTime } = useGame();
 	const { setMap } = useMap();
 	const { setPhase, setLastUpdate } = usePhase();
 	const { setPlayers, setCurrentPlayer } = usePlayer();
@@ -27,6 +27,8 @@ const GameInitializer = (gameInitializerProps: GameInitializerProps) => {
 	const { mutate } = useMutation(gameApi.game, {
 		onSuccess: (data: GameType) => {
 			setMeta({ uuid: data.uuid, scenarioUuid: data.scenario.uuid });
+			setCreator(data.creator.uuid);
+			setMaxTime(data.maxTime);
 			setMap(data.scenario.map);
 			setPhase(data.gamePhase);
 			setLastUpdate(data.updateTimestamp);

@@ -17,6 +17,7 @@ interface FortifyControlProps {
     setError : React.Dispatch<React.SetStateAction<ResponseMessageType | null>>;
     setAllowAction : React.Dispatch<React.SetStateAction<boolean>>;
     fireAction : boolean;
+    next: boolean;
 }
 
 const FortifyControl = (fortifyControlProps : FortifyControlProps) => {
@@ -57,6 +58,12 @@ const FortifyControl = (fortifyControlProps : FortifyControlProps) => {
             fortify();
         }
     }, [fortifyControlProps.fireAction]);
+
+    useEffect(() => {
+        if(fortifyControlProps.next && !isLoading) {
+            skip();
+        }
+    }, [fortifyControlProps.next, isLoading]);
 
     useEffect(() => {
         if (selectedTerritory !== null) {

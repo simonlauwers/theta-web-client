@@ -10,6 +10,9 @@ import World from "./World";
 import { TerritoryProvider } from "../../contexts/game/TerritoryContext";
 import { DiceProvider } from "../../contexts/game/DiceContext";
 import Dice from "./Dice";
+import { ErrorProvider } from "../../contexts/game/ErrorContext";
+import Options from "./Options";
+import ErrorHandler from "./ErrorHandler";
 
 const Game = () => {
 	const [initializing, setInitializing] = useState(true);
@@ -21,17 +24,21 @@ const Game = () => {
 					<PlayerProvider>
 						<TerritoryProvider>
 							<DiceProvider>
-							{
-								initializing ?
-									<GameInitializer setInitializing={setInitializing} />
-									:
-									<>
-										<World />
-										<Dice />
-										<PlayerList />
-										<Controls />
-									</>
-							}
+								<ErrorProvider>
+								{
+									initializing ?
+										<GameInitializer setInitializing={setInitializing} />
+										:
+										<>
+											<World />
+											<Dice />
+											<PlayerList />
+											<Controls />
+											<Options/>
+											<ErrorHandler/>
+										</>
+								}
+								</ErrorProvider>	
 							</DiceProvider>
 						</TerritoryProvider>
 					</PlayerProvider>

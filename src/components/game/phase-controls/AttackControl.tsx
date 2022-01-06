@@ -9,13 +9,15 @@ import GameType from "../../../types/Game/GameType";
 import * as gameApi from "../../../api/game/GameApi";
 import ResponseMessageType from "../../../types/ResponseMessageType";
 import { useMutation } from "react-query";
-import { Slider } from "@mui/material";
+import { Button, Slider, Typography } from "@mui/material";
 import * as gameUtils from "../../../utils/game/GameUtils";
 import useDice from "../../../hooks/context-hooks/game/UseDice";
 
 interface AttackControlProps {
     setGame : React.Dispatch<React.SetStateAction<GameType | null>>;
     setError : React.Dispatch<React.SetStateAction<ResponseMessageType | null>>;
+    setAllowAction : React.Dispatch<React.SetStateAction<boolean>>;
+    fireAction : boolean;
 }
 
 const AttackControl = (attackControlProps : AttackControlProps) => {
@@ -26,18 +28,28 @@ const AttackControl = (attackControlProps : AttackControlProps) => {
     const { setAttackerRoll, setDefenderRoll, setShowingRoll } = useDice();
     const [ troops, setTroops] = useState<number>(1);
     const [ availableTroops, setAvailableTroops ] = useState<number>(1);
+    const [ isLoading, setIsloading] = useState(false);
 
-    const { mutate, isLoading } = useMutation(gameApi.attack, {
-		onSuccess: (data: GameType) => {           
+    const { mutate } = useMutation(gameApi.attack, {
+		onSuccess: (data: GameType) => {        
             setAttackerRoll(data.lastRoll.attackerResult);
             setDefenderRoll(data.lastRoll.defenderResult);
-            setShowingRoll(true);
-			attackControlProps.setGame(data);
+            if(data.gamePhase === "ATTACK") {
+                setShowingRoll(true);
+                setTimeout(() => {
+                    attackControlProps.setGame(data);
+                    setIsloading(false);
+                }, 2500);
+            } else {
+                attackControlProps.setGame(data);
+                setIsloading(false);
+            }
 		},
 		onError: (e: any) => {
 			const rmt = e.response.data as ResponseMessageType;
 			console.log(rmt);
 			attackControlProps.setError(rmt);
+            setIsloading(false);
 		}
 	});
 
@@ -46,6 +58,8 @@ const AttackControl = (attackControlProps : AttackControlProps) => {
             defenderTerritoryId: incomingSelectedTerritory?.uuid!, troops});
             setOutgoingSelectedTerritory(null);
             setIncomingSelectedTerritory(null);
+            setTroops(1);
+            setIsloading(true);
     };
 
     const skip = () => {
@@ -53,7 +67,14 @@ const AttackControl = (attackControlProps : AttackControlProps) => {
             defenderTerritoryId: "", troops: 0});
             setOutgoingSelectedTerritory(null);
             setIncomingSelectedTerritory(null);
+            setIsloading(true);
     };
+
+    useEffect(() => {
+        if(attackControlProps.fireAction) {
+            attack();
+        }
+    }, [attackControlProps.fireAction]);
 
     useEffect(() => {
         if (selectedTerritory !== null) {
@@ -79,31 +100,60 @@ const AttackControl = (attackControlProps : AttackControlProps) => {
         }
     }, [selectedTerritory]); 
 
+
+
+    useEffect(() => {
+        if(outgoingSelectedTerritory !== null && incomingSelectedTerritory !== null) {
+            attackControlProps.setAllowAction(true);
+        } else {
+            attackControlProps.setAllowAction(false);
+        }
+    }, [outgoingSelectedTerritory, incomingSelectedTerritory]);
+
     if (isLoading) {
         return (
-            <div>
-                Attacking
+            <div style={{display: "flex", width: "100%", alignItems:"center"}}>
+                <Typography color="ghostwhite" variant="h4">
+                    Attacking
+                </Typography>
             </div>
         );
     }
 
     return (
-        <div>
-            {outgoingSelectedTerritory !== null && 
-            <div>
-                Player Territory selected : {outgoingSelectedTerritory?.name} <br/>
-                {incomingSelectedTerritory !== null &&  
-                <>
-                    Enemy Territory selected : {incomingSelectedTerritory?.name} <br/>
-
-                    <Slider min={1} max={availableTroops > 3 ? 3 : availableTroops} defaultValue={1} aria-label="Default" valueLabelDisplay="auto" 
-                    onChange={(e, val) => {setTroops(val as number);}}/>
-
-                    <button onClick={attack}>Attack</button>
-                </>
-                }
-            </div>}
-            <button onClick={skip}>Next Phase</button>
+        <div style={{width: "100%"}}>
+            {outgoingSelectedTerritory !== null ? 
+                <div style={{width: "100%"}}>
+                    {incomingSelectedTerritory !== null ?  
+                        <div style={{display: "flex", width: "100%", alignItems:"center"}}>
+                            <div style={{display: "flex", width: "25%", alignItems:"center", justifyContent:"center"}}>
+                                <Typography color="ghostwhite" variant="h4">
+                                    {troops}
+                                </Typography>
+                            </div>
+                            <div style={{display: "flex", width: "75%", marginLeft:"5%", marginRight:"5%", alignItems:"center"}}>
+                                <Slider min={1} max={availableTroops > 3 ? 3 : availableTroops} defaultValue={1} aria-label="Default"
+                                onChange={(e, val) => {setTroops(val as number);}}/>
+                            </div>
+                        </div>
+                    :
+                    <div style={{display: "flex", width: "100%", alignItems:"center"}}>
+                        <Typography color="ghostwhite" variant="h4" sx={{width: "100%"}}>
+                            Attacking from {outgoingSelectedTerritory.name}
+                        </Typography>
+                    </div>
+                    }
+                </div>
+            :
+            <div style={{display: "flex", width: "100%", alignItems:"center", flexWrap: "wrap"}}>
+                    <Typography color="ghostwhite" variant="h4" sx={{width: "100%"}}>
+                        Select a territory to attack...
+                    </Typography>
+                    <Button variant="contained" onClick={skip} sx={{ backgroundColor: "ghostwhite", color: "#141124", fontWeight: "bold", width: "50%" }}>
+                        Next phase
+                    </Button>
+                </div>
+            }
         </div>
 
         

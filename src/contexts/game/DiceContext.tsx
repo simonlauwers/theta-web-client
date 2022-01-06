@@ -27,7 +27,7 @@ export const DiceProvider: FC = ({children}) => {
 
     useEffect(() => {
         if(showingRoll) {
-            setTimeout(() => {setShowingRoll(false);}, 2000);
+            setTimeout(() => {setShowingRoll(false);}, 2500);
         }
     }, [showingRoll]);
 

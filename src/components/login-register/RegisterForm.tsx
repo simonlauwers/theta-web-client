@@ -6,7 +6,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useFormik } from "formik";
 import PasswordStrengthBar from "react-password-strength-bar";
 import * as yup from "yup";
-import useAuth from "../../hooks/UseAuth";
+import useAuth from "../../hooks/context-hooks/UseAuth";
 import * as userApi from "../../api/user/UserApi";
 import { useMutation, useQueryClient } from "react-query";
 import ResponseMessageType from "../../types/ResponseMessageType";

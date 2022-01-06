@@ -33,7 +33,7 @@ const ScenarioModel = (scenarioModelProps: ScenarioModelProps) => {
 	const territoryMeshes = extractMeshes(nodes, "T", metaData.territories);
 
 	return (
-		<group ref={group} dispose={null}>
+		<group ref={group} dispose={null} position={[-1.5, 0, 0.5]}>
 			{
 				propMeshes.map((propMesh) => (
 					<PropMesh key={propMesh.name} mesh={propMesh as Mesh} />

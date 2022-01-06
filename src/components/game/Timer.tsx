@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import useGame from "../../hooks/context-hooks/game/UseGame";
 import usePhase from "../../hooks/context-hooks/game/UsePhase";
 import usePlayer from "../../hooks/context-hooks/game/UsePlayer";
-import useAuth from "../../hooks/UseAuth";
+import useAuth from "../../hooks/context-hooks/UseAuth";
 
 interface TimerProps {
     next: boolean;

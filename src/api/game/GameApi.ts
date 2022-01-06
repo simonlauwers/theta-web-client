@@ -6,6 +6,7 @@ import DraftType from "../../types/Game/DraftType";
 import FortifyType from "../../types/Game/FortifyType";
 import PollType from "../../types/Game/PollType";
 import CreateGameType from "../../types/CreateGameType";
+import AiType from "../../types/Game/AiType";
 
 const api = axios.create({
 	baseURL: location.hostname === "localhost" ? "http://localhost:8080/" : "/api/game/",

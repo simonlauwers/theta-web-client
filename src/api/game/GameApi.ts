@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import NewPlayerType from "../../types/NewPlayerType";
 import AttackType from "../../types/Game/AttackType";
 import DraftType from "../../types/Game/DraftType";
 import FortifyType from "../../types/Game/FortifyType";
 import PollType from "../../types/Game/PollType";
+import AiType from "../../types/Game/AiType";
 
 const api = axios.create({
 	baseURL: location.hostname === "localhost" ? "http://localhost:8080/" : "/api/game/",
@@ -61,7 +62,23 @@ export async function fortify(fortifyValues: FortifyType) {
 }
 
 export async function initializeGame(gameId: string) {
-	console.log(gameId);
 	const response = await api.patch("game/games/" + gameId + "/initialize");
+	return response.data;
+}
+
+export async function callAi(aiProps : AiType) {
+	let response : AxiosResponse<any, any>;
+	if(aiProps.phase === "DRAFT") {
+		response = await api.patch("game/ai/draft/" + aiProps.uuid);
+	} else if (aiProps.phase === "ATTACK") {
+		response = await api.patch("game/ai/attack/" + aiProps.uuid);
+	} else {
+		response = await api.patch("game/ai/fortify/" + aiProps.uuid);
+	}
+	return response.data;
+}
+
+export async function leaveGame(gameId: string) {
+	const response = await api.delete("game/games/" + gameId + "/leave");
 	return response.data;
 }

@@ -21,14 +21,18 @@ const PollControl = (pollControlProps : PollControlProps) => {
     useQuery(
         "pollGame",
         async () => {
-          const data = await gameApi.pollGame({uuid: meta!.uuid, lastUpdate : lastUpdate});
-          if (data.status === 202) {
-              pollControlProps.setGame(data.data);
-          } else if (data.status !== 204) {
-              const rmt = data.data as ResponseMessageType;
-              console.log(rmt);
-              pollControlProps.setError(rmt);
-          }
+            try {
+                const data = await gameApi.pollGame({uuid: meta!.uuid, lastUpdate : lastUpdate});
+                if (data.status === 202) {
+                    pollControlProps.setGame(data.data);
+                }
+            } catch (error) {
+                const data = error as any;
+                const rmt = data.response.data as ResponseMessageType;
+                console.log(rmt);
+                pollControlProps.setError(rmt);
+            }
+
         },
         {
           refetchInterval: 1000,

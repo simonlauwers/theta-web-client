@@ -2,7 +2,7 @@
 
 import { Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions } from "@mui/material";
 import React, { useState } from "react";
-import useAuth from "../../hooks/UseAuth";
+import useAuth from "../../hooks/context-hooks/UseAuth";
 import ProfileCard from "./ProfileCard";
 import EditIcon from "@mui/icons-material/Edit";
 import { useMutation } from "react-query";

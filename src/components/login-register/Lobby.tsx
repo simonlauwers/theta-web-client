@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import * as gameApi from "../../api/game/GameApi";
-import useAuth from "../../hooks/UseAuth";
+import useAuth from "../../hooks/context-hooks/UseAuth";
 import GameType from "../../types/Game/GameType";
 
 interface Player {

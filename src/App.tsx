@@ -29,19 +29,17 @@ function App() {
 	return (
 		<>
 			<AuthProvider>
-				<SettingsProvider>
-					<Router>
-						<Routes>
-							<Route path="/" element={<PrivateRoute />}>
-								<Route element={<HomeLayout />}>
-									<Route path="/home" element={<Home />} />
-									<Route path="/" element={<Home />} />
-									<Route path="/stats" element={<Stats />} />
-									<Route path="/settings" element={<Settings />} />
-									<Route path="/profile" element={<Profile />} />
-									<Route path="/scenarios" element={<ScenarioSelection />} />
-									<Route path="/:gameId/lobby" element={<Lobby />} />
-								</Route>
+				<Router>
+					<Routes>
+						<Route path="/" element={<PrivateRoute />}>
+							<Route element={<HomeLayout />}>
+								<Route path="/home" element={<Home />} />
+								<Route path="/" element={<Home />} />
+								<Route path="/stats" element={<Stats />} />
+								<Route path="/settings" element={<Settings />} />
+								<Route path="/profile" element={<Profile />} />
+								<Route path="/:gameMode/scenarios" element={<ScenarioSelection />} />
+								<Route path="/:gameId/lobby" element={<Lobby />} />
 							</Route>
 
 							<Route element={<AuthLayout />}>

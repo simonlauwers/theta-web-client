@@ -15,18 +15,18 @@ const Home = () => {
 			{
 				backgroundImage: "url(\"/media/photos/game-visuals/Badlands.png\")",
 				text: "Singleplayer",
-				url: "/scenarios"
+				url: "/single/scenarios"
 			},
 			{
 
 				backgroundImage: "url(\"/media/photos/game-visuals/FireTemple.png\")",
 				text: "Multiplayer",
-				url: "/scenarios"
+				url: "/multi/scenarios"
 			},
 			{
 				backgroundImage: "url(\"/media/photos/game-visuals/IcePalace.png\")",
 				text: "Friends only",
-				url: "/scenarios"
+				url: "/friend/scenarios"
 			}
 		];
 	return (

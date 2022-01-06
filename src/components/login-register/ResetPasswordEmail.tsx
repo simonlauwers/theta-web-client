@@ -7,7 +7,7 @@ import { backgroundColor } from "../../theme/colors";
 
 const ResetPasswordEmail = () => {
 	return (
-		<Grid item xs={12} md={6} lg={6} style={{ backgroundColor: backgroundColor.main, height: "100vh" }}>
+		<Grid item xs={12} md={12} lg={6} style={{ backgroundColor: backgroundColor.main, height: "100vh" }}>
 			<Breadcrumbs style={{ marginLeft: "2em", marginTop: "1em", color: "ghostwhite" }}>
 				<Link to="/login">Back to login</Link>
 			</Breadcrumbs>

@@ -5,7 +5,7 @@ import Particles from "react-tsparticles";
 
 
 const AuthLayout = () => {
-	const mobileMediaQuery = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
+	const mobileMediaQuery = useMediaQuery((theme: Theme) => theme.breakpoints.down("lg"));
 
 
 	return (
@@ -19,7 +19,7 @@ const AuthLayout = () => {
 						</div>
 					</Grid>
 					:
-					<Grid md={6} lg={6} style={{ zIndex: -99999, height: "100vh", backgroundImage: "url(\"/media/photos/game-visuals/MedievalSoldiers.png\")", backgroundSize: "cover", backgroundRepeat: "repeat" }}>
+					<Grid item md={6} lg={6} style={{ zIndex: -99999, height: "100vh", backgroundImage: "url(\"/media/photos/game-visuals/MedievalSoldiers.png\")", backgroundSize: "cover", backgroundRepeat: "repeat" }}>
 						<div style={{ marginLeft: "20%", zIndex: 9999, position: "relative" }}>
 							<h1 style={{ fontSize: 120, marginTop: "20%", color: "white", fontFamily: "Request" }}>RISK</h1>
 							<h2 style={{ marginTop: "-5em", fontWeight: 200, color: "white" }}>Brought to you by Thèta.</h2>

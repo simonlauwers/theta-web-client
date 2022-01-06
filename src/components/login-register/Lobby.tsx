@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Button, Card, CardContent, Typography } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import * as gameApi from "../../api/game/GameApi";
-import useAuth from "../../hooks/context-hooks/UseAuth";
 import GameType from "../../types/Game/GameType";
 
 interface Player {
@@ -15,38 +14,36 @@ interface Player {
 };
 
 export const Lobby = () => {
-    console.log("lobby rerender");
     const { gameId } = useParams();
-    const [players, setPlayers] = useState<Player[]>([]);
-    const { user } = useAuth();
-    const { data, isLoading } = useQuery("getGame", () => gameApi.getGame(gameId!));
     const navigate = useNavigate();
+    const [players, setPlayers] = useState<Player[]>([]);
+    const [lastUpdate, setLastUpdate] = useState<string>();
 
-    useEffect(() => {
-        console.log("using effect");
-        if (!isLoading) {
-            console.log(data);
-            if (players.length == 0) {
-                console.log("getting existing players");
-                setPlayers(data.players);
-            }
-            console.log(data.players.length);
-            if (data.players.length == 0) {
-                console.log("adding user to game");
-                addPlayer({ name: user!.displayName, aiPlayer: false, gameId: gameId! });
-            }
-        }
-    }, []);
-
-
-    const { mutate: addPlayer } = useMutation(gameApi.addPlayer, {
+    const { isLoading } = useQuery("getGame", () => gameApi.getGame(gameId!), {
         onSuccess: (data: GameType) => {
+            console.log(data);
             setPlayers(data.players);
-        },
-        onError: (e: any) => {
-            console.log(e);
+            setLastUpdate(data.updateTimestamp);
         }
     });
+
+    useQuery(
+        "pollGame",
+        async () => {
+            console.log("polling...");
+            const data = await gameApi.pollGame({ uuid: gameId!, lastUpdate: lastUpdate! });
+            if (data.status === 202) {
+                setPlayers(data.data.players);
+            } else if (data.status !== 204) {
+                console.log("polling error occured");
+            }
+        },
+        {
+            refetchInterval: 1000,
+        }
+    );
+
+
 
     const { mutate: initGame } = useMutation(gameApi.initializeGame, {
         onSuccess: (data: GameType) => {
@@ -56,18 +53,6 @@ export const Lobby = () => {
             console.log(e);
         }
     });
-
-
-
-    const addRandomPlayer = async () => {
-        const firstnames = ["Youssef", "Bart", "Siemen", "Nathan", "Daniel", "Quinten", "Simon"];
-        const lastnames = ["Taouil", "Vochten", "Van de Mosselaer", "Tetroashvilii", "Savin", "Verhelst", "Lauwers"];
-        const randomFn = Math.floor(Math.random() * 6) + 1;
-        const randomLn = Math.floor(Math.random() * 6) + 1;
-        const randomName = firstnames[randomFn] + " " + lastnames[randomLn];
-        const newPlayer = { name: randomName, aiPlayer: false, gameId: gameId! };
-        addPlayer(newPlayer);
-    };
 
     const initializeGame = () => {
         initGame(gameId!);
@@ -90,8 +75,7 @@ export const Lobby = () => {
                         </Card>
                     );
                 })}
-                <Button variant="contained" disabled={players.length === 6} onClick={() => addRandomPlayer()}>Add random player</Button>
-                <Button variant="contained" onClick={() => initializeGame()}>Start game</Button>
+                <Button variant="contained" disabled={players.length < 2} onClick={() => initializeGame()}>Start game</Button>
 
             </div>
     );

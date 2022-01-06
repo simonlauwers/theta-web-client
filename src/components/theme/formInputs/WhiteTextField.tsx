@@ -13,7 +13,7 @@ const WhiteTextField = styled((props: TextFieldProps) => (
 		border: "1px solid #e2e2e1",
 		overflow: "hidden",
 		borderRadius: 4,
-		backgroundColor: theme.palette.mode === "light" ? "#5100D4" : "#2b2b2b",
+		backgroundColor: theme.palette.mode === "light" ? "#fcfcfb" : "#2b2b2b",
 		transition: theme.transitions.create([
 			"border-color",
 			"background-color",

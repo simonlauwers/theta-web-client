@@ -31,7 +31,7 @@ export const GameModeCard = ({ text, gradientColors, url, image }: MultiplayerCa
                 transition: "all 0.5s",
             }, background: gradientColors, color: "white", fontWeight: 500, height: "350px", width: "275px"
         }}>
-            <CardActionArea sx={{ height: "100%", textAlign: "center" }}>
+            <CardActionArea sx={{ height: "100%", textAlign: "center" }} onClick={() => handlePlayButtonClick()}>
                 <CardContent>
                     <img src={image} style={{ width: "100%", height: "100%", objectFit: "cover" }}></img>
                     <Typography fontFamily="bebas-neue" gutterBottom variant="h5" component="div" sx={{ fontSize: "4rem", position: "absolute", bottom: 0, }}>

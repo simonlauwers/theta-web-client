@@ -2,7 +2,7 @@
 import { Avatar, Button, Fade, Grid, Typography } from "@mui/material";
 import ProfileCard from "./ProfileCard";
 import React from "react";
-import useAuth from "../../hooks/UseAuth";
+import useAuth from "../../hooks/context-hooks/UseAuth";
 import { GameModeCard } from "./GameModeCard";
 import { useNavigate } from "react-router-dom";
 

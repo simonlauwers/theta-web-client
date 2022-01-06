@@ -21,6 +21,8 @@ const DifferenceTextMesh = (differenceTextMeshProps : DifferenceTextMeshProps) =
                 color={color}
                 anchorX="center"
                 anchorY="middle"
+                outlineColor={"FFFFFF"}
+				outlineWidth={0.01}
                 rotation={[Math.PI / 2, Math.PI / 1, Math.PI / 1]}
                 position={[0, 0, 0]}
             >

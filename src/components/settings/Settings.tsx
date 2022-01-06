@@ -1,5 +1,4 @@
 import React from "react";
-import useSettings from "../../hooks/context-hooks/UseSettings";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { Box } from "@mui/material";

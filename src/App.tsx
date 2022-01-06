@@ -29,17 +29,20 @@ function App() {
 	return (
 		<>
 			<AuthProvider>
-				<Router>
-					<Routes>
-						<Route path="/" element={<PrivateRoute />}>
-							<Route element={<HomeLayout />}>
-								<Route path="/home" element={<Home />} />
-								<Route path="/" element={<Home />} />
-								<Route path="/stats" element={<Stats />} />
-								<Route path="/settings" element={<Settings />} />
-								<Route path="/profile" element={<Profile />} />
-								<Route path="/:gameMode/scenarios" element={<ScenarioSelection />} />
-								<Route path="/:gameId/lobby" element={<Lobby />} />
+				<SettingsProvider>
+
+					<Router>
+						<Routes>
+							<Route path="/" element={<PrivateRoute />}>
+								<Route element={<HomeLayout />}>
+									<Route path="/home" element={<Home />} />
+									<Route path="/" element={<Home />} />
+									<Route path="/stats" element={<Stats />} />
+									<Route path="/settings" element={<Settings />} />
+									<Route path="/profile" element={<Profile />} />
+									<Route path="/:gameMode/scenarios" element={<ScenarioSelection />} />
+									<Route path="/:gameId/lobby" element={<Lobby />} />
+								</Route>
 							</Route>
 
 							<Route element={<AuthLayout />}>
@@ -51,10 +54,12 @@ function App() {
 							</Route>
 							<Route path="/game/:gameUuid" element={<Game />} />
 							<Route path="*" element={<NotFoundScreen />} />
+
 						</Routes>
 					</Router>
 				</SettingsProvider>
 			</AuthProvider>
+
 		</>
 	);
 }

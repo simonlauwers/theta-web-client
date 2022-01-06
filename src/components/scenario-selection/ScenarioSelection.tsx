@@ -10,9 +10,9 @@ import Scrollbars from "react-custom-scrollbars-2";
 import { success } from "../../theme/colors";
 import { LoadingScreen } from "../extra/LoadingScreen";
 import ScenarioPreviewCarousel from "./ScenarioPreviewCarousel";
-import useAuth from "../../hooks/UseAuth";
 import CreateGameType from "../../types/CreateGameType";
 import GameType from "../../types/Game/GameType";
+import useAuth from "../../hooks/context-hooks/UseAuth";
 
 
 

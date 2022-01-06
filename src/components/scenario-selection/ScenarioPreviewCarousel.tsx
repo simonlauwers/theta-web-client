@@ -14,7 +14,7 @@ interface ScenarioPreviewCarouselProps {
 
 
 const ScenarioPreviewCarousel = (props: ScenarioPreviewCarouselProps) => {
-	const [indexInCarousel, setIndexInCarousel] = useState<number>(0);
+	const [indexInCarousel] = useState<number>(0);
 
 	useEffect(() => {
 		props.scenarios.map((scenario, ind) => {
@@ -28,7 +28,7 @@ const ScenarioPreviewCarousel = (props: ScenarioPreviewCarouselProps) => {
 		props.callbackSelectScenario(props.scenarioPerIndex.get(indexInCarousel));
 	}, [indexInCarousel]);
 
-	
+
 	return (
 		<CarouselProvider
 			naturalSlideWidth={10}

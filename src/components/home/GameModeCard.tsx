@@ -1,4 +1,4 @@
-import { Button, Card, CardActionArea, CardActions, CardContent, Typography } from "@mui/material";
+import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -16,11 +16,6 @@ export const GameModeCard = ({ text, gradientColors, url, image }: MultiplayerCa
     const handlePlayButtonClick = () => {
         audio.play();
         navigate(url);
-    };
-
-    const handleLearnMoreClick = () => {
-        audio.play();
-        console.log("TODO learn more page");
     };
 
     return (

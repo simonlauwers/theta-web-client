@@ -26,7 +26,7 @@ export const primary = {
 	900: "#D91F33"
 };
 export const secondary = {
-	100: "#e8e8ee",
+	100: "#5100D4",
 	200: "#b9bacb",
 	300: "#8a8ca8",
 	400: "#5b5d85",

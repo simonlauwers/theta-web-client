@@ -117,7 +117,6 @@ const thetaTheme = createTheme({
 				}
 			},
 			defaultProps: {
-				color: "inherit"
 			}
 		},
 		MuiCard: {
@@ -165,7 +164,7 @@ const thetaTheme = createTheme({
 					},
 
 				},
-			
+
 			}
 		}
 	}

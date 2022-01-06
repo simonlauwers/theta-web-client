@@ -1,14 +1,15 @@
-import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
+import { Button, Card, CardActionArea, CardActions, CardContent, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
 interface MultiplayerCardProps {
     text: string,
-    backgroundImage: string
-    url: string
+    gradientColors: string
+    url: string,
+    image: string
 }
 
-export const GameModeCard = ({ text, backgroundImage, url }: MultiplayerCardProps) => {
+export const GameModeCard = ({ text, gradientColors, url, image }: MultiplayerCardProps) => {
     const audio = new Audio("./media/sounds/ui-sounds/button_click_1.mp3");
     const navigate = useNavigate();
 
@@ -24,22 +25,24 @@ export const GameModeCard = ({ text, backgroundImage, url }: MultiplayerCardProp
 
     return (
         <Card sx={{
-            minWidth: 200, "&:hover": {
+            "&:hover": {
                 transform: "scale(1.05)",
                 boxShadow: "0 6px 20px 0 rgba(0,0,0,0.38)",
                 transition: "all 0.5s",
-            }, backgroundImage: backgroundImage, backgroundSize: "cover", color: "white", fontWeight: 500
+            }, background: gradientColors, color: "white", fontWeight: 500, height: "350px", width: "275px"
         }}>
-            <CardContent>
-                <Typography fontWeight="800" gutterBottom variant="h5" component="div">
-                    {text}
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <Button sx={{ color: "white" }} onClick={handlePlayButtonClick} size="small">PLAY</Button>
-                <Button sx={{ color: "white" }} onClick={handleLearnMoreClick} size="small">LEARN MORE</Button>
-            </CardActions>
-        </Card>
+            <CardActionArea sx={{ height: "100%", textAlign: "center" }}>
+                <CardContent>
+                    <img src={image} style={{ width: "100%", height: "100%", objectFit: "cover" }}></img>
+                    <Typography fontFamily="bebas-neue" gutterBottom variant="h5" component="div" sx={{ fontSize: "4rem", position: "absolute", bottom: 0, }}>
+                        {text}
+                    </Typography>
+
+                </CardContent>
+            </CardActionArea>
+
+
+        </Card >
     );
 
 };

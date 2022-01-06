@@ -38,7 +38,7 @@ function App() {
 								<Route path="/settings" element={<Settings />} />
 								<Route path="/profile" element={<Profile />} />
 								<Route path="/:gameId/lobby" element={<Lobby />} />
-								<Route path="/scenarios" element={<ScenarioSelection />} />
+								<Route path="/:gameMode/scenarios" element={<ScenarioSelection />} />
 							</Route>
 						</Route>
 

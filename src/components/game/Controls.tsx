@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import usePhase from "../../hooks/context-hooks/game/UsePhase";
 import usePlayer from "../../hooks/context-hooks/game/UsePlayer";
-import useAuth from "../../hooks/UseAuth";
+import useAuth from "../../hooks/context-hooks/UseAuth";
 import GameType from "../../types/Game/GameType";
 import AttackControl from "./phase-controls/AttackControl";
 import DraftControl from "./phase-controls/DraftControl";

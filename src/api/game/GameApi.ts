@@ -5,13 +5,13 @@ import AttackType from "../../types/Game/AttackType";
 import DraftType from "../../types/Game/DraftType";
 import FortifyType from "../../types/Game/FortifyType";
 import PollType from "../../types/Game/PollType";
-import AiType from "../../types/Game/AiType";
+import CreateGameType from "../../types/CreateGameType";
 
 const api = axios.create({
 	baseURL: location.hostname === "localhost" ? "http://localhost:8080/" : "/api/game/",
 	withCredentials: false,
 	headers: {
-		"X-Authentication-Id" : localStorage.getItem("userId")!
+		"X-Authentication-Id": localStorage.getItem("userId")!
 	}
 });
 
@@ -30,9 +30,8 @@ export async function getAllScenarios() {
 	return response.data;
 }
 
-export async function createGame(id: string) {
-	const scenario = { scenarioId: id };
-	const response = await api.post("game/games/create", scenario);
+export async function createGame(cgt: CreateGameType) {
+	const response = await api.post("game/games/create", cgt);
 	return response.data;
 }
 

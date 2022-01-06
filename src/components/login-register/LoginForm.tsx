@@ -5,7 +5,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import useAuth from "../../hooks/UseAuth";
+import useAuth from "../../hooks/context-hooks/UseAuth";
 import LoginType from "../../types/LoginType";
 import * as userApi from "../../api/user/UserApi";
 import UserType from "../../types/UserType";

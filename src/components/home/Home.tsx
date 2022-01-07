@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Avatar, Button, Fade, Grid, Typography } from "@mui/material";
+import { Avatar, Button, Fade, Grid, Theme, Typography, useMediaQuery } from "@mui/material";
 import React from "react";
 import useAuth from "../../hooks/context-hooks/UseAuth";
 import { GameModeCard } from "./GameModeCard";
@@ -10,6 +10,8 @@ const Home = () => {
 	const { user } = useAuth();
 	const navigate = useNavigate();
 	const playSfxSound = useSound("./media/sounds/ui-sounds/button_click_1.mp3", SoundType.ControlSfx);
+	const mobileMediaQuery = useMediaQuery((theme: Theme) => theme.breakpoints.down("lg"));
+
 
 	const gamemodeList =
 		[
@@ -33,21 +35,32 @@ const Home = () => {
 				image: "/media/photos/game-visuals/friends.png"
 			}
 		];
+
+
 	return (
 		<>
-			<div style={{ zIndex: 9999, marginLeft: 50 }}>
+			<div style={{ zIndex: 500, marginLeft: 50 }}>
 				<Fade in={true} style={{ transitionDelay: "50ms" }}>
 					<Grid sx={{ paddingTop: "2%" }} container spacing={6} >
 						<Grid item xs={12} md={6} style={{ color: "white" }}>
 							<h1 style={{ fontSize: "8em", margin: "0px 0 40px -9px" }}>RISK</h1>
+							{mobileMediaQuery ? <p style={{ marginTop: "-3em", fontSize: "1.5em" }}>You played 10 hours in total.</p> : 
 							<p style={{ marginTop: "-3em", fontSize: "2em" }}>You played 10 hours in total.</p>
+							}
 							<Button style={{ marginTop: "-2em" }} variant="contained" sx={{ backgroundColor: "secondary[100]" }} onClick={() => { playSfxSound(); navigate("/stats"); }}>See all stats</Button>
 						</Grid>
-						<Grid item xs={12} md={6} style={{ color: "white", paddingTop: "80px", display: "flex", flexDirection: "row", alignItems: "center", gap: "20px" }}>
-							<Avatar onClick={() => navigate("/profile")} sx={{ bgcolor: "grey", width: 180, height: 180, boxShadow: 5, ":hover": { cursor: "pointer" } }}><img src={user!.profilePicture} onDragStart={(e) => { e.preventDefault(); }} /></Avatar>
-							<Typography variant="h4">Welcome back {user!.displayName}!</Typography>
-
-						</Grid>
+						{
+							mobileMediaQuery ?
+								<Grid item xs={12} style={{ color: "white", gap: "20px" }}>
+									<Avatar onClick={() => navigate("/profile")} sx={{ bgcolor: "grey", width: 120, height: 120, boxShadow: 5, ":hover": { cursor: "pointer" } }}><img src={user!.profilePicture} onDragStart={(e) => { e.preventDefault(); }} /></Avatar>
+									<Typography variant="h4">Welcome back {user!.displayName}!</Typography>
+								</Grid>
+								:
+								<Grid item xs={12} md={6} style={{ color: "white", paddingTop: "80px", display: "flex", flexDirection: "row", alignItems: "center", gap: "20px" }}>
+									<Avatar onClick={() => navigate("/profile")} sx={{ bgcolor: "grey", width: 180, height: 180, boxShadow: 5, ":hover": { cursor: "pointer" } }}><img src={user!.profilePicture} onDragStart={(e) => { e.preventDefault(); }} /></Avatar>
+									<Typography variant="h4">Welcome back {user!.displayName}!</Typography>
+								</Grid>
+						}
 					</Grid>
 				</Fade>
 
@@ -59,7 +72,7 @@ const Home = () => {
 						</Grid>
 
 
-						<Grid container spacing={0} style={{ display: "flex", flexDirection: "row", maxWidth: "100%", height: "30%", color: "white" }}  >
+						<Grid container spacing={2} style={{ display: "flex", flexDirection: "row", maxWidth: "100%", height: "30%", color: "white" }}>
 							{gamemodeList.map((gamemode) => {
 								return (
 									<Grid item xs={12} md={4} lg={4} key={gamemode.text} style={{ color: "white" }}>
@@ -71,8 +84,8 @@ const Home = () => {
 									</Grid>
 								);
 							})}
-
 						</Grid>
+
 
 					</Grid>
 				</Fade>

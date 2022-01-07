@@ -11,7 +11,7 @@ export interface SettingsContextType {
 }
 
 export const SettingsContext = createContext<SettingsContextType>({
-	backgroundMusicEnabled: true,
+	backgroundMusicEnabled: false,
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	clickSoundsEnabled: true,
 	setBackgroundMusicEnabled: () => { },
@@ -21,15 +21,10 @@ export const SettingsContext = createContext<SettingsContextType>({
 export const SettingsProvider: FC = ({
 	children
 }) => {
-	const [backgroundMusicEnabled, setBackgroundMusicEnabled] = useState<boolean>(true);
+	const [backgroundMusicEnabled, setBackgroundMusicEnabled] = useState<boolean>(false);
 	const [clickSoundsEnabled, setClickSoundsEnabled] = useState<boolean>(true);
 
 	useEffect(() => {
-		const bgMusicEnabledFromLs = JSON.parse(localStorage.getItem("backgroundMusicEnabled") as string);
-		if (bgMusicEnabledFromLs != null) {
-			setBackgroundMusicEnabled(bgMusicEnabledFromLs);
-		}
-
 		const clickSoundsEnabledFromLs = JSON.parse(localStorage.getItem("clickSoundsEnabled") as string);
 		if (clickSoundsEnabledFromLs != null) {
 			setClickSoundsEnabled(clickSoundsEnabled);

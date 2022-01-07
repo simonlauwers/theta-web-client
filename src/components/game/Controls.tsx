@@ -23,7 +23,7 @@ const Controls = () => {
 	const [ game, setGame ] = useState<GameType | null>(null);
 	const [ allowAction, setAllowAction ] = useState(false);
 	const [ fireAction, setFireAction ] = useState(false);
-	const [ next, setNext ] = useState(true);
+	const [ next, setNext ] = useState(false);
 
 	useEffect(() => {
 		if (game !== null) {

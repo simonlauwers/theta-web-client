@@ -5,7 +5,7 @@ import { PhaseProvider } from "../../contexts/game/PhaseContext";
 import { PlayerProvider } from "../../contexts/game/PlayerContext";
 import GameInitializer from "./GameInitializer";
 import Controls from "./Controls";
-import PlayerList from "./PlayerList";
+import Players from "./Players";
 import World from "./World";
 import { TerritoryProvider } from "../../contexts/game/TerritoryContext";
 import { DiceProvider } from "../../contexts/game/DiceContext";
@@ -32,10 +32,10 @@ const Game = () => {
 										<>
 											<World />
 											<Dice />
-											<PlayerList />
+											<Players />
 											<Controls />
-											<Options/>
-											<ErrorHandler/>
+											<Options />
+											<ErrorHandler />
 										</>
 								}
 								</ErrorProvider>	

@@ -1,16 +1,25 @@
 import HomeLayoutDrawer from "./HomeLayoutDrawer";
 import Particles from "react-tsparticles";
-import React from "react";
+import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { backgroundColor } from "../../theme/colors";
+import { SoundType, useSound } from "../../hooks/UseSound";
+import useSettings from "../../hooks/context-hooks/UseSettings";
 
 const HomeLayout = () => {
+	const { backgroundMusicEnabled } = useSettings();
+	const playBgMusic = useSound("./media/sounds/ui-sounds/bg_music_1.mp3", SoundType.BackgroundMusic);
+
+	useEffect(() => {
+		playBgMusic(); 
+	}, [backgroundMusicEnabled]);
+
 	return (
 		<div style={{ minHeight: "100vh", backgroundColor: backgroundColor.main }}>
 			<HomeLayoutDrawer>
 				<Outlet />
 			</HomeLayoutDrawer>
-			
+
 			<div
 				style={{
 					position: "absolute",

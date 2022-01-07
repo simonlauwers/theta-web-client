@@ -4,10 +4,12 @@ import React from "react";
 import useAuth from "../../hooks/context-hooks/UseAuth";
 import { GameModeCard } from "./GameModeCard";
 import { useNavigate } from "react-router-dom";
+import { SoundType, useSound } from "../../hooks/UseSound";
 
 const Home = () => {
 	const { user } = useAuth();
 	const navigate = useNavigate();
+	const playSfxSound = useSound("./media/sounds/ui-sounds/button_click_1.mp3", SoundType.ControlSfx);
 
 	const gamemodeList =
 		[
@@ -39,7 +41,7 @@ const Home = () => {
 						<Grid item xs={12} md={6} style={{ color: "white" }}>
 							<h1 style={{ fontSize: "8em", margin: "0px 0 40px -9px" }}>RISK</h1>
 							<p style={{ marginTop: "-3em", fontSize: "2em" }}>You played 10 hours in total.</p>
-							<Button style={{ marginTop: "-2em" }} variant="contained" sx={{ backgroundColor: "secondary[100]" }} onClick={() => navigate("/stats")}>See all stats</Button>
+							<Button style={{ marginTop: "-2em" }} variant="contained" sx={{ backgroundColor: "secondary[100]" }} onClick={() => { playSfxSound(); navigate("/stats"); }}>See all stats</Button>
 						</Grid>
 						<Grid item xs={12} md={6} style={{ color: "white", paddingTop: "80px", display: "flex", flexDirection: "row", alignItems: "center", gap: "20px" }}>
 							<Avatar onClick={() => navigate("/profile")} sx={{ bgcolor: "grey", width: 180, height: 180, boxShadow: 5, ":hover": { cursor: "pointer" } }}><img src={user!.profilePicture} onDragStart={(e) => { e.preventDefault(); }} /></Avatar>

@@ -1,5 +1,6 @@
 /* eslint-disable semi */
 import GameUserType from "./GameUserType";
+import PlayerTerritoryCardType from "./PlayerTerritoryCardType";
 import PlayerTerritoryType from "./PlayerTerritoryType";
 
 export default interface PlayerType {
@@ -10,5 +11,6 @@ export default interface PlayerType {
     troops: number;
     dead: boolean;
     playerTerritories: PlayerTerritoryType[];
+    playerTerritoryCards : PlayerTerritoryCardType[];
     user : GameUserType;
 };

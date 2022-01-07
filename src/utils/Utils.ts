@@ -21,6 +21,78 @@ export const convertErrorMessageToFriendlyMessage = (error: string) => {
 		case "user/email-conflict":
 			return "Sorry, a user with this email already exists. Maybe it's your twin ghost?";
 
+		case "attack/insufficientTroops":
+			return "It looks like you don't have enough troops for this action.";
+
+		case "attack/notBordering":
+			return "You can only attack bordering territories.";
+
+		case "attack/unownedTerritory":
+			return "Whoops it looks like you don't own this territory.";
+			
+		case "attack/ownedTerritory":
+			return "Are you trying to attack yourself?";
+
+		case "draft/unownedTerritory":
+			return "You do not own that territory.";
+
+		case "draft/insufficientTroops":
+			return "It looks like you don't have enough troops for this action.";
+			
+		case "fortify/pathNotFound":
+			return "There is no path between these territories.";
+
+		case "fortify/insufficientTroops":
+			return "It looks like you don't have enough troops for this action.";
+
+		case "fortify/unownedTerritory":
+			return "You are trying to fortify an unowned territory, silly.";
+
+		case "gameCode/notFound":
+			return "I looked all over the place but it seems like this code doesn't exist.";
+
+		case "logic/notEnoughPlayers":
+			return "A war involves at least two parties.";
+
+		case "logic/negativeTroops":
+			return "I have no idea how, but you tried to do that action with a negative amount of troops.";
+
+		case "logic/tooManyTroops":
+			return "Whoa slow down, those are too many troops.";
+
+		case "game/notFound":
+			return "It looks like this game doesn't exist, sorry.";
+
+		case "game/noSessions":
+			return "There are currently no active multiplayer games, create your own or try again later.";
+
+		case "game/hostLeft":
+			return "It looks like the host disconnected.";
+
+		case "game/invalidState":
+			return "Uhm, what are you doing? This game is not currently in that state.";
+
+		case "game/invalidPhase":
+			return "You can't do that during this phase.";
+
+		case "lobby/tooManyPlayers":
+			return "Slow down! only six people are allowed in a game at once.";
+
+		case "lobby/unauthorizedCreator":
+			return "It looks like you don't have the permission to do this.";
+
+		case "player/noWinner":
+			return "Something went horribly wrong and everyone died, no winner in this game :(.";
+
+		case "user/notFound":
+			return "It looks like you don't exist, initiate existential crisis in 3.. 2.. 1..";
+
+		case "user/notTurn":
+			return "Slow down cowboy, it is not your turn yet.";
+			
+		case "user/invalid":
+			return "Something went wrong oops.";
+
 		default:
 			return error;
 	}

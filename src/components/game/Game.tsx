@@ -13,6 +13,7 @@ import Dice from "./Dice";
 import { ErrorProvider } from "../../contexts/game/ErrorContext";
 import Options from "./Options";
 import ErrorHandler from "./ErrorHandler";
+import TerritoryCards from "./TerritoryCards";
 
 const Game = () => {
 	const [initializing, setInitializing] = useState(true);
@@ -36,6 +37,7 @@ const Game = () => {
 											<Controls />
 											<Options />
 											<ErrorHandler />
+											<TerritoryCards />
 										</>
 								}
 								</ErrorProvider>	

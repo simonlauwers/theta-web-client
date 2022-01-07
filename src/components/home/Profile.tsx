@@ -21,7 +21,7 @@ export const Profile = () => {
         onSuccess: (data: UserType) => {
             handleClose();
             setDisplayName(data.displayName);
-			window.location.reload();
+            window.location.reload();
         }, onError: () => {
             setError("Someting went wrong. Try again later..");
         }
@@ -58,7 +58,7 @@ export const Profile = () => {
 
 
     return (
-        <div>
+        <div style={{ zIndex: 10 }}>
             <h1 style={{ color: "white" }} >Your profile</h1>
             <ProfileCard {...user!} />
             <Button endIcon={<EditIcon />} variant="contained" onClick={() => handleOpen()}>Edit profile</Button>

@@ -13,7 +13,7 @@ export const Settings = () => {
 	};
 
 	return (
-		<div>
+		<div style={{ zIndex: 10 }}>
 			<h1 style={{ color: "white" }} >Settings</h1>
 			<Box component="div" style={{ background: "background.paper", minWidth: 500 }}>
 				<Tabs textColor="inherit" style={{ color: "white" }} variant="fullWidth" value={value} onChange={handleChange} centered>

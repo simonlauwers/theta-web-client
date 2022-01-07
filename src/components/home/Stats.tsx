@@ -6,7 +6,7 @@ import "./Stats.css";
 export const Stats = () => {
     const { user } = useAuth();
     return (
-        <div className="statsContainer">
+        <div className="statsContainer" style={{ zIndex: 10 }}>
             <h1 style={{
                 color: "ghostwhite"
             }}>Your stats</h1>            <Typography sx={{ color: "white" }}>Powered by Kibana</Typography>

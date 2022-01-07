@@ -23,7 +23,7 @@ import ScenarioSelection from "./components/scenario-selection/ScenarioSelection
 import { Lobby } from "./components/login-register/Lobby";
 import { SettingsProvider } from "./contexts/SettingsContext";
 import { Settings } from "./components/settings/Settings";
-
+import { Picker } from "./components/home/Picker";
 
 function App() {
 	return (
@@ -41,6 +41,7 @@ function App() {
 									<Route path="/settings" element={<Settings />} />
 									<Route path="/profile" element={<Profile />} />
 									<Route path="/:gameMode/scenarios" element={<ScenarioSelection />} />
+									<Route path="/:gameMode/picker" element={<Picker />} />
 									<Route path="/:gameId/lobby" element={<Lobby />} />
 								</Route>
 							</Route>

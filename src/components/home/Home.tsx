@@ -31,7 +31,7 @@ const Home = () => {
 			{
 				gradientColors: "linear-gradient(180deg, rgba(0,39,67,1) 0%, rgba(14,14,56,1) 100%)",
 				text: "FRIENDS",
-				url: "/friends/scenarios",
+				url: "/friends/picker",
 				image: "/media/photos/game-visuals/friends.png"
 			}
 		];

@@ -13,7 +13,7 @@ const TerritoryCards = () => {
     return (
         <>
             <div style={{position: "absolute", bottom: "17vh", left: "1vw", display: "flex", flexWrap: "nowrap" }}>
-                <Avatar alt="show cards" sx={{ width: 75, height: 75, background: "linear-gradient(180deg, rgba(0,39,67,1) 0%, rgba(14,14,56,1) 100%)"}}>
+                <Avatar alt="show cards" sx={{ width: "8vh", height: "8vh", background: "linear-gradient(180deg, rgba(0,39,67,1) 0%, rgba(14,14,56,1) 100%)"}}>
                     <IconButton aria-label="cards" sx={{color:"white", height: "100%", width: "100%"}} onClick={() => {setShowing(!showing);}}>
                         <StyleOutlinedIcon sx={{height: "90%", width: "90%"}}/>
                     </IconButton>

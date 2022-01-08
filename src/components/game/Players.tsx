@@ -94,10 +94,11 @@ const Players = () => {
 	return (
 		<>
 			<div style={{position:"absolute", right: 0, top: "10vh"}}>
-				{players.sort().map((player) => (
-					<PlayerCard key={player.uuid} player={player} current={player.uuid === currentPlayer?.uuid} />
-				))}
-
+				<div style={{display:"flex", flexWrap:"wrap", flexDirection:"column", height:"50vh"}}>
+					{players.sort().map((player) => (
+						<PlayerCard key={player.uuid} player={player} current={player.uuid === currentPlayer?.uuid} />
+					))}
+				</div>
 			</div>
 			{ dialog !== null && 
 			<div style={{position: "absolute", top: 0, left: 0, height:"100vh", width:"100vw", animationName:"fade-in-out", animationDuration: "2.5s",

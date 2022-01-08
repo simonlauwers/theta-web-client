@@ -135,7 +135,7 @@ const FortifyControl = (fortifyControlProps : FortifyControlProps) => {
                     <Typography color="ghostwhite" variant="h4" sx={{width: "100%"}}>
                         Select a territory to fortify...
                     </Typography>
-                    <Button variant="contained" onClick={skip} sx={{ backgroundColor: "ghostwhite", color: "#141124", fontWeight: "bold", width: "50%",  marginTop: "1rem"}}>
+                    <Button variant="contained" onClick={skip} sx={{ backgroundColor: "ghostwhite", color: "#141124", fontWeight: "bold", width: "50%",  marginTop: "0.5rem"}}>
                         End turn
                     </Button>
                 </div>

@@ -140,7 +140,7 @@ const AttackControl = (attackControlProps : AttackControlProps) => {
                             </div>
                             <div style={{display: "flex", width: "75%", marginLeft:"5%", marginRight:"5%", alignItems:"center"}}>
                                 <Slider min={1} max={availableTroops > 3 ? 3 : availableTroops} defaultValue={1} aria-label="Default"
-                                onChange={(e, val) => {setTroops(val as number);}}/>
+                                onChange={(e, val) => {setTroops(val as number);}} color="secondary"/>
                             </div>
                         </div>
                     :
@@ -156,7 +156,7 @@ const AttackControl = (attackControlProps : AttackControlProps) => {
                     <Typography color="ghostwhite" variant="h4" sx={{width: "100%"}}>
                         Select a territory to attack...
                     </Typography>
-                    <Button variant="contained" onClick={skip} sx={{ backgroundColor: "ghostwhite", color: "#141124", fontWeight: "bold", width: "50%" }}>
+                    <Button variant="contained" onClick={skip} sx={{ backgroundColor: "ghostwhite", color: "#141124", fontWeight: "bold", width: "50%", marginTop: "0.5rem" }}>
                         Next phase
                     </Button>
                 </div>

@@ -18,7 +18,7 @@ const World = () => {
 
   return (
     <div style={{ height: "100vh", width: "100vw", zIndex: "-10", position: "absolute", top: 0, left: 0 }}>
-      <Canvas style={{background:"#111111"}}>
+      <Canvas style={{background:"linear-gradient(180deg, rgba(0,39,67,1) 0%, rgba(14,14,56,1) 100%)"}}>
         <PlayerContext.Provider value={playerContext}>
           <TerritoryContext.Provider value={territoryContext}>
             <PhaseContext.Provider value={phaseContext}>

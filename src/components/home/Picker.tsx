@@ -9,6 +9,7 @@ export interface PickerValues {
 }
 
 export const Picker = () => {
+
     const navigate = useNavigate();
     const { gameMode } = useParams<string>();
     const formik = useFormik({
@@ -20,7 +21,6 @@ export const Picker = () => {
             console.log(gameCode);
         },
     });
-
     return (
         <Fade in={true} style={{ transitionDelay: "50ms" }}>
 
@@ -51,10 +51,10 @@ export const Picker = () => {
                     </Typography>
                     <div style={{ display: "inline" }}>
                         <WhiteTextField
-                            label="GameCode"
-                            id="GameCode"
+                            label="gameCode"
+                            id="gameCode"
                             variant="filled"
-                            name="GameCode"
+                            name="gameCode"
                             autoComplete="none"
                             value={formik.values.gameCode}
                             onChange={formik.handleChange}

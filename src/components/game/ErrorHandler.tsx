@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { IconButton, Snackbar, Alert } from "@mui/material";
-import React, { Fragment, useEffect, useState } from "react";
+import { Snackbar, Alert } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useError from "../../hooks/context-hooks/game/UseError";
-import CloseIcon from "@mui/icons-material/Close";
 import { convertErrorMessageToFriendlyMessage } from "../../utils/Utils";
 import { backgroundColor } from "../../theme/colors";
 
@@ -22,22 +21,11 @@ const ErrorHandler = () => {
 		}
 	}, [error]);
 
-    function action() {
-        return (
-            <Fragment>
-              <IconButton onClick={() => {setIsOpen(false);}}>
-                <CloseIcon fontSize="small" />
-              </IconButton>
-            </Fragment>
-          );
-    } 
-
     return (
         <Snackbar
             open={isOpen}
             autoHideDuration={3000}
             onClose={() => {setIsOpen(false);}}
-            action={action}
             anchorOrigin={{
                 vertical: "top",
                 horizontal: "right"

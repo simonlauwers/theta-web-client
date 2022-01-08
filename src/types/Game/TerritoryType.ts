@@ -1,3 +1,4 @@
+/* eslint-disable semi */
 import TerritoryBorderType from "./TerritorryBorderType";
 
 export default interface TerritoryType {

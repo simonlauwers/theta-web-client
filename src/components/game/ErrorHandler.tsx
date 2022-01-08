@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import useError from "../../hooks/context-hooks/game/UseError";
 import CloseIcon from "@mui/icons-material/Close";
 import { convertErrorMessageToFriendlyMessage } from "../../utils/Utils";
+import { backgroundColor } from "../../theme/colors";
 
 const ErrorHandler = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -16,7 +17,7 @@ const ErrorHandler = () => {
             if (error.status === 409) {
                 navigate("/home");
             }
-			setTimeout(() => {setError(null);}, 3000);
+			setTimeout(() => {setError(null);}, 3500);
             setIsOpen(true);
 		}
 	}, [error]);
@@ -38,10 +39,11 @@ const ErrorHandler = () => {
             onClose={() => {setIsOpen(false);}}
             action={action}
             anchorOrigin={{
-                vertical: "bottom",
+                vertical: "top",
                 horizontal: "right"
              }}
-             ><Alert severity="error">{error === null? "" : convertErrorMessageToFriendlyMessage(error!.message)}</Alert>
+             style={{background: backgroundColor.main}}
+             ><Alert severity="error" style={{color:"white", background: backgroundColor.main}} >{error === null? "" : convertErrorMessageToFriendlyMessage(error!.message)}</Alert>
         </Snackbar>
     );
 };

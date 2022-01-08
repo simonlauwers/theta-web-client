@@ -119,7 +119,7 @@ const FortifyControl = (fortifyControlProps : FortifyControlProps) => {
                             </div>
                             <div style={{display: "flex", width: "75%", marginLeft:"5%", marginRight:"5%", alignItems:"center"}}>
                                 <Slider min={1} max={availableTroops} defaultValue={1} aria-label="Default"
-                                onChange={(e, val) => {setTroops(val as number);}}/>
+                                onChange={(e, val) => {setTroops(val as number);}} color="secondary"/>
                             </div>
                         </div>
                     :
@@ -135,7 +135,7 @@ const FortifyControl = (fortifyControlProps : FortifyControlProps) => {
                     <Typography color="ghostwhite" variant="h4" sx={{width: "100%"}}>
                         Select a territory to fortify...
                     </Typography>
-                    <Button variant="contained" onClick={skip} sx={{ backgroundColor: "ghostwhite", color: "#141124", fontWeight: "bold", width: "50%" }}>
+                    <Button variant="contained" onClick={skip} sx={{ backgroundColor: "ghostwhite", color: "#141124", fontWeight: "bold", width: "50%",  marginTop: "1rem"}}>
                         End turn
                     </Button>
                 </div>

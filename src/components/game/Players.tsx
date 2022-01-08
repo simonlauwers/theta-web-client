@@ -68,7 +68,7 @@ const Players = () => {
 	}, [currentPlayer]);
 
 	useEffect(() => {
-		setDialog(`${current} is playing.`);
+		setDialog(`${current} is playing...`);
 	}, [current]);
 
 	useEffect(() => {
@@ -100,37 +100,45 @@ const Players = () => {
 
 			</div>
 			{ dialog !== null && 
-			<div style={{position: "absolute", top: 0, bottom: 0, left: 0, right: 0, animationName:"fade-in-out", animationDuration: "2.5s",
-			display: "flex", justifyContent: "center", alignContent: "center", zIndex: 50, boxShadow: "inset 0 0 100px black", userSelect:"none"}}>
+			<div style={{position: "absolute", top: 0, left: 0, height:"100vh", width:"100vw", animationName:"fade-in-out", animationDuration: "2.5s",
+			display: "flex", justifyContent: "center", alignContent: "center", zIndex: 50, boxShadow: "inset 0 0 500px black", userSelect:"none",
+			background: "rgba(0,0,0,0.7)"}}>
+			<div style={{marginTop: "auto", marginBottom: "auto"}}>
 				<Typography variant="h1" color={"white"}>
 					{dialog}
 				</Typography>
+				</div>
 			</div>}
-
+			
 			{ playerStates.filter(ps => ps.userUuid === user?.userId && ps.dead).length > 0 &&
-			<div style={{position: "absolute", top: 0, left: "30vh", right: "30vh", background: backgroundColor.main,
-			display: "flex", justifyContent: "center", alignContent: "center", zIndex: 50, flexWrap: "wrap", userSelect:"none"}}>
-				<Typography variant="h4" color={"white"}>
-					You are defeated...
-				</Typography>
-				{ user!.userId !== creator &&
-					<Button variant="contained" onClick={() => {navigate("/home");}} sx={{ backgroundColor: "ghostwhite", color: "#141124", 
-					fontWeight: "bold", width: "50%" }}>
-						Leave game
-					</Button>
-				}
+			<div style={{position: "absolute", top: 0, left: "35vw", right: "35vw", background: "linear-gradient(180deg, rgba(79,18,16,1) 0%, rgba(41,5,25,1) 100%)",
+			zIndex: 50, userSelect:"none", borderBottomLeftRadius: "1rem", borderBottomRightRadius: "1rem"}}>
+				<div style={{display: "flex", justifyContent: "center", alignContent: "center", flexWrap: "wrap"}}>
+					<Typography variant="h4" color={"white"} style={{textAlign: "center", width: "100%", marginTop: "2rem"}}>
+						You are defeated...
+					</Typography>
+					{ user!.userId !== creator &&
+						<Button variant="contained" onClick={() => {navigate("/home");}} sx={{ backgroundColor: "ghostwhite", color: "#141124", 
+						fontWeight: "bold", width: "50%", marginTop: "1rem", marginBottom: "2rem" }}>
+							Leave game
+						</Button>
+					}
+				</div>
 			</div>}
 
 			{ winner !== null && 
 			<div style={{position: "absolute", top: 0, bottom: 0, left: 0, right: 0, background: backgroundColor.main,
-			display: "flex", justifyContent: "center", alignContent: "center", zIndex: 50, userSelect:"none"}}>
-				<Typography variant="h1" color={"white"}>
-					{winner}
-				</Typography>
-				<Button variant="contained" onClick={() => {navigate("/home");}} sx={{ backgroundColor: "ghostwhite", color: "#141124", 
-					fontWeight: "bold", width: "50%" }}>
-						Leave game
-				</Button>
+			display: "flex", justifyContent: "center", alignContent: "center", zIndex: 100, userSelect:"none",
+			animationName:"fade-in", animationDuration: "2.5s"}}>
+				<div style={{marginTop: "auto", marginBottom: "auto", display: "flex", justifyContent: "center", flexWrap: "wrap"}}>
+					<Typography variant="h1" color={"white"} style={{width:"100%", textAlign: "center"}}>
+						{winner}
+					</Typography>
+					<Button variant="contained" onClick={() => {navigate("/home");}} sx={{ backgroundColor: "ghostwhite", color: "#141124", 
+						fontWeight: "bold", width: "40%", marginTop: "1rem", marginLeft: "auto", marginRight:"auto" }}>
+							Leave game
+					</Button>
+				</div>
 			</div>}
 		</>
 	);

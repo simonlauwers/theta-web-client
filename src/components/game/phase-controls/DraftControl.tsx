@@ -102,7 +102,7 @@ const DraftControl = (draftControlProps : DraftControlProps) => {
                     </div>
                     <div style={{display: "flex", width: "75%", marginLeft:"5%", marginRight:"5%", alignItems:"center"}}>
                         <Slider min={1} max={currentPlayer?.troops} defaultValue={1} aria-label="Default"
-                        onChange={(e, val) => {setTroops(val as number);}}/>
+                        onChange={(e, val) => {setTroops(val as number);}} color="secondary"/>
                     </div>
                 </div>
             :

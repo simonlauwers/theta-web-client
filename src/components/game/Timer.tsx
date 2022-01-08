@@ -34,7 +34,7 @@ const Timer = (timerProps: TimerProps) => {
 
     return (
         <div style={{position: "absolute", top: 0, right: 0, left: 0}}>
-            <LinearProgress variant="determinate" value={time > maxTime? 100 : (time/maxTime) * 100} />
+            <LinearProgress variant="determinate" value={time > maxTime? 100 : (time/maxTime) * 100} style={{height: "1vh"}}/>
         </div>
     );
 };

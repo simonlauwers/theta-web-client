@@ -78,7 +78,7 @@ export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
 
 	const drawer = (
 		<div>
-			<Toolbar><img src="https://developer.sas.com/guides/r/_jcr_content/par/styledcontainer_1d31/par/image.img.png/1630325230865.png" alt="" width="70" height="70" style={{ marginTop: "25%", marginLeft: "4%" }} /></Toolbar>
+			<Toolbar><img src="./media/photos/game-branding/logoWhiteTransparant.svg" alt="" width="70" height="70" style={{ marginTop: "25%", marginLeft: "4%" }} /></Toolbar>
 			<Divider style={{ marginTop: "25%", marginBottom: "25%", borderColor: "transparent" }} />
 			<List>
 				{itemList.map((item, key) => {

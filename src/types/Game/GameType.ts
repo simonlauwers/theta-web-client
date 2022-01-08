@@ -2,6 +2,7 @@
 import ScenarioType from "./ScenarioType";
 import PlayerType from "./PlayerType";
 import DiceRollType from "./DiceRollType";
+import GameUserType from "./GameUserType";
 
 export default interface GameType {
     uuid : string;
@@ -13,4 +14,6 @@ export default interface GameType {
 	gameCode : string;
 	updateTimestamp : string;
 	lastRoll : DiceRollType;
+	creator : GameUserType;
+	maxTime : number;
 };

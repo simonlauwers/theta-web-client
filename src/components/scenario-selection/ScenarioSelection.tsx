@@ -18,7 +18,7 @@ import useAuth from "../../hooks/context-hooks/UseAuth";
 
 const ScenarioSelection = () => {
 	const { gameMode } = useParams<string>();
-	const { user } = useAuth();
+	const { user } = useAuth();  
 	console.log(user);
 	const [scenarioPerIndex] = useState<Map<number, ScenarioType>>(new Map<number, ScenarioType>());
 	const [currentScenarioIndex, setCurrentScenarioIndex] = useState<number>(0);

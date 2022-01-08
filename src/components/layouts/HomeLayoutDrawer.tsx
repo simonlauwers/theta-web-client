@@ -16,6 +16,9 @@ import HomeIcon from "@mui/icons-material/Home";
 import * as userApi from "../../api/user/UserApi";
 import { useMutation } from "react-query";
 import ResponseMessageType from "../../types/ResponseMessageType";
+import { Theme, useMediaQuery } from "@mui/material";
+import { backgroundColor } from "../../theme/colors";
+import { CloseOutlined, MenuOutlined } from "@mui/icons-material";
 
 const drawerWidth = 240;
 const iconColor = "989898";
@@ -30,10 +33,12 @@ export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
 	const [mobileOpen, setMobileOpen] = React.useState(false);
 	const { mutate } = useMutation(userApi.logOut, {
 		onSuccess: (data: ResponseMessageType) => {
-			console.log(data);
 			navigate("/login");
 		}
 	});
+
+	const mobileMediaQuery = useMediaQuery((theme: Theme) => theme.breakpoints.down("lg"));
+
 
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
@@ -73,8 +78,8 @@ export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
 
 	const drawer = (
 		<div>
-			<Toolbar><img src="https://developer.sas.com/guides/r/_jcr_content/par/styledcontainer_1d31/par/image.img.png/1630325230865.png" alt="" width="70" height="70" style={{ marginTop: "25%", marginLeft: "4%" }} /></Toolbar>
-			<Divider style={{ marginTop: "25%", marginBottom: "25%",  borderColor:"transparent"}} />
+			<Toolbar><img src="./media/photos/game-branding/logoWhiteTransparant.svg" alt="" width="70" height="70" style={{ marginTop: "25%", marginLeft: "4%" }} /></Toolbar>
+			<Divider style={{ marginTop: "25%", marginBottom: "25%", borderColor: "transparent" }} />
 			<List>
 				{itemList.map((item, key) => {
 					const { icon, onClick } = item;
@@ -90,53 +95,67 @@ export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
 
 
 	return (
-		<Box component="div" sx={{ display: "flex" }}>
-			<AppBar
-				position="fixed"
-				sx={{
-					width: { sm: `calc(100% - ${drawerWidth}px)` },
-					ml: { sm: `${drawerWidth}px` },
-				}}
-			>
-			</AppBar>
-			<Box
-				component="nav"
-				sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-				aria-label="mailbox folders"
-			>
-				<Drawer
-					variant="temporary"
-					open={mobileOpen}
-					onClose={handleDrawerToggle}
-					ModalProps={{
-						keepMounted: true, // Better open performance on mobile.
-					}}
+		<>
+			{mobileMediaQuery ?
+				<div onClick={() => {
+					handleDrawerToggle();
+				}} style={{ paddingTop: 20, paddingLeft: 25, marginBottom: 25, zIndex: 8888 }}>
+					<MenuOutlined style={{ fontSize: 35, color: "white" }} />
+				</div> : null}
+			<Box component="div" sx={{ display: "flex" }}>
+				<AppBar
+					position="fixed"
 					sx={{
-						display: { xs: "block", sm: "none" },
-						"& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+						width: { sm: `calc(100% - ${drawerWidth}px)` },
+						ml: { sm: `${drawerWidth}px` },
 					}}
 				>
-					{drawer}
-				</Drawer>
-				<Drawer
-					ModalProps={{
-						keepMounted: true,
-					}}
-					variant="permanent"
-					sx={{
-						display: { xs: "none", sm: "block" },
-						"& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth, background: "linear-gradient(90deg, rgba(0,0,0,0.49093140674238445) 0%, rgba(0,0,0,0) 100%)", border: "none" },
-						"& ": {},
-					}}
-					open
+				</AppBar>
+				<Box
+					component="nav"
+					sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+					aria-label="mailbox folders"
 				>
-					{drawer}
-				</Drawer>
+					<Drawer
+						variant="persistent"
+						open={mobileOpen}
+						onClose={handleDrawerToggle}
+						ModalProps={{
+							keepMounted: true, // Better open performance on mobile.
+						}}
+						sx={{
+							zIndex: 9999,
+							display: { xs: "block", sm: "none" },
+							"& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth, background: backgroundColor.main },
+						}}
+					>
+						<div onClick={() => { 
+							handleDrawerToggle();
+						}} style={{ paddingTop: 20, paddingLeft: 25, marginBottom: 25, zIndex: 8888 }}>
+							<CloseOutlined style={{ fontSize: 35, color: "white" }} />
+						</div>
+						{drawer}
+					</Drawer>
+					<Drawer
+						ModalProps={{
+							keepMounted: true,
+						}}
+						variant="permanent"
+						sx={{
+							display: { xs: "none", sm: "block" },
+							"& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth, background: "linear-gradient(90deg, rgba(0,0,0,0.49093140674238445) 0%, rgba(0,0,0,0) 100%)", border: "none" },
+							"& ": {},
+						}}
+						open
+					>
+						{drawer}
+					</Drawer>
+				</Box>
+
+				{props.children}
+
 			</Box>
-
-			{props.children}
-
-		</Box>
+		</>
 
 	);
 

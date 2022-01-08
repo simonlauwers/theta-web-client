@@ -16,7 +16,7 @@ const Dice = () => {
 
     return (
       <div style={{ height: "100vh", width: "100vw", zIndex: "-5", position: "absolute", top: 0, left: 0, animationName:"fade-in-out",
-      animationDuration: "2.5s"}}>
+      animationDuration: "3s"}}>
         <Canvas style={{background:"rgba(0,0,0,0.5)"}}>
             <Suspense fallback={null}>
               <ambientLight intensity={0} />

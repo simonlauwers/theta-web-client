@@ -24,7 +24,7 @@ interface MetaDataType {
 const ScenarioModel = (scenarioModelProps: ScenarioModelProps) => {
 	const group = useRef();
 
-	const { nodes } = useLoader(GLTFLoader, "/models/" + scenarioModelProps.map.resource + ".glb");
+	const { nodes } = useLoader(GLTFLoader, "https://storage.googleapis.com/theta-risk-web-files/" + scenarioModelProps.map.resource + ".glb");
 	const metaData = extractMetaData(nodes);
 
 	const propMeshes = extractMeshes(nodes, "P", metaData.props);

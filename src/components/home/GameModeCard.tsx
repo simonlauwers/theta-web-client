@@ -1,7 +1,8 @@
 import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
-import React from "react";
+import React from "react"; 
 import { useNavigate } from "react-router-dom";
-
+import { SoundType, useSound } from "../../hooks/UseSound";  
+ 
 interface MultiplayerCardProps {
     text: string,
     gradientColors: string
@@ -10,11 +11,11 @@ interface MultiplayerCardProps {
 }
 
 export const GameModeCard = ({ text, gradientColors, url, image }: MultiplayerCardProps) => {
-    const audio = new Audio("./media/sounds/ui-sounds/button_click_1.mp3");
-    const navigate = useNavigate();
+	const playSfxSound = useSound("./media/sounds/ui-sounds/button_click_1.mp3", SoundType.ControlSfx);
+	const navigate = useNavigate();
 
     const handlePlayButtonClick = () => {
-        audio.play();
+        playSfxSound();
         navigate(url);
     };
 

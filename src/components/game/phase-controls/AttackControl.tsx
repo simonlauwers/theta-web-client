@@ -18,6 +18,7 @@ interface AttackControlProps {
     setError : React.Dispatch<React.SetStateAction<ResponseMessageType | null>>;
     setAllowAction : React.Dispatch<React.SetStateAction<boolean>>;
     fireAction : boolean;
+    next: boolean;
 }
 
 const AttackControl = (attackControlProps : AttackControlProps) => {
@@ -75,6 +76,12 @@ const AttackControl = (attackControlProps : AttackControlProps) => {
             attack();
         }
     }, [attackControlProps.fireAction]);
+
+    useEffect(() => {
+        if(attackControlProps.next && !isLoading) {
+            skip();
+        }
+    }, [attackControlProps.next, isLoading]);
 
     useEffect(() => {
         if (selectedTerritory !== null) {

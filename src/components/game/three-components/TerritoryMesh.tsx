@@ -29,11 +29,11 @@ const TerritoryMesh = (territoryMeshProps : TerritoryMeshProps) => {
 
 	const [ frame, setFrame ] = useState<number>(60);
 	const [ hover, setHover ] = useState(false);
-	const [ selected, setSelected ] = useState(false);
+	const [ selected, setSelected ] = useState<boolean>(false);
 	const [ troops, setTroops ] = useState<number>(playerTerritory.troops);
 	const [ difference, setDifference ] = useState<number>(0);
 
-
+	const Animation = () => {
 	useFrame(() => {
 		const direction = selected ? 0.004 : -0.004;
 
@@ -45,16 +45,11 @@ const TerritoryMesh = (territoryMeshProps : TerritoryMeshProps) => {
 			mesh.current.position.y += direction;
 		}
 
-		
 		setFrame(frame+1);
 	});
 
-	useEffect(() => {
-		if(loaded.current) {
-			setFrame(0);
-		}
-		loaded.current = true;
-	}, [selected]);
+	return (<></>);
+	};
 
 	useEffect(() => {
 		setSelected( outgoingSelectedTerritory?.uuid === territoryMeshProps.territory.uuid || 
@@ -68,6 +63,13 @@ const TerritoryMesh = (territoryMeshProps : TerritoryMeshProps) => {
 			setTimeout(() => {setDifference(0);}, 3000);
 		}
 	}, [playerTerritory]);
+
+	useEffect(() => {
+		if(loaded.current) {
+			setFrame(0);
+		}
+		loaded.current = true;
+	}, [selected]);
 
 	return (
 		<mesh 
@@ -96,6 +98,8 @@ const TerritoryMesh = (territoryMeshProps : TerritoryMeshProps) => {
 			{difference !== 0 &&
 				<DifferenceTextMesh difference={difference}/>
 			}
+
+			{frame <= 5 && <Animation/>}
 
 		</mesh>
 	);

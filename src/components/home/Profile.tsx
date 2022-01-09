@@ -68,7 +68,7 @@ export const Profile = () => {
 					<Grid item>
 						<div >
 							<Typography sx={{ fontSize: 10, color: "white" }} onDragStart={(e) => { e.preventDefault(); }}>DISPLAYNAME</Typography>
-							<Typography sx={{ fontSize: 20, color: "white" }}>{user?.displayName} <EditIcon sx={{ fontSize: 17 }} onClick={() => handleOpen()} /></Typography>
+							<Typography sx={{ fontSize: 20, color: "white" }}>{user?.displayName} <EditIcon sx={{ fontSize: 17, "&:hover": { cursor: "pointer" } }} onClick={() => handleOpen()} /></Typography>
 						</div>
 						<div style={{ marginTop: 10 }}>
 							<Typography sx={{ fontSize: 10, color: "white" }} onDragStart={(e) => { e.preventDefault(); }}>EMAIL</Typography>
@@ -82,7 +82,7 @@ export const Profile = () => {
 					</Grid>
 				</Grid>
 			</Card>
-			
+
 
 			<Dialog
 				style={{ zIndex: 6666 }}

@@ -26,7 +26,7 @@ const ScenarioSelection = () => {
 	const [scenarioPerIndex] = useState<Map<number, ScenarioType>>(new Map<number, ScenarioType>());
 	const [currentScenarioIndex, setCurrentScenarioIndex] = useState<number>(0);
 	const [scenarioSelected, setScenarioSelected] = useState<ScenarioType | null>(null);
-	const [value, setValue] = useState<number>(2);
+	const [aiDifficulty, setAiDifficulty] = useState<number>(2);
 	const [hover, setHover] = useState<number>(-1);
 	const [timer, setTimer] = useState<number>(0);
 
@@ -58,7 +58,7 @@ const ScenarioSelection = () => {
 			gameMode: gameMode!.toUpperCase(),
 			name: user!.displayName,
 			maxTime: timer,
-			aiDifficulty: labels[value - 1].toUpperCase()
+			aiDifficulty: labels[aiDifficulty - 1].toUpperCase()
 		} as CreateGameType;
 		createGame(body);
 	};
@@ -66,7 +66,6 @@ const ScenarioSelection = () => {
 	const mobileMediaQuery = useMediaQuery((theme: Theme) => theme.breakpoints.down("lg"));
 
 	const handleChangeTimer = (event: React.ChangeEvent<HTMLInputElement>) => {
-		console.log(event.target.value);
 		setTimer(parseInt(event.target.value));
 	};
 
@@ -112,21 +111,25 @@ const ScenarioSelection = () => {
 								precision={1}
 								max={3}
 								name="ai-difficulty"
-								value={value}
+								value={aiDifficulty}
 								onChange={(event, newValue) => {
-									setValue(newValue as number);
+									if (newValue === null) {
+										setAiDifficulty(1);
+									} else {
+										setAiDifficulty(newValue as number);
+									}
 								}}
 								onChangeActive={(event, newHover) => {
 									setHover(newHover);
 								}}
 								emptyIcon={<StarIcon style={{ opacity: 1 }} fontSize="inherit" />}
 							/>
-							{value !== null && (
-								<Typography sx={{ color: "white", fontSize: 15 }}>{labels[hover !== -1 ? hover - 1 : value - 1]}</Typography>
+							{aiDifficulty !== null && (
+								<Typography sx={{ color: "white", fontSize: 15 }}>{labels[hover !== -1 ? hover - 1 : aiDifficulty - 1]}</Typography>
 							)}
 						</Grid>
 					}
-					<Button sx={{ minWidth: "100%", fontWeight: 700, color: "white", marginTop: 5, backgroundColor: success[400], fontSize: 30 }} disabled={scenarioSelected === null} variant="contained" onClick={() => handleStartGame()}>Start game</Button>
+					<Button sx={{ minWidth: "100%", fontWeight: 700, color: "white", marginTop: 5, backgroundColor: success[400], fontSize: 30 }} disabled={scenarioSelected === null} variant="contained" onClick={() => handleStartGame()}>Create game</Button>
 				</Grid>
 			</Grid>
 		);
@@ -157,41 +160,48 @@ const ScenarioSelection = () => {
 					<Grid item xs={12} md={6} style={{ paddingLeft: 25, paddingRight: 50, marginTop: "2%" }}>
 						{scenarios != undefined ? <ScenarioPreviewCarousel scenarioPerIndex={scenarioPerIndex} currentSlide={currentScenarioIndex} callbackSelectScenario={toggleScenarioSelected} scenarios={scenarios} />
 							: <CircularProgress />}
-						<Button sx={{ minWidth: "100%", fontWeight: 700, color: "white", backgroundColor: success[400], fontSize: 30, marginTop: 5 }} disabled={scenarioSelected === null} variant="contained" onClick={() => handleStartGame()}>Start game</Button>
+
+						{gameMode?.toLowerCase() === "single" ?
+							<div>
+								<Typography component="legend" style={{ textAlign: "left", fontSize: 22, marginTop: 10, color: "white", fontWeight: 800 }}>AI Difficulty</Typography>
+								<Rating
+									size="large"
+									precision={1}
+									max={3}
+									name="ai-difficulty"
+									value={aiDifficulty}
+									onChange={(event, newValue) => {
+										if (newValue === null) {
+											setAiDifficulty(1);
+										} else {
+											setAiDifficulty(newValue as number);
+										}
+									}}
+									onChangeActive={(event, newHover) => {
+										setHover(newHover);
+									}}
+									emptyIcon={<StarIcon style={{ opacity: 1, color: "grey" }} fontSize="inherit" />}
+								/>
+								{aiDifficulty !== null && (
+									<Typography sx={{ color: "white", fontSize: 15 }}>{labels[hover !== -1 ? hover - 1 : aiDifficulty - 1]}</Typography>
+								)}
+							</div>
+							:
+							<div>
+								<FormControl component="fieldset" style={{ marginTop: 10 }}>
+									<FormLabel component="legend" sx={{ color: "white" }}>Timer in seconds</FormLabel>
+									<RadioGroup row aria-label="timer" sx={{ color: "white" }} name="row-radio-buttons-group" value={timer} onChange={handleChangeTimer}>
+										<FormControlLabel value="0" control={<Radio />} label="Unlimited" />
+										<FormControlLabel value="60" control={<Radio />} label="60s" />
+										<FormControlLabel value="90" control={<Radio />} label="90s" />
+										<FormControlLabel value="120" control={<Radio />} label="120s" />
+									</RadioGroup>
+								</FormControl>
+							</div>}
+
+						<Button sx={{ minWidth: "100%", fontWeight: 700, color: "white", backgroundColor: success[400], fontSize: 30, marginTop: 5 }} disabled={scenarioSelected === null} variant="contained" onClick={() => handleStartGame()}>Create game</Button>
 					</Grid>
-					{gameMode?.toLowerCase() === "single" ?
-						<Grid item xs={12} md={6} style={{ paddingLeft: 25, paddingRight: 50, marginTop: "2%" }}>
-							<Typography component="legend" style={{ textAlign: "left", fontSize: 22, marginTop: 10, color: "white", fontWeight: 800 }}>Ai Difficulty</Typography>
-							<Rating
-								size="large"
-								precision={1}
-								max={3}
-								name="ai-difficulty"
-								value={value}
-								onChange={(event, newValue) => {
-									setValue(newValue as number);
-								}}
-								onChangeActive={(event, newHover) => {
-									setHover(newHover);
-								}}
-								emptyIcon={<StarIcon style={{ opacity: 1 }} fontSize="inherit" />}
-							/>
-							{value !== null && (
-								<Typography sx={{ color: "white", fontSize: 15 }}>{labels[hover !== -1 ? hover - 1 : value - 1]}</Typography>
-							)}
-						</Grid>
-						:
-						<Grid item xs={12} md={6} style={{ paddingLeft: 25, paddingRight: 50, marginTop: "2%" }}>
-							<FormControl component="fieldset">
-								<FormLabel component="legend" sx={{ color: "white" }}>Timer in seconds</FormLabel>
-								<RadioGroup row aria-label="timer" sx={{ color: "white" }} name="row-radio-buttons-group" value={timer} onChange={handleChangeTimer}>
-									<FormControlLabel value="0" control={<Radio />} label="Unlimited" />
-									<FormControlLabel value="60" control={<Radio />} label="60s" />
-									<FormControlLabel value="90" control={<Radio />} label="90s" />
-									<FormControlLabel value="120" control={<Radio />} label="120s" />
-								</RadioGroup>
-							</FormControl>
-						</Grid>}
+
 				</Grid>
 			</>
 		);

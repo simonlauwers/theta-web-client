@@ -51,27 +51,27 @@ export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
 	const itemList = [
 		{
 			key: "home",
-			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="./media/icons/homeIcon.svg"></img></Icon>,
+			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="../media/icons/homeIcon.svg"></img></Icon>,
 			onClick: () => navigate("/home")
 		}, 
 		{
 			key: "profile",
-			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="./media/icons/profileIcon.svg"></img></Icon>,
+			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="../media/icons/profileIcon.svg"></img></Icon>,
 			onClick: () => navigate("/profile")
 		},
 		{
 			key: "stats",
-			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="./media/icons/analyticsIcon.svg"></img></Icon>,
+			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="../media/icons/analyticsIcon.svg"></img></Icon>,
 			onClick: () => navigate("/stats")
 		},
 		{
 			key: "settings",
-			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="./media/icons/settingsIcon.svg"></img></Icon>,
+			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="../media/icons/settingsIcon.svg"></img></Icon>,
 			onClick: () => navigate("/settings")
 		},
 		{
 			key: "logout",
-			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="./media/icons/logoutIcon.svg"></img></Icon>,
+			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="../media/icons/logoutIcon.svg"></img></Icon>,
 			onClick: () => handleLogOut()
 		}
 	];

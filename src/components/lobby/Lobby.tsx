@@ -104,10 +104,14 @@ export const Lobby = () => {
 	};
 
 	const initializeGame = async () => {
-		await axios.post(process.env.REACT_APP_SOCKET_URL! + "api/chat/room", {
-			id: gameId!,
-			users: players.map((player) => player.user.uuid)
-		});
+		try {
+			await axios.post("https://theta-risk.com/api/chat/room", {
+				id: gameId!,
+				users: players.map((player) => player.user.uuid)
+			});
+		} catch (error : any) {
+			console.log(error);
+		}
 		initGame(gameId!);
 	};
 

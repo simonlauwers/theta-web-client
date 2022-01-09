@@ -1,33 +1,28 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Grid, Card, CardActionArea, CardContent, Typography, Fade, Button, useMediaQuery, Theme } from "@mui/material";
-import { useFormik } from "formik";
-import React, { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import WhiteTextField from "../theme/formInputs/WhiteTextField";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import * as gameApi from "../../api/game/GameApi";
 import GameType from "../../types/Game/GameType";
 import ResponseMessageType from "../../types/ResponseMessageType";
 import { useMutation } from "react-query";
 import useAuth from "../../hooks/context-hooks/UseAuth";
-import JoinGameType from "../../types/Game/JoinGameType";
 import { ArrowLeftSharp } from "@mui/icons-material";
+import useErrorHandler from "../../hooks/context-hooks/UseErrorHandler";
 export interface PickerValues {
 	gameCode: string;
 }
 
 export const RandomGameOrHost = () => {
 	const navigate = useNavigate();
-	const [error, setError] = useState<ResponseMessageType | null>(null);
+	const { setError } = useErrorHandler();
 	const { user } = useAuth();
 	const { mutate } = useMutation(gameApi.joinRandomGame, {
 		onSuccess: (data: GameType) => {
-			setError(null);
-			console.log(data);
 			navigate(`/${data.uuid}/lobby`);
 		},
 		onError: (e: any) => {
 			const rmt = e.response.data as ResponseMessageType;
-			console.log(rmt);
 			setError(rmt);
 		}
 	});
@@ -137,4 +132,3 @@ export const RandomGameOrHost = () => {
 
 	);
 };
-

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useEffect, useState } from "react";
 import { useMutation } from "react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import GameType from "../../types/Game/GameType";
 import ResponseMessageType from "../../types/ResponseMessageType";
 import * as gameApi from "../../api/game/GameApi";
@@ -10,6 +10,8 @@ import useMap from "../../hooks/context-hooks/game/UseMap";
 import usePhase from "../../hooks/context-hooks/game/UsePhase";
 import usePlayer from "../../hooks/context-hooks/game/UsePlayer";
 import { LoadingScreen } from "../extra/LoadingScreen";
+import useErrorHandler from "../../hooks/context-hooks/UseErrorHandler";
+import { error } from "../../theme/colors";
 
 interface GameInitializerProps {
 	setInitializing: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,7 +22,8 @@ const GameInitializer = (gameInitializerProps: GameInitializerProps) => {
 	const { setMap } = useMap();
 	const { setPhase, setLastUpdate } = usePhase();
 	const { setPlayers, setCurrentPlayer } = usePlayer();
-	const [ error, setError ] = useState<any>(null);
+	const { setError } = useErrorHandler();
+	const navigate = useNavigate();
 
 	const { gameUuid } = useParams<string>();
 
@@ -38,22 +41,14 @@ const GameInitializer = (gameInitializerProps: GameInitializerProps) => {
 		},
 		onError: (e: any) => {
 			const rmt = e.response.data as ResponseMessageType;
-			console.log(rmt);
 			setError(rmt);
+			navigate("/home");
 		}
 	});
 
 	useEffect(() => {
 		mutate(gameUuid!);
 	}, []);
-
-	if (error !== null) {
-		return (
-			<div>
-				{error.message}
-			</div>
-		);
-	}
 
 	return (
 			<div>

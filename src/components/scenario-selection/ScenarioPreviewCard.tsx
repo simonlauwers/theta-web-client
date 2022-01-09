@@ -1,6 +1,5 @@
-import { Card, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import React from "react";
-import { backgroundColor } from "../../theme/colors";
 import ScenarioType from "../../types/Game/ScenarioType";
 
 interface ScenarioPreviewCardProps {

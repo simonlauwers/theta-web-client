@@ -3,6 +3,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { Box, Theme, useMediaQuery } from "@mui/material";
 import MusicSettings from "./MusicSettings";
+import GameSettings from "./GameSettings";
 
 
 export const Settings = () => {
@@ -33,7 +34,9 @@ export const Settings = () => {
 					</div>
 					: null}
 				{value === 1 ? <div style={{ minHeight: "5em" }}></div> : null}
-				{value === 2 ? <div style={{ minHeight: "5em" }}></div> : null}
+				{value === 2 ? <div style={{ minHeight: 500, padding: 10 }}>
+					<GameSettings></GameSettings>
+				</div> : null}
 			</Box>
 		</div>
 	);

@@ -96,8 +96,7 @@ export async function leaveGame(gameId: string) {
 	return response.data;
 }
 
-
-export async function kickPlayer(player: RemovePlayerType) {
+export async function kickPlayer(player : RemovePlayerType) {
 	const response = await api.post("game/games/player/delete", player);
 	return response.data;
 }

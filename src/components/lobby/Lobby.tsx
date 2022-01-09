@@ -52,9 +52,9 @@ export const Lobby = () => {
 
 	useEffect(() => {
 		if (game !== null && game!.creator.uuid !== user!.userId && players.filter(pl => pl.user.uuid === user!.userId).length <= 0) {
-			setError({ status: 401, message: "You were kicked from the game.", timestamp: "" });
+			setError({status: 401, message: "You were kicked from the game.", timestamp: ""});
 			navigate("/home");
-		}
+		} 
 	}, [players]);
 
 	useQuery(
@@ -65,7 +65,7 @@ export const Lobby = () => {
 				const game = data.data as GameType;
 				setPlayers(game.players);
 				setGame(game);
-				if (game.gameState === "PLAYING") {
+				if(game.gameState === "PLAYING") {
 					navigate(`/game/${game.uuid}`);
 				}
 			} else if (data.status !== 204) {
@@ -88,9 +88,9 @@ export const Lobby = () => {
 		}
 	});
 
-	const { mutate: kickPlayer } = useMutation(gameApi.kickPlayer, {
+	const { mutate : kickPlayer } = useMutation(gameApi.kickPlayer, {
 		onSuccess: () => {
-			if (game!.creator.uuid !== user!.userId) navigate("/home");
+			if(game!.creator.uuid !== user!.userId) navigate("/home");
 		},
 		onError: (e: any) => {
 			const rmt = e.response.data as ResponseMessageType;
@@ -144,12 +144,12 @@ export const Lobby = () => {
 										}
 									</CardContent>
 									{
-										game !== null && game!.creator.uuid === user!.userId && player.user.uuid !== game!.creator.uuid &&
-										<CardActions>
-											<Button size="small" color="primary" style={{ backgroundColor: "#8c1212" }} onClick={() => { kick(player.uuid); }}>
-												<CloseIcon style={{ color: "white" }} />
-											</Button>
-										</CardActions>
+									game !== null && game!.creator.uuid === user!.userId && player.user.uuid !== game!.creator.uuid &&
+									<CardActions>
+										<Button size="small" color="primary" style={{ backgroundColor: "#8c1212" }} onClick={() => {kick(player.uuid);}}>
+											<CloseIcon style={{ color: "white" }} />
+										</Button>
+									</CardActions>
 									}
 
 

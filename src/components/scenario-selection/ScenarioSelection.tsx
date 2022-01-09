@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useState, useEffect } from "react";
-import { Button, Grid, Typography, CircularProgress, useMediaQuery, Theme, Rating, Box, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
+import { Button, Grid, Typography, CircularProgress, useMediaQuery, Theme, Rating, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
 import ScenarioCard from "./ScenarioCard";
 import { useMutation, useQuery } from "react-query";
 import * as gameApi from "../../api/game/GameApi";

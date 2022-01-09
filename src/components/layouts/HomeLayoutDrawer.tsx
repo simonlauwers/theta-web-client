@@ -7,12 +7,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Toolbar from "@mui/material/Toolbar";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import LogoutIcon from "@mui/icons-material/Logout";
-import SettingsIcon from "@mui/icons-material/Settings";
-import BarChartIcon from "@mui/icons-material/BarChart";
 import { useNavigate } from "react-router-dom";
-import HomeIcon from "@mui/icons-material/Home";
 import * as userApi from "../../api/user/UserApi";
 import { useMutation } from "react-query";
 import ResponseMessageType from "../../types/ResponseMessageType";
@@ -52,22 +47,22 @@ export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
 	const itemList = [
 		{
 			key: "home",
-			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="./media/icons/homeIcon.svg"></img></Icon>,
+			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="../media/icons/homeIcon.svg"></img></Icon>,
 			onClick: () => navigate("/home")
 		}, 
 		{
 			key: "profile",
-			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="./media/icons/profileIcon.svg"></img></Icon>,
+			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="../media/icons/profileIcon.svg"></img></Icon>,
 			onClick: () => navigate("/profile")
 		},
 		{
 			key: "stats",
-			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="./media/icons/analyticsIcon.svg"></img></Icon>,
+			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="../media/icons/analyticsIcon.svg"></img></Icon>,
 			onClick: () => navigate("/stats")
 		},
 		{
 			key: "settings",
-			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="./media/icons/settingsIcon.svg"></img></Icon>,
+			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="../media/icons/settingsIcon.svg"></img></Icon>,
 			onClick: () => navigate("/settings")
 		},
 		{
@@ -77,7 +72,7 @@ export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
 		},
 		{
 			key: "logout",
-			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="./media/icons/logoutIcon.svg"></img></Icon>,
+			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="../media/icons/logoutIcon.svg"></img></Icon>,
 			onClick: () => handleLogOut()
 		}
 	];

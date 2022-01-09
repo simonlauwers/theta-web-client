@@ -27,42 +27,47 @@ import { Picker } from "./components/home/Picker";
 import { SocketContext, socket } from "./contexts/ChatContext";
 import { Chat } from "./components/game/chat/Chat";
 import { RandomGameOrHost } from "./components/home/RandomGameOrHost";
+import { ErrorHandlerProvider } from "./contexts/ErrorHandlerContext";
+import ErrorSnackBar from "./components/extra/ErrorSnackBar";
 function App() {
 	return (
 		<>
 			<AuthProvider>
 				<SettingsProvider>
 					<SocketContext.Provider value={socket}>
-						<Router>
-							<Routes>
-								<Route path="/" element={<PrivateRoute />}>
-									<Route element={<HomeLayout />}>
-										<Route path="/home" element={<Home />} />
-										<Route path="/" element={<Home />} />
-										<Route path="/stats" element={<Stats />} />
-										<Route path="/settings" element={<Settings />} />
-										<Route path="/profile" element={<Profile />} />
-										<Route path="/:gameMode/scenarios" element={<ScenarioSelection />} />
-										<Route path="/:gameMode/picker" element={<Picker />} />
-										<Route path="/multi/hostOrJoin" element={<RandomGameOrHost />} />
-										<Route path="/:gameId/lobby" element={<Lobby />} />
-										<Route path="/:gameId/chat" element={<Chat />} />
-
+						<ErrorHandlerProvider>
+							<ErrorSnackBar/>
+							<Router>
+								<Routes>
+									<Route path="/" element={<PrivateRoute />}>
+										<Route element={<HomeLayout />}>
+											<Route path="/home" element={<Home />} />
+											<Route path="/" element={<Home />} />
+											<Route path="/stats" element={<Stats />} />
+											<Route path="/settings" element={<Settings />} />
+											<Route path="/profile" element={<Profile />} />
+											<Route path="/:gameMode/scenarios" element={<ScenarioSelection />} />
+											<Route path="/:gameMode/picker" element={<Picker />} />
+											<Route path="/multi/hostOrJoin" element={<RandomGameOrHost />} />
+											<Route path="/:gameId/lobby" element={<Lobby />} />
+											<Route path="/:gameId/chat" element={<Chat />} />
+		
+										</Route>
 									</Route>
-								</Route>
-
-								<Route element={<AuthLayout />}>
-									<Route path="/login" element={<Login />} />
-									<Route path="/signup" element={<Register />} />
-									<Route path="/:token/confirm" element={<Confirm />} />
-									<Route path="/reset-password-email" element={<ResetPasswordEmail />} />
-									<Route path="/:token/reset" element={<NewPassword />} />
-								</Route>
-								<Route path="/game/:gameUuid" element={<Game />} />
-								<Route path="*" element={<NotFoundScreen />} />
-
-							</Routes>
-						</Router>
+		
+									<Route element={<AuthLayout />}>
+										<Route path="/login" element={<Login />} />
+										<Route path="/signup" element={<Register />} />
+										<Route path="/:token/confirm" element={<Confirm />} />
+										<Route path="/reset-password-email" element={<ResetPasswordEmail />} />
+										<Route path="/:token/reset" element={<NewPassword />} />
+									</Route>
+									<Route path="/game/:gameUuid" element={<Game />} />
+									<Route path="*" element={<NotFoundScreen />} />
+		
+								</Routes>
+							</Router>
+						</ErrorHandlerProvider>
 					</SocketContext.Provider>
 				</SettingsProvider>
 			</AuthProvider>

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { createContext } from "react";
 import { useState, FC } from "react";
-import GameMetaType from "../../types/game/GameMetaType";
+import GameMetaType from "../../types/Game/GameMetaType";
 
 export interface GameContextType {
 	meta: GameMetaType | null;

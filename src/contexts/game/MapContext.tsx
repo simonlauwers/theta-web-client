@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { createContext } from "react";
 import { useState, FC } from "react";
-import MapType from "../../types/game/MapType";
+import MapType from "../../types/Game/MapType";
 
 export interface MapContextType {
 	map: MapType | null;

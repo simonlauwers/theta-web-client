@@ -1,5 +1,5 @@
-import PlayerType from "../../types/game/PlayerType";
-import TerritoryType from "../../types/game/TerritoryType";
+import PlayerType from "../../types/Game/PlayerType";
+import TerritoryType from "../../types/Game/TerritoryType";
 
 export function validatePlayerTerritory(player: PlayerType, territory: TerritoryType) {
     return player.playerTerritories.filter(pt => pt.territory.uuid === territory.uuid).length > 0;

@@ -3,7 +3,7 @@ import { useLoader } from "@react-three/fiber";
 import React, { useRef } from "react";
 import { Mesh, Object3D } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import MapType from "../../../types/game/MapType";
+import MapType from "../../../types/Game/MapType";
 import AreaMesh from "./AreaMesh";
 import LineModel from "./LineModel";
 import MapMesh from "./MapMesh";

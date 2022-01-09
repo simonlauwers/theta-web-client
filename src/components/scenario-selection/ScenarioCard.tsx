@@ -1,5 +1,5 @@
 import { Card, CardContent, Typography, useMediaQuery, Theme } from "@mui/material";
-import ScenarioType from "../../types/game/ScenarioType";
+import ScenarioType from "../../types/Game/ScenarioType";
 import React from "react";
 
 interface ScenarioCardProps {

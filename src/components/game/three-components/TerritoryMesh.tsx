@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Mesh } from "three";
 import { Text } from "@react-three/drei";
-import TerritoryType from "../../../types/game/TerritoryType";
+import TerritoryType from "../../../types/Game/TerritoryType";
 import usePlayer from "../../../hooks/context-hooks/game/UsePlayer";
 import parsePlayerColor from "../../../utils/game/PlayerColorParser";
 import useTerritory from "../../../hooks/context-hooks/game/UseTerritory";

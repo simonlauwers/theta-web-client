@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import axios, { AxiosResponse } from "axios";
 import NewPlayerType from "../../types/NewPlayerType";
-import AttackType from "../../types/game/AttackType";
-import DraftType from "../../types/game/DraftType";
-import FortifyType from "../../types/game/FortifyType";
-import PollType from "../../types/game/PollType";
+import AttackType from "../../types/Game/AttackType";
+import DraftType from "../../types/Game/DraftType";
+import FortifyType from "../../types/Game/FortifyType";
+import PollType from "../../types/Game/PollType";
 import CreateGameType from "../../types/CreateGameType";
-import AiType from "../../types/game/AiType";
-import JoinGameType from "../../types/game/JoinGameType";
-import JoinRandomGameType from "../../types/game/JoinRandomGameType";
+import AiType from "../../types/Game/AiType";
+import JoinGameType from "../../types/Game/JoinGameType";
+import JoinRandomGameType from "../../types/Game/JoinRandomGameType";
 
 const api = axios.create({
 	baseURL: location.hostname === "localhost" ? "http://localhost:8080/" : "/api/game/",

@@ -1,7 +1,7 @@
 import "pure-react-carousel/dist/react-carousel.es.css";
 import { CarouselProvider, Slider, Slide } from "pure-react-carousel";
 import React, { useEffect, useState } from "react";
-import ScenarioType from "../../types/game/ScenarioType";
+import ScenarioType from "../../types/Game/ScenarioType";
 import ScenarioPreviewCard from "./ScenarioPreviewCard";
 
 interface ScenarioPreviewCarouselProps {

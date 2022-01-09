@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { createContext } from "react";
 import { useState, FC } from "react";
-import PlayerType from "../../types/game/PlayerType";
+import PlayerType from "../../types/Game/PlayerType";
 
 export interface PlayerContextType {
 	players: PlayerType[];

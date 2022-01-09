@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import * as gameApi from "../../api/game/GameApi";
-import GameType from "../../types/game/GameType";
+import GameType from "../../types/Game/GameType";
 import NewPlayerType from "../../types/NewPlayerType";
 
 

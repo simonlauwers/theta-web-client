@@ -1,5 +1,8 @@
 /* eslint-disable semi */
-import TerritoryBorderType from "./TerritorryBorderType";
+
+import TerritoryBorderType from "./TerritoryBorderType";
+
+
 
 export default interface TerritoryType {
     uuid: string,

@@ -4,14 +4,14 @@ import { Button, Grid, Typography, CircularProgress, useMediaQuery, Theme, Ratin
 import ScenarioCard from "./ScenarioCard";
 import { useMutation, useQuery } from "react-query";
 import * as gameApi from "../../api/game/GameApi";
-import ScenarioType from "../../types/game/ScenarioType";
+import ScenarioType from "../../types/Game/ScenarioType";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Scrollbars from "react-custom-scrollbars-2";
 import { success } from "../../theme/colors";
 import { LoadingScreen } from "../extra/LoadingScreen";
 import ScenarioPreviewCarousel from "./ScenarioPreviewCarousel";
 import CreateGameType from "../../types/CreateGameType";
-import GameType from "../../types/game/GameType";
+import GameType from "../../types/Game/GameType";
 import useAuth from "../../hooks/context-hooks/UseAuth";
 import StarIcon from "@mui/icons-material/Star";
 

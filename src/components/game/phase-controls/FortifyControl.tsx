@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import useGame from "../../../hooks/context-hooks/game/UseGame";
 import usePlayer from "../../../hooks/context-hooks/game/UsePlayer";
 import useTerritory from "../../../hooks/context-hooks/game/UseTerritory";
-import GameType from "../../../types/game/GameType";
+import GameType from "../../../types/Game/GameType";
 import * as gameApi from "../../../api/game/GameApi";
 import ResponseMessageType from "../../../types/ResponseMessageType";
 import { useMutation } from "react-query";

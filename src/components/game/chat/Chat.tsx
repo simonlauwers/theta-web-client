@@ -39,6 +39,9 @@ const Chat = () => {
         },
     });
 
+    const getAllMessages = () => {
+        socket.emit("request/room/messages", gameId);
+    };
 
     const handleJoinChat = useCallback(() => {
         axios.post(process.env.REACT_APP_SOCKET_URL! + "api/chat/user/link", {
@@ -65,37 +68,41 @@ const Chat = () => {
             roomId: gameId,
         });
     };
+
     console.log("message state in component: ");
     console.log(messages);
+
     useEffect(() => {
-        const initRoom = async () => {
-            //handleCreateRoom();
-            handleJoinChat();
-            // subscribe to socket events
-            socket.on("response/room/join", (room) => {
-                console.log(room);
-                socket.emit("request/room/messages", room.id);
-            });
+        handleJoinChat();
+    }, []);
 
-            socket.on("response/room/messages", (messages) => {
-                // Recieve all messages
-                console.log("getting all");
-                setMessages(messages);
-            });
+    socket.on("response/room/join", (room) => {
+        console.log(room);
+        socket.emit("request/room/messages", room.id);
+    });
 
-            socket.on("response/message", (incomingMessage: MessageType) => {
-                // Single message append
-                console.log(incomingMessage);
-                setMessages([...messages, incomingMessage]);
-            });
+    socket.on("response/room/messages", (messages) => {
+        // Recieve all messages
+        console.log("all messages all");
+        console.log(messages);
+        setMessages(messages);
+    });
 
-            socket.on("error", (message: string) => {
-                console.log(message);
-            });
+    socket.on("response/message", (incomingMessage: MessageType) => {
+        // Single message append
 
+        if (messages.findIndex(e => incomingMessage.id === e.id) === -1) {
+            const arr = messages;
+            arr.push(incomingMessage);
+            setMessages(arr);
         };
-        initRoom();
-    }, [socket]);
+
+    });
+
+    socket.on("error", (message: string) => {
+        console.log(message);
+    });
+
 
     const handleMinimize = () => {
         console.log("you clicked");
@@ -118,9 +125,9 @@ const Chat = () => {
                 {messages.map((msg) => {
                     return (<Message
                         message={msg.message}
-                        avatar=""
-                        displayName=""
-                        sentAt="13:39h"
+                        avatar={""}
+                        displayName={""}
+                        sentAt={`${new Date(msg.createdAt).getHours()}:${new Date(msg.createdAt).getMinutes()}`}
                         key={msg.id}
                         sentByMe={msg.UserId === user!.userId} />);
                 })}

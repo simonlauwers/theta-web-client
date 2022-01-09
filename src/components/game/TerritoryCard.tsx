@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import React from "react";
-import TerritoryCardType from "../../types/game/TerritoryCardType";
+import TerritoryCardType from "../../types/Game/TerritoryCardType";
 
 interface TerritoryCardProps {
     territoryCard: TerritoryCardType;

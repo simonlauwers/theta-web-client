@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { createContext } from "react";
 import { useState, FC } from "react";
-import TerritoryType from "../../types/game/TerritoryType";
+import TerritoryType from "../../types/Game/TerritoryType";
 
 export interface TerritoryContextType {
 	selectedTerritory: TerritoryType | null;

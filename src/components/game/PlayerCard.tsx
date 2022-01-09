@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from "react";
-import PlayerType from "../../types/game/PlayerType";
+import PlayerType from "../../types/Game/PlayerType";
 import parsePlayerColor from "../../utils/game/PlayerColorParser";
 
 interface PlayerCardProps {

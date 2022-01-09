@@ -5,7 +5,7 @@ import { Object3D } from "three/src/Three";
 import usePhase from "../../../hooks/context-hooks/game/UsePhase";
 import usePlayer from "../../../hooks/context-hooks/game/UsePlayer";
 import useTerritory from "../../../hooks/context-hooks/game/UseTerritory";
-import TerritoryType from "../../../types/game/TerritoryType";
+import TerritoryType from "../../../types/Game/TerritoryType";
 import AttackLine from "./AttackLine";
 import BorderLine from "./BorderLine";
 

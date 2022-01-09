@@ -1,7 +1,7 @@
 import React from "react";
 import { Mesh } from "three/src/objects/Mesh";
 import usePlayer from "../../../hooks/context-hooks/game/UsePlayer";
-import AreaType from "../../../types/game/AreaType";
+import AreaType from "../../../types/Game/AreaType";
 import parsePlayerColor from "../../../utils/game/PlayerColorParser";
 
 interface AreaMeshProps {

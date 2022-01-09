@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import { useParams } from "react-router-dom";
-import GameType from "../../types/game/GameType";
+import GameType from "../../types/Game/GameType";
 import ResponseMessageType from "../../types/ResponseMessageType";
 import * as gameApi from "../../api/game/GameApi";
 import useGame from "../../hooks/context-hooks/game/UseGame";

@@ -1,6 +1,6 @@
 export default interface MessageType {
-    chatRoomId: string
-    userId: string
+    ChatRoomId: string
+    UserId: string
     createdAt: Date
     id: string
     message: string

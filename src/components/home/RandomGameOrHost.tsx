@@ -5,11 +5,11 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import WhiteTextField from "../theme/formInputs/WhiteTextField";
 import * as gameApi from "../../api/game/GameApi";
-import GameType from "../../types/Game/GameType";
+import GameType from "../../types/game/GameType";
 import ResponseMessageType from "../../types/ResponseMessageType";
 import { useMutation } from "react-query";
 import useAuth from "../../hooks/context-hooks/UseAuth";
-import JoinGameType from "../../types/Game/JoinGameType";
+import JoinGameType from "../../types/game/JoinGameType";
 export interface PickerValues {
   gameCode: string;
 }

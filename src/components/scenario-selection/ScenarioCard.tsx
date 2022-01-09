@@ -1,5 +1,5 @@
 import { Card, CardContent, Typography, useMediaQuery, Theme } from "@mui/material";
-import ScenarioType from "../../types/Game/ScenarioType";
+import ScenarioType from "../../types/game/ScenarioType";
 import React from "react";
 
 interface ScenarioCardProps {
@@ -46,7 +46,7 @@ const selectedScenarioCardStyling = {
 };
 
 const ScenarioCard = (props: ScenarioCardProps) => {
-	const mobileMediaQuery = useMediaQuery((theme: Theme) => theme.breakpoints.down("lg")); 
+	const mobileMediaQuery = useMediaQuery((theme: Theme) => theme.breakpoints.down("lg"));
 
 	if (mobileMediaQuery) {
 		return (

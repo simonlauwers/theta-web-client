@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { createContext } from "react";
 import { useState, FC } from "react";
-import TerritoryType from "../../types/Game/TerritoryType";
+import TerritoryType from "../../types/game/TerritoryType";
 
 export interface TerritoryContextType {
 	selectedTerritory: TerritoryType | null;
@@ -27,8 +27,10 @@ export const TerritoryProvider: FC = ({ children }) => {
 	const [incomingSelectedTerritory, setIncomingSelectedTerritory] = useState<TerritoryType | null>(null);
 
 	return (
-		<TerritoryContext.Provider value={{selectedTerritory, outgoingSelectedTerritory, incomingSelectedTerritory,
-        setSelectedTerritory, setOutgoingSelectedTerritory, setIncomingSelectedTerritory}}>
+		<TerritoryContext.Provider value={{
+			selectedTerritory, outgoingSelectedTerritory, incomingSelectedTerritory,
+			setSelectedTerritory, setOutgoingSelectedTerritory, setIncomingSelectedTerritory
+		}}>
 			{children}
 		</TerritoryContext.Provider>
 	);

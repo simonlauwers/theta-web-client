@@ -10,14 +10,18 @@ import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 import { Message } from "./Message";
 import MessageType from "../../../types/MessageType";
+import { useMutation } from "react-query";
 
 interface MessageValues {
     message: string
 };
 
+const players = [
+    "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1",
+    "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa2"
+];
 
 const Chat = () => {
-    console.log("chat rerender");
     const [hide, setHide] = useState<boolean>(false);
     const socket = useContext(SocketContext);
     const [joined, setJoined] = useState(false);
@@ -30,28 +34,30 @@ const Chat = () => {
         },
         onSubmit: async (message: MessageValues) => {
             // do call
-            console.log(message.message);
             sendMessage(message.message, gameId!);
+            formik.values.message = "";
         },
     });
 
-    const handleInviteAccepted = useCallback(() => {
-        setJoined(true);
-    }, []);
 
     const handleJoinChat = useCallback(() => {
-        axios.post("http://localhost:3001/api/chat/user/link", {
+        axios.post(process.env.REACT_APP_SOCKET_URL! + "api/chat/user/link", {
             socketId: socket.id
         }, {
             headers: {
                 "x-authentication-id": user!.userId
             }
         }).then(() => {
-            // game id hier
-            socket.emit("request/room/join", "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa6");
+            socket.emit("request/room/join", gameId);
         });
-
     }, []);
+
+    const handleCreateRoom = async () => {
+        await axios.post(process.env.REACT_APP_SOCKET_URL! + "api/chat/room", {
+            id: gameId!,
+            users: players
+        });
+    };
 
     const sendMessage = (message: string, gameId: string) => {
         socket.emit("request/room/messages/new", {
@@ -59,38 +65,36 @@ const Chat = () => {
             roomId: gameId,
         });
     };
-
-
+    console.log("message state in component: ");
+    console.log(messages);
     useEffect(() => {
-        handleJoinChat();
-        // subscribe to socket events
-        socket.on("response/room/join", (room) => {
-            console.log(room);
-            socket.emit("request/room/messages", room.id);
-        });
+        const initRoom = async () => {
+            //handleCreateRoom();
+            handleJoinChat();
+            // subscribe to socket events
+            socket.on("response/room/join", (room) => {
+                console.log(room);
+                socket.emit("request/room/messages", room.id);
+            });
 
-        socket.on("response/room/messages", (messages) => {
-            // Recieve all messages
-            setMessages(messages);
-            console.log("messages updated");
-        });
+            socket.on("response/room/messages", (messages) => {
+                // Recieve all messages
+                console.log("getting all");
+                setMessages(messages);
+            });
 
-        socket.on("response/message", (message) => {
-            // Single message append
-            console.log("new message");
-            console.log(message);
-        });
+            socket.on("response/message", (incomingMessage: MessageType) => {
+                // Single message append
+                console.log(incomingMessage);
+                setMessages([...messages, incomingMessage]);
+            });
 
-        socket.on("error", (message: string) => {
-            console.log(message);
-        });
+            socket.on("error", (message: string) => {
+                console.log(message);
+            });
 
-
-        return () => {
-            // before the component is destroyed
-            // unbind all event handlers used in this component
-            socket.off("JOIN_REQUEST_ACCEPTED", handleInviteAccepted);
         };
+        initRoom();
     }, [socket]);
 
     const handleMinimize = () => {
@@ -111,23 +115,6 @@ const Chat = () => {
             </header>
 
             <main className={hide ? "msger-chat hide" : "msger-chat"}>
-                <div className="msg left-msg">
-                    <div
-                        className="msg-img"
-                        style={{ backgroundImage: "url(url(https://image.flaticon.com/icons/svg/327/327779.svg)" }}
-                    ></div>
-
-                    <div className="msg-bubble">
-                        <div className="msg-info">
-                            <div className="msg-info-name">BOT</div>
-                            <div className="msg-info-time">12:45</div>
-                        </div>
-
-                        <div className="msg-text">
-                            Hi, welcome to SimpleChat! Go ahead and send me a message. 😄
-                        </div>
-                    </div>
-                </div>
                 {messages.map((msg) => {
                     return (<Message
                         message={msg.message}
@@ -135,13 +122,13 @@ const Chat = () => {
                         displayName=""
                         sentAt="13:39h"
                         key={msg.id}
-                        sentByMe={false} />);
+                        sentByMe={msg.UserId === user!.userId} />);
                 })}
             </main>
 
             <form className="msger-inputarea" onSubmit={formik.handleSubmit}>
                 <input type="text" id="message" name="message" value={formik.values.message}
-                    onChange={formik.handleChange} className="msger-input" placeholder="Enter your message..." />
+                    onChange={formik.handleChange} autoComplete="off" className="msger-input" placeholder="Enter your message..." />
                 <button type="submit" className="msger-send-btn">Send</button>
             </form>
         </section >

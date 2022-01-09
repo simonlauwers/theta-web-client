@@ -1,15 +1,15 @@
 import React from "react";
 import { Mesh } from "three/src/objects/Mesh";
 import usePlayer from "../../../hooks/context-hooks/game/UsePlayer";
-import AreaType from "../../../types/Game/AreaType";
+import AreaType from "../../../types/game/AreaType";
 import parsePlayerColor from "../../../utils/game/PlayerColorParser";
 
 interface AreaMeshProps {
-	mesh : Mesh;
-	area : AreaType;
+	mesh: Mesh;
+	area: AreaType;
 }
 
-const AreaMesh = (areaMeshProps : AreaMeshProps) => {
+const AreaMesh = (areaMeshProps: AreaMeshProps) => {
 	const { players } = usePlayer();
 
 	const territories = areaMeshProps.area.territories.map(territory => territory.uuid);
@@ -21,7 +21,7 @@ const AreaMesh = (areaMeshProps : AreaMeshProps) => {
 		<mesh geometry={areaMeshProps.mesh.geometry}
 			position={areaMeshProps.mesh.position}
 		>
-			<meshToonMaterial color={ player !== undefined ? parsePlayerColor(player.playerColor)?.light : "#000000"} />
+			<meshToonMaterial color={player !== undefined ? parsePlayerColor(player.playerColor)?.light : "#000000"} />
 		</mesh>
 	);
 };

@@ -3,7 +3,7 @@ import { useLoader } from "@react-three/fiber";
 import React, { useRef } from "react";
 import { Mesh, Object3D } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import MapType from "../../../types/Game/MapType";
+import MapType from "../../../types/game/MapType";
 import AreaMesh from "./AreaMesh";
 import LineModel from "./LineModel";
 import MapMesh from "./MapMesh";
@@ -58,8 +58,8 @@ const ScenarioModel = (scenarioModelProps: ScenarioModelProps) => {
 							.find(territory => territory.resourceIndex === parseInt(territoryMesh.name.slice(1)))!} />
 				))
 			}
-			
-			<LineModel territories={scenarioModelProps.map.areas.flatMap(area => area.territories)} territoryMeshes={territoryMeshes}/>
+
+			<LineModel territories={scenarioModelProps.map.areas.flatMap(area => area.territories)} territoryMeshes={territoryMeshes} />
 		</group>
 	);
 };

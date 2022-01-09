@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import { useParams } from "react-router-dom";
-import GameType from "../../types/Game/GameType";
+import GameType from "../../types/game/GameType";
 import ResponseMessageType from "../../types/ResponseMessageType";
 import * as gameApi from "../../api/game/GameApi";
 import useGame from "../../hooks/context-hooks/game/UseGame";
@@ -20,7 +20,7 @@ const GameInitializer = (gameInitializerProps: GameInitializerProps) => {
 	const { setMap } = useMap();
 	const { setPhase, setLastUpdate } = usePhase();
 	const { setPlayers, setCurrentPlayer } = usePlayer();
-	const [ error, setError ] = useState<any>(null);
+	const [error, setError] = useState<any>(null);
 
 	const { gameUuid } = useParams<string>();
 
@@ -56,9 +56,9 @@ const GameInitializer = (gameInitializerProps: GameInitializerProps) => {
 	}
 
 	return (
-			<div>
-				<LoadingScreen/>
-			</div>
+		<div>
+			<LoadingScreen />
+		</div>
 	);
 };
 

@@ -4,6 +4,8 @@ import { useState, FC } from "react";
 
 
 export interface SettingsContextType {
+	colorBlindMode: boolean,
+	setColorBlindMode: React.Dispatch<React.SetStateAction<boolean>>,
 	backgroundMusicEnabled: boolean,
 	clickSoundsEnabled: boolean,
 	setBackgroundMusicEnabled: React.Dispatch<React.SetStateAction<boolean>>,
@@ -11,6 +13,8 @@ export interface SettingsContextType {
 }
 
 export const SettingsContext = createContext<SettingsContextType>({
+	colorBlindMode: false,
+	setColorBlindMode: () => { },
 	backgroundMusicEnabled: false,
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	clickSoundsEnabled: true,
@@ -23,13 +27,23 @@ export const SettingsProvider: FC = ({
 }) => {
 	const [backgroundMusicEnabled, setBackgroundMusicEnabled] = useState<boolean>(false);
 	const [clickSoundsEnabled, setClickSoundsEnabled] = useState<boolean>(true);
+	const [colorBlindMode, setColorBlindMode] = useState<boolean>(true);
 
 	useEffect(() => {
 		const clickSoundsEnabledFromLs = JSON.parse(localStorage.getItem("clickSoundsEnabled") as string);
 		if (clickSoundsEnabledFromLs != null) {
 			setClickSoundsEnabled(clickSoundsEnabled);
 		}
+
+		const backgroundMusicEnabledFromLs = JSON.parse(localStorage.getItem("colorBlindMode") as string);
+		if (backgroundMusicEnabledFromLs != null) {
+			setColorBlindMode(colorBlindMode);
+		}
 	}, []);
+
+	useEffect(() => {
+		localStorage.setItem("colorBlindMode", JSON.stringify(colorBlindMode));
+	}, [colorBlindMode]);
 
 	useEffect(() => {
 		localStorage.setItem("backgroundMusicEnabled", JSON.stringify(backgroundMusicEnabled));
@@ -40,7 +54,7 @@ export const SettingsProvider: FC = ({
 	}, [clickSoundsEnabled]);
 
 	return (
-		<SettingsContext.Provider value={{ backgroundMusicEnabled, clickSoundsEnabled, setBackgroundMusicEnabled, setClickSoundsEnabled }}>
+		<SettingsContext.Provider value={{ colorBlindMode, setColorBlindMode, backgroundMusicEnabled, clickSoundsEnabled, setBackgroundMusicEnabled, setClickSoundsEnabled }}>
 			{children}
 		</SettingsContext.Provider>
 	);

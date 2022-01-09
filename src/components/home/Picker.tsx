@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Grid, Card, CardActionArea, CardContent, Typography, Fade, Button, useMediaQuery, Theme } from "@mui/material";
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import WhiteTextField from "../theme/formInputs/WhiteTextField";
 import * as gameApi from "../../api/game/GameApi";
@@ -11,6 +11,7 @@ import { useMutation } from "react-query";
 import useAuth from "../../hooks/context-hooks/UseAuth";
 import JoinGameType from "../../types/Game/JoinGameType";
 import { ArrowLeftSharp } from "@mui/icons-material";
+import useErrorHandler from "../../hooks/context-hooks/UseErrorHandler";
 export interface PickerValues {
 	gameCode: string
 }
@@ -19,7 +20,7 @@ export const Picker = () => {
 	const navigate = useNavigate();
 	const { gameMode } = useParams<string>();
 	const { user } = useAuth();
-	const [error, setError] = useState<ResponseMessageType | null>(null);
+	const { setError } = useErrorHandler();
 	const mobileMediaQuery = useMediaQuery((theme: Theme) => theme.breakpoints.down("lg"));
 
 	const formik = useFormik({
@@ -33,7 +34,6 @@ export const Picker = () => {
 
 	const { mutate } = useMutation(gameApi.joinGame, {
 		onSuccess: (data: GameType) => {
-			setError(null);
 			navigate(`/${data.uuid}/lobby`);
 		},
 		onError: (e: any) => {
@@ -83,7 +83,6 @@ export const Picker = () => {
 								/>
 								<Button variant="contained" type="submit" sx={{ display: "inline-block" }}>Join</Button>
 							</Grid>
-							{error && <span style={{ color: "white" }}>{error}</span>}
 						</form>
 					</Grid>
 				</Grid >
@@ -139,7 +138,6 @@ export const Picker = () => {
 							/>
 							<Button variant="contained" type="submit" sx={{ display: "inline-block" }}>Join</Button>
 						</Grid>
-						{error && <span style={{ color: "white" }}>{error}</span>}
 					</form>
 				</Grid >
 			</Fade >

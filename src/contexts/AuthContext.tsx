@@ -33,13 +33,11 @@ export const AuthProvider: FC = ({
 	 */
 	useEffect(() => {
 		if (!isLoading && !isError) {
-			console.log("whomai returned success!");
 			setUser(data);
 			setLoading(false);
 			localStorage.setItem("userId", data.userId);
 		}
 		if (!isLoading && isError) {
-			console.log("whoami returned an error");
 			setUser(null);
 			setLoading(false);
 		}

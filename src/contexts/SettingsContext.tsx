@@ -27,17 +27,17 @@ export const SettingsProvider: FC = ({
 }) => {
 	const [backgroundMusicEnabled, setBackgroundMusicEnabled] = useState<boolean>(false);
 	const [clickSoundsEnabled, setClickSoundsEnabled] = useState<boolean>(true);
-	const [colorBlindMode, setColorBlindMode] = useState<boolean>(true);
+	const [colorBlindMode, setColorBlindMode] = useState<boolean>(false);
 
 	useEffect(() => {
 		const clickSoundsEnabledFromLs = JSON.parse(localStorage.getItem("clickSoundsEnabled") as string);
-		if (clickSoundsEnabledFromLs != null) {
-			setClickSoundsEnabled(clickSoundsEnabled);
+		if (clickSoundsEnabledFromLs != null) {			
+			setClickSoundsEnabled(clickSoundsEnabledFromLs);
 		}
 
-		const backgroundMusicEnabledFromLs = JSON.parse(localStorage.getItem("colorBlindMode") as string);
-		if (backgroundMusicEnabledFromLs != null) {
-			setColorBlindMode(colorBlindMode);
+		const colorBlindModeFromLs = JSON.parse(localStorage.getItem("colorBlindMode") as string);
+		if (colorBlindModeFromLs != null) {
+			setColorBlindMode(colorBlindModeFromLs);
 		}
 	}, []);
 

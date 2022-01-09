@@ -9,19 +9,13 @@ interface ScenarioPreviewCardProps {
 
 const ScenarioPreviewCard = (props: ScenarioPreviewCardProps) => {
 	return (
-		<Card sx={{
-			minHeight: "100%", maxHeight: "100%", padding: 5, backgroundColor: backgroundColor.main
-		}}>
-
-			<Typography onDragStart={(e) => { e.preventDefault(); }} style={{ fontSize: 35, color: "white", fontWeight: 800, textAlign: "center" }}>
+		<div>
+			<Typography onDragStart={(e) => { e.preventDefault(); }} style={{ fontSize: 20, color: "white", fontWeight: 700, textAlign: "center" }}>
 				{props.scenario.name}
 			</Typography>
-			
-			<img style={{
-				marginLeft: "15%", marginTop: 10, marginBottom: 10
-			}} width={"70%"} src={props.scenario.image} alt={props.scenario.name} onDragStart={(e) => { e.preventDefault(); }} />
 
-		</Card>
+			<img style={{ objectFit: "cover", padding: 5 }} width={"100%"} height={"100%"} src={props.scenario.image} alt={props.scenario.name} onDragStart={(e) => { e.preventDefault(); }} />
+		</div>
 	);
 };
 

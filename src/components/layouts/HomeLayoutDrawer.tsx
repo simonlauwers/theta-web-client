@@ -16,7 +16,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import * as userApi from "../../api/user/UserApi";
 import { useMutation } from "react-query";
 import ResponseMessageType from "../../types/ResponseMessageType";
-import { Theme, useMediaQuery } from "@mui/material";
+import { Icon, Theme, useMediaQuery } from "@mui/material";
 import { backgroundColor } from "../../theme/colors";
 import { CloseOutlined, MenuOutlined } from "@mui/icons-material";
 
@@ -45,33 +45,33 @@ export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
 	};
 
 	const handleLogOut = () => {
-		mutate();
+		mutate(); 
 	};
 
 	const itemList = [
 		{
 			key: "home",
-			icon: <HomeIcon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }} />,
+			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="./media/icons/homeIcon.svg"></img></Icon>,
 			onClick: () => navigate("/home")
-		},
+		}, 
 		{
 			key: "profile",
-			icon: <AccountCircleIcon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }} />,
+			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="./media/icons/profileIcon.svg"></img></Icon>,
 			onClick: () => navigate("/profile")
 		},
 		{
 			key: "stats",
-			icon: <BarChartIcon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }} />,
+			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="./media/icons/analyticsIcon.svg"></img></Icon>,
 			onClick: () => navigate("/stats")
 		},
 		{
 			key: "settings",
-			icon: <SettingsIcon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }} />,
+			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="./media/icons/settingsIcon.svg"></img></Icon>,
 			onClick: () => navigate("/settings")
 		},
 		{
 			key: "logout",
-			icon: <LogoutIcon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }} />,
+			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="./media/icons/logoutIcon.svg"></img></Icon>,
 			onClick: () => handleLogOut()
 		}
 	];

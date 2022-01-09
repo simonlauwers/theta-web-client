@@ -4,13 +4,10 @@ import { SocketContext } from "../../../contexts/ChatContext";
 import useAuth from "../../../hooks/context-hooks/UseAuth";
 import axios from "axios";
 import { useFormik } from "formik";
-import { useParams } from "react-router";
 import "./Chat.css";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
-import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 import { Message } from "./Message";
 import MessageType from "../../../types/MessageType";
-import { useMutation } from "react-query";
 import usePlayer from "../../../hooks/context-hooks/game/UsePlayer";
 import useGame from "../../../hooks/context-hooks/game/UseGame";
 
@@ -50,13 +47,6 @@ const Chat = () => {
             socket.emit("request/room/join", meta!.uuid);
         });
     }, []);
-
-    const handleCreateRoom = async () => {
-        await axios.post(process.env.REACT_APP_SOCKET_URL! + "api/chat/room", {
-            id: meta!.uuid,
-            users: players
-        });
-    };
 
     const sendMessage = (message: string, gameId: string) => {
         socket.emit("request/room/messages/new", {
@@ -98,18 +88,12 @@ const Chat = () => {
         console.log(message);
     });
 
-
-    const handleMinimize = () => {
-        console.log("you clicked");
-        setHide(!hide);
-    };
     return (
 
         <section className="msger">
             <header className="msger-header">
                 <div className="msger-header-title">
                     <ChatBubbleIcon />
-                    <CloseFullscreenIcon onClick={handleMinimize} />
                 </div>
                 <div className="msger-header-options">
                     <span><i className="fas fa-cog"></i></span>
@@ -121,7 +105,7 @@ const Chat = () => {
                     return (<Message
                         message={msg.message}
                         avatar={""}
-                        displayName={""}
+                        displayName={players.find(e => e.user.uuid === msg.UserId)!.name}
                         sentAt={`${new Date(msg.createdAt).getHours()}:${new Date(msg.createdAt).getMinutes()}`}
                         key={msg.id}
                         sentByMe={msg.UserId === user!.userId} />);

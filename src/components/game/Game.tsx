@@ -21,7 +21,6 @@ import { ChatContainer } from "./chat/ChatContainer";
 
 const Game = () => {
 	const [initializing, setInitializing] = useState(true);
-
 	const defaultTheme = createTheme();
 	const theme = createTheme({
 		palette: {

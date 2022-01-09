@@ -9,10 +9,11 @@ import CreateGameType from "../../types/CreateGameType";
 import AiType from "../../types/Game/AiType";
 import JoinGameType from "../../types/Game/JoinGameType";
 import JoinRandomGameType from "../../types/Game/JoinRandomGameType";
+import RemovePlayerType from "../../types/RemovePlayerType";
 
 const api = axios.create({
 	baseURL: location.hostname === "localhost" ? "http://localhost:8080/" : "/api/game/",
-	withCredentials: false,
+	withCredentials: true,
 	headers: {
 		"X-Authentication-Id": localStorage.getItem("userId")!
 	}
@@ -92,5 +93,11 @@ export async function callAi(aiProps: AiType) {
 
 export async function leaveGame(gameId: string) {
 	const response = await api.delete("game/games/" + gameId + "/leave");
+	return response.data;
+}
+
+
+export async function kickPlayer(player: RemovePlayerType) {
+	const response = await api.post("game/games/player/delete", player);
 	return response.data;
 }

@@ -1,15 +1,12 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 const api = axios.create({
-	baseURL: location.hostname === "localhost" ? "http://localhost:8080/" : "/api/stats/",
+	baseURL: location.hostname === "localhost" ? "http://localhost:5051/" : "/api/stats/",
 	withCredentials: true,
-	headers: {
-		"X-Authentication-Id": localStorage.getItem("userId")!
-	}
 });
 
-export async function hoursPlayed(playerId: string) {
+export async function getHoursPlayed(playerId: string | undefined) {
 	const response = await api.get("user/" + playerId + "/hours");
 	return response.data;
 }

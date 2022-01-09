@@ -26,7 +26,7 @@ import { Settings } from "./components/settings/Settings";
 import { Picker } from "./components/home/Picker";
 import { SocketContext, socket } from "./contexts/ChatContext";
 import { Chat } from "./components/game/chat/Chat";
-
+import { RandomGameOrHost } from "./components/home/RandomGameOrHost";
 function App() {
 	return (
 		<>
@@ -44,8 +44,10 @@ function App() {
 										<Route path="/profile" element={<Profile />} />
 										<Route path="/:gameMode/scenarios" element={<ScenarioSelection />} />
 										<Route path="/:gameMode/picker" element={<Picker />} />
+										<Route path="/multi/hostOrJoin" element={<RandomGameOrHost />} />
 										<Route path="/:gameId/lobby" element={<Lobby />} />
 										<Route path="/:gameId/chat" element={<Chat />} />
+
 									</Route>
 								</Route>
 

@@ -7,6 +7,8 @@ import FortifyType from "../../types/Game/FortifyType";
 import PollType from "../../types/Game/PollType";
 import CreateGameType from "../../types/CreateGameType";
 import AiType from "../../types/Game/AiType";
+import JoinGameType from "../../types/Game/JoinGameType";
+import JoinRandomGameType from "../../types/Game/JoinRandomGameType";
 
 const api = axios.create({
 	baseURL: location.hostname === "localhost" ? "http://localhost:8080/" : "/api/game/",
@@ -33,6 +35,16 @@ export async function getAllScenarios() {
 
 export async function createGame(cgt: CreateGameType) {
 	const response = await api.post("game/games/create", cgt);
+	return response.data;
+}
+
+export async function joinGame(jg: JoinGameType) {
+	const response = await api.post("game/games/join", jg);
+	return response.data;
+}
+
+export async function joinRandomGame(rg: JoinRandomGameType) {
+	const response = await api.post("game/games/joinRandom", rg);
 	return response.data;
 }
 
@@ -66,9 +78,9 @@ export async function initializeGame(gameId: string) {
 	return response.data;
 }
 
-export async function callAi(aiProps : AiType) {
-	let response : AxiosResponse<any, any>;
-	if(aiProps.phase === "DRAFT") {
+export async function callAi(aiProps: AiType) {
+	let response: AxiosResponse<any, any>;
+	if (aiProps.phase === "DRAFT") {
 		response = await api.patch("game/ai/draft/" + aiProps.uuid);
 	} else if (aiProps.phase === "ATTACK") {
 		response = await api.patch("game/ai/attack/" + aiProps.uuid);

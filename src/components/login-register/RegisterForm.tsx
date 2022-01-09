@@ -74,7 +74,7 @@ const RegisterForm = () => {
 		validationSchema: validationSchemaSignup,
 		onSubmit: (values: SignupValues) => {
 			setSuccessAlert(null);
-			const newUser = { ...values, profilePicture: "", provider: "LOCAL" };
+			const newUser = { ...values, profilePicture: `https://avatars.dicebear.com/api/micah/${Math.random()}.svg`, provider: "LOCAL" };
 			mutate(newUser);
 			console.log(newUser);
 		}

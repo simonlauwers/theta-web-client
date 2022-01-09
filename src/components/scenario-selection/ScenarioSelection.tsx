@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useState, useEffect } from "react";
-import { Button, Grid, Typography, CircularProgress, useMediaQuery, Theme } from "@mui/material";
+import { Button, Grid, Typography, CircularProgress, useMediaQuery, Theme, Rating, Box, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
 import ScenarioCard from "./ScenarioCard";
 import { useMutation, useQuery } from "react-query";
 import * as gameApi from "../../api/game/GameApi";
@@ -13,17 +13,22 @@ import ScenarioPreviewCarousel from "./ScenarioPreviewCarousel";
 import CreateGameType from "../../types/CreateGameType";
 import GameType from "../../types/Game/GameType";
 import useAuth from "../../hooks/context-hooks/UseAuth";
+import StarIcon from "@mui/icons-material/Star";
 
 
+
+const labels = ["Easy", "Medium", "Hard"];
 
 const ScenarioSelection = () => {
 	const { gameMode } = useParams<string>();
-	const { user } = useAuth();  
+	const { user } = useAuth();
 	console.log(user);
 	const [scenarioPerIndex] = useState<Map<number, ScenarioType>>(new Map<number, ScenarioType>());
 	const [currentScenarioIndex, setCurrentScenarioIndex] = useState<number>(0);
 	const [scenarioSelected, setScenarioSelected] = useState<ScenarioType | null>(null);
-
+	const [value, setValue] = useState<number>(2);
+	const [hover, setHover] = useState<number>(-1);
+	const [timer, setTimer] = useState<number>(0);
 
 
 	const { mutate: createGame } = useMutation(gameApi.createGame, {
@@ -51,13 +56,19 @@ const ScenarioSelection = () => {
 		const body = {
 			scenarioId: scenarioSelected!.uuid,
 			gameMode: gameMode!.toUpperCase(),
-			name: user!.displayName
+			name: user!.displayName,
+			maxTime: timer,
+			aiDifficulty: labels[value - 1].toUpperCase()
 		} as CreateGameType;
 		createGame(body);
 	};
 
 	const mobileMediaQuery = useMediaQuery((theme: Theme) => theme.breakpoints.down("lg"));
 
+	const handleChangeTimer = (event: React.ChangeEvent<HTMLInputElement>) => {
+		console.log(event.target.value);
+		setTimer(parseInt(event.target.value));
+	};
 
 	useEffect(() => {
 		if (scenarios != undefined) {
@@ -93,6 +104,28 @@ const ScenarioSelection = () => {
 							</div>
 						) : <CircularProgress />}
 					</div>
+					{gameMode?.toLowerCase() === "single" &&
+						<Grid item xs={12} md={6} style={{ paddingLeft: 25, paddingRight: 50, marginTop: "2%" }}>
+							<Typography component="legend" style={{ textAlign: "left", fontSize: 22, marginTop: 10, color: "white", fontWeight: 800 }}>Ai Difficulty</Typography>
+							<Rating
+								size="large"
+								precision={1}
+								max={3}
+								name="ai-difficulty"
+								value={value}
+								onChange={(event, newValue) => {
+									setValue(newValue as number);
+								}}
+								onChangeActive={(event, newHover) => {
+									setHover(newHover);
+								}}
+								emptyIcon={<StarIcon style={{ opacity: 1 }} fontSize="inherit" />}
+							/>
+							{value !== null && (
+								<Typography sx={{ color: "white", fontSize: 15 }}>{labels[hover !== -1 ? hover - 1 : value - 1]}</Typography>
+							)}
+						</Grid>
+					}
 					<Button sx={{ minWidth: "100%", fontWeight: 700, color: "white", marginTop: 5, backgroundColor: success[400], fontSize: 30 }} disabled={scenarioSelected === null} variant="contained" onClick={() => handleStartGame()}>Start game</Button>
 				</Grid>
 			</Grid>
@@ -126,6 +159,39 @@ const ScenarioSelection = () => {
 							: <CircularProgress />}
 						<Button sx={{ minWidth: "100%", fontWeight: 700, color: "white", backgroundColor: success[400], fontSize: 30, marginTop: 5 }} disabled={scenarioSelected === null} variant="contained" onClick={() => handleStartGame()}>Start game</Button>
 					</Grid>
+					{gameMode?.toLowerCase() === "single" ?
+						<Grid item xs={12} md={6} style={{ paddingLeft: 25, paddingRight: 50, marginTop: "2%" }}>
+							<Typography component="legend" style={{ textAlign: "left", fontSize: 22, marginTop: 10, color: "white", fontWeight: 800 }}>Ai Difficulty</Typography>
+							<Rating
+								size="large"
+								precision={1}
+								max={3}
+								name="ai-difficulty"
+								value={value}
+								onChange={(event, newValue) => {
+									setValue(newValue as number);
+								}}
+								onChangeActive={(event, newHover) => {
+									setHover(newHover);
+								}}
+								emptyIcon={<StarIcon style={{ opacity: 1 }} fontSize="inherit" />}
+							/>
+							{value !== null && (
+								<Typography sx={{ color: "white", fontSize: 15 }}>{labels[hover !== -1 ? hover - 1 : value - 1]}</Typography>
+							)}
+						</Grid>
+						:
+						<Grid item xs={12} md={6} style={{ paddingLeft: 25, paddingRight: 50, marginTop: "2%" }}>
+							<FormControl component="fieldset">
+								<FormLabel component="legend" sx={{ color: "white" }}>Timer in seconds</FormLabel>
+								<RadioGroup row aria-label="timer" sx={{ color: "white" }} name="row-radio-buttons-group" value={timer} onChange={handleChangeTimer}>
+									<FormControlLabel value="0" control={<Radio />} label="Unlimited" />
+									<FormControlLabel value="60" control={<Radio />} label="60s" />
+									<FormControlLabel value="90" control={<Radio />} label="90s" />
+									<FormControlLabel value="120" control={<Radio />} label="120s" />
+								</RadioGroup>
+							</FormControl>
+						</Grid>}
 				</Grid>
 			</>
 		);

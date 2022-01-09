@@ -1,5 +1,5 @@
 import socketio, { Socket } from "socket.io-client";
-import React, { createContext } from "react";
+import { createContext } from "react";
 
 
 export const socket = socketio(process.env.REACT_APP_SOCKET_URL as string);

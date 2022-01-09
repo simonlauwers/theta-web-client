@@ -20,7 +20,7 @@ import { Profile } from "./components/home/Profile";
 import Home from "./components/home/Home";
 import ResetPasswordEmail from "./components/login-register/ResetPasswordEmail";
 import ScenarioSelection from "./components/scenario-selection/ScenarioSelection";
-import { Lobby } from "./components/login-register/Lobby";
+import { Lobby } from "./components/lobby/Lobby";
 import { SettingsProvider } from "./contexts/SettingsContext";
 import { Settings } from "./components/settings/Settings";
 import { Picker } from "./components/home/Picker";

@@ -78,7 +78,7 @@ export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
 
 	const drawer = (
 		<div>
-			<Toolbar><img src="./media/photos/game-branding/logoWhiteTransparant.svg" alt="" width="70" height="70" style={{ marginTop: "25%", marginLeft: "4%" }} /></Toolbar>
+			<Toolbar><img src="/media/photos/game-branding/logoWhiteTransparant.svg" alt="" width="70" height="70" style={{ marginTop: "25%", marginLeft: "4%" }} /></Toolbar>
 			<Divider style={{ marginTop: "25%", marginBottom: "25%", borderColor: "transparent" }} />
 			<List>
 				{itemList.map((item, key) => {
@@ -129,7 +129,7 @@ export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
 							"& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth, background: backgroundColor.main },
 						}}
 					>
-						<div onClick={() => { 
+						<div onClick={() => {
 							handleDrawerToggle();
 						}} style={{ paddingTop: 20, paddingLeft: 25, marginBottom: 25, zIndex: 8888 }}>
 							<CloseOutlined style={{ fontSize: 35, color: "white" }} />

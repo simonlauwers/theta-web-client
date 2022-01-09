@@ -1,21 +1,19 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useEffect, useContext, useState, useCallback } from "react";
-import WhiteTextField from "../../theme/formInputs/WhiteTextField";
 import { SocketContext } from "../../../contexts/ChatContext";
 import useAuth from "../../../hooks/context-hooks/UseAuth";
 import axios from "axios";
 import { useFormik } from "formik";
-import SendIcon from "@mui/icons-material/Send";
 import { useParams } from "react-router";
 import "./Chat.css";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 import { Message } from "./Message";
 import MessageType from "../../../types/MessageType";
-import usePlayer from "../../../hooks/context-hooks/game/UsePlayer";
 
 interface MessageValues {
     message: string
-}
+};
 
 
 const Chat = () => {
@@ -58,7 +56,7 @@ const Chat = () => {
     const sendMessage = (message: string, gameId: string) => {
         socket.emit("request/room/messages/new", {
             text: message,
-            roomId: "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa6",
+            roomId: gameId,
         });
     };
 

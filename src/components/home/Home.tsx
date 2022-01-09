@@ -25,7 +25,7 @@ const Home = () => {
 
 				gradientColors: "linear-gradient(180deg, rgba(79,18,16,1) 0%, rgba(41,5,25,1) 100%)",
 				text: "MULTI",
-				url: "/multi/scenarios",
+				url: "/multi/hostOrJoin",
 				image: "/media/photos/game-visuals/soldier.png"
 			},
 			{
@@ -44,8 +44,8 @@ const Home = () => {
 					<Grid sx={{ paddingTop: "2%" }} container spacing={6} >
 						<Grid item xs={12} md={6} style={{ color: "white" }}>
 							<h1 style={{ fontSize: "8em", margin: "0px 0 40px -9px" }}>RISK</h1>
-							{mobileMediaQuery ? <p style={{ marginTop: "-3em", fontSize: "1.5em" }}>You played 10 hours in total.</p> : 
-							<p style={{ marginTop: "-3em", fontSize: "2em" }}>You played 10 hours in total.</p>
+							{mobileMediaQuery ? <p style={{ marginTop: "-3em", fontSize: "1.5em" }}>You played 10 hours in total.</p> :
+								<p style={{ marginTop: "-3em", fontSize: "2em" }}>You played 10 hours in total.</p>
 							}
 							<Button style={{ marginTop: "-2em" }} variant="contained" sx={{ backgroundColor: "secondary[100]" }} onClick={() => { playSfxSound(); navigate("/stats"); }}>See all stats</Button>
 						</Grid>

@@ -1,25 +1,47 @@
-import { Grid, Card, CardActionArea, CardContent, Typography, Fade } from "@mui/material";
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { Grid, Card, CardActionArea, CardContent, Typography, Fade, Button } from "@mui/material";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import WhiteTextField from "../theme/formInputs/WhiteTextField";
-
+import * as gameApi from "../../api/game/GameApi";
+import GameType from "../../types/Game/GameType";
+import ResponseMessageType from "../../types/ResponseMessageType";
+import { useMutation } from "react-query";
+import useAuth from "../../hooks/context-hooks/UseAuth";
+import JoinGameType from "../../types/Game/JoinGameType";
 export interface PickerValues {
     gameCode: string
 }
 
 export const Picker = () => {
-
     const navigate = useNavigate();
     const { gameMode } = useParams<string>();
+    const { user } = useAuth();
+    const [error, setError] = useState<ResponseMessageType | null>(null);
+
     const formik = useFormik({
         initialValues: {
             gameCode: "",
         },
         onSubmit: async (gameCode: PickerValues) => {
             // do call
+            mutate({ name: user!.displayName, gameCode: gameCode.gameCode } as unknown as JoinGameType);
             console.log(gameCode);
         },
+    });
+
+    const { mutate } = useMutation(gameApi.joinGame, {
+        onSuccess: (data: GameType) => {
+            setError(null);
+            console.log(data);
+            navigate(`/${data.uuid}/lobby`);
+        },
+        onError: (e: any) => {
+            const rmt = e.response.data as ResponseMessageType;
+            console.log(rmt);
+            setError(rmt);
+        }
     });
     return (
         <Fade in={true} style={{ transitionDelay: "50ms" }}>
@@ -35,7 +57,7 @@ export const Picker = () => {
                     <CardActionArea sx={{ height: "100%", textAlign: "center" }} onClick={() => navigate(`/${gameMode}/scenarios`)}>
                         <CardContent>
                             <Typography fontFamily="bebas-neue" gutterBottom variant="h5" component="div" sx={{ fontSize: "4rem", position: "absolute", bottom: 0, }}>
-                                HOST 👑
+                                HOST
                             </Typography>
                         </CardContent>
                     </CardActionArea>
@@ -49,8 +71,8 @@ export const Picker = () => {
                     <Typography fontFamily="bebas-neue" gutterBottom variant="h5" component="div" sx={{ fontSize: "4rem" }}>
                         ENTER GAMECODE
                     </Typography>
-                    <div style={{ display: "inline" }}>
-                        <WhiteTextField
+                    <Grid sx={{ display: "flex", flexDirection: "row", gap: "10px" }}>
+                        <WhiteTextField className="TextField-without-border-radius" sx={{ display: "inline-block", borderRadius: 0 }}
                             label="gameCode"
                             id="gameCode"
                             variant="filled"
@@ -59,9 +81,12 @@ export const Picker = () => {
                             value={formik.values.gameCode}
                             onChange={formik.handleChange}
                         />
-                    </div>
+                        <Button variant="contained" type="submit" sx={{ display: "inline-block" }}>Join</Button>
+                    </Grid>
+                    {error && <span style={{ color: "white" }}>{error}</span>}
                 </form>
             </Grid >
-        </Fade>
+        </Fade >
     );
 };
+

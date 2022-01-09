@@ -1,10 +1,4 @@
 import React from "react";
-import { createStyles, makeStyles } from "@mui/styles";
-import { Theme } from "@mui/material/styles";
-import { deepOrange } from "@mui/material/colors";
-import { Avatar } from "@mui/material";
-import MessageType from "../../../types/MessageType";
-import { display } from "@mui/system";
 
 interface Message {
     message: string,

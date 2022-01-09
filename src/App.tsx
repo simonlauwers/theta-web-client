@@ -29,6 +29,7 @@ import { Chat } from "./components/game/chat/Chat";
 import { RandomGameOrHost } from "./components/home/RandomGameOrHost";
 import { ErrorHandlerProvider } from "./contexts/ErrorHandlerContext";
 import ErrorSnackBar from "./components/extra/ErrorSnackBar";
+import HowToPlay from "./components/home/HowToPlay";
 function App() {
 	return (
 		<>
@@ -46,6 +47,7 @@ function App() {
 											<Route path="/stats" element={<Stats />} />
 											<Route path="/settings" element={<Settings />} />
 											<Route path="/profile" element={<Profile />} />
+											<Route path="/howToPlay" element={<HowToPlay />} />
 											<Route path="/:gameMode/scenarios" element={<ScenarioSelection />} />
 											<Route path="/:gameMode/picker" element={<Picker />} />
 											<Route path="/multi/hostOrJoin" element={<RandomGameOrHost />} />

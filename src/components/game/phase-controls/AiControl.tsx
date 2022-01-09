@@ -24,12 +24,11 @@ const AiControl = (aiControlProps : AiControlProps) => {
 	});
 
     useEffect(() => {
-
         if(!isLoading && lastPhase !== phase) {
-            mutate({uuid : meta!.uuid, phase : phase});
-            setLastPhase(phase);
+            const gamePhase = phase;
+            setLastPhase(gamePhase);
+            mutate({uuid : meta!.uuid, phase : gamePhase});
         }
-
     }, [phase, isLoading, lastPhase]);
 
     return (

@@ -10,11 +10,9 @@ import Toolbar from "@mui/material/Toolbar";
 import { useNavigate } from "react-router-dom";
 import * as userApi from "../../api/user/UserApi";
 import { useMutation } from "react-query";
-import ResponseMessageType from "../../types/ResponseMessageType";
 import { Icon, Theme, useMediaQuery } from "@mui/material";
 import { backgroundColor } from "../../theme/colors";
 import { CloseOutlined, MenuOutlined } from "@mui/icons-material";
-import HelpOutlineSharpIcon from "@mui/icons-material/HelpOutlineSharp";
 
 const drawerWidth = 240;
 const iconColor = "989898";
@@ -28,7 +26,7 @@ export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
 	const navigate = useNavigate();
 	const [mobileOpen, setMobileOpen] = React.useState(false);
 	const { mutate } = useMutation(userApi.logOut, {
-		onSuccess: (data: ResponseMessageType) => {
+		onSuccess: () => {
 			navigate("/login");
 		}
 	});
@@ -41,7 +39,7 @@ export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
 	};
 
 	const handleLogOut = () => {
-		mutate(); 
+		mutate();
 	};
 
 	const itemList = [
@@ -49,7 +47,7 @@ export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
 			key: "home",
 			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="../media/icons/homeIcon.svg"></img></Icon>,
 			onClick: () => navigate("/home")
-		}, 
+		},
 		{
 			key: "profile",
 			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="../media/icons/profileIcon.svg"></img></Icon>,
@@ -67,7 +65,7 @@ export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
 		},
 		{
 			key: "howtoplay",
-			icon: <HelpOutlineSharpIcon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }} />,
+			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="../media/icons/helpIcon.svg"></img></Icon>,
 			onClick: () => navigate("/howtoplay")
 		},
 		{

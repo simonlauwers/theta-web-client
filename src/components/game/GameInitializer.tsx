@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, } from "react";
 import { useMutation } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import GameType from "../../types/Game/GameType";
@@ -11,7 +11,6 @@ import usePhase from "../../hooks/context-hooks/game/UsePhase";
 import usePlayer from "../../hooks/context-hooks/game/UsePlayer";
 import { LoadingScreen } from "../extra/LoadingScreen";
 import useErrorHandler from "../../hooks/context-hooks/UseErrorHandler";
-import { error } from "../../theme/colors";
 
 interface GameInitializerProps {
 	setInitializing: React.Dispatch<React.SetStateAction<boolean>>;

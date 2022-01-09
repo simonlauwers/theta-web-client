@@ -18,7 +18,6 @@ const AiControl = (aiControlProps : AiControlProps) => {
     const { mutate, isLoading } = useMutation(gameApi.callAi, {
 		onError: (e: any) => {
 			const rmt = e.response.data as ResponseMessageType;
-			console.log(rmt);
 			aiControlProps.setError(rmt);
 		}
 	});

@@ -32,7 +32,6 @@ const DraftControl = (draftControlProps: DraftControlProps) => {
         },
         onError: (e: any) => {
             const rmt = e.response.data as ResponseMessageType;
-            console.log(rmt);
             draftControlProps.setError(rmt);
         }
     });

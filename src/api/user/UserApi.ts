@@ -18,7 +18,6 @@ export async function login(loginValues: LoginType) {
 }
 
 export async function loginWithGoogle(profile: GoogleProfileType) {
-	console.log(profile);
 	const response = await api.post("/google-login", profile);
 	return response.data;
 }
@@ -39,8 +38,6 @@ export async function sendForgotPasswordEmail(email: EmailType) {
 }
 
 export async function resetPassword(resetPasswordValues: ResetPasswordType) {
-	console.log("resetting password");
-	console.log(resetPasswordValues);
 	const response = await api.post("/reset-password", resetPasswordValues);
 	return response.data;
 }

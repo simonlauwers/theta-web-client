@@ -30,12 +30,8 @@ export const Lobby = () => {
 	const { user } = useAuth();
 
 	const { mutate } = useMutation("addPlayerToGame", gameApi.addPlayer, {
-		onSuccess: (data: GameType) => {
-			console.log(data);
-		},
 		onError: (e: any) => {
 			const rmt = e.response.data as ResponseMessageType;
-			console.log(rmt);
 			setError(rmt);
 		}
 	});
@@ -69,7 +65,7 @@ export const Lobby = () => {
 					navigate(`/game/${game.uuid}`);
 				}
 			} else if (data.status !== 204) {
-				console.log("Error occured during polling.");
+				console.log("Polling failed.");
 			}
 		},
 		{
@@ -83,7 +79,6 @@ export const Lobby = () => {
 		},
 		onError: (e: any) => {
 			const rmt = e.response.data as ResponseMessageType;
-			console.log(rmt);
 			setError(rmt);
 		}
 	});
@@ -94,7 +89,6 @@ export const Lobby = () => {
 		},
 		onError: (e: any) => {
 			const rmt = e.response.data as ResponseMessageType;
-			console.log(rmt);
 			setError(rmt);
 		}
 	});
@@ -110,7 +104,7 @@ export const Lobby = () => {
 				users: players.map((player) => player.user.uuid)
 			});
 		} catch (error : any) {
-			console.log(error);
+			setError(error);
 		}
 		initGame(gameId!);
 	};

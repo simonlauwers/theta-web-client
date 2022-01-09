@@ -31,7 +31,6 @@ const LeaveOption = () => {
 		},
 		onError: (e: any) => {
 			const rmt = e.response.data as ResponseMessageType;
-			console.log(rmt);
 			setError(rmt);
 		}
 	});

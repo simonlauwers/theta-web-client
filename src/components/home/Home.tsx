@@ -16,7 +16,7 @@ const Home = () => {
 	const mobileMediaQuery = useMediaQuery((theme: Theme) => theme.breakpoints.down("lg"));
 	const [hoursPlayed, setHoursPlayed] = useState(0);
 
-	const { isLoading } = useQuery("getHoursPlayed", () => analyticsApi.getHoursPlayed(user?.userId!), {
+	const { isLoading } = useQuery("getHoursPlayed", () => analyticsApi.getHoursPlayed(user?.userId), {
 		onSuccess: (data: any) => {
 			setHoursPlayed(data);
 		}

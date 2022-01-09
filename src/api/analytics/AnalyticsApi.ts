@@ -6,7 +6,7 @@ const api = axios.create({
 	withCredentials: true,
 });
 
-export async function getHoursPlayed(playerId: string) {
+export async function getHoursPlayed(playerId: string | undefined) {
 	const response = await api.get("user/" + playerId + "/hours");
 	return response.data;
 }

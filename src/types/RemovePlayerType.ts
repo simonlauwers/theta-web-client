@@ -1,5 +1,5 @@
 /* eslint-disable semi */
 export default interface RemovePlayerType {
-    gameId : string;
-    playerId : string;
+    gameId: string;
+    playerId: string;
 };

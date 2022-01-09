@@ -13,50 +13,50 @@ import { Slider, Typography } from "@mui/material";
 import * as gameUtils from "../../../utils/game/GameUtils";
 
 interface DraftControlProps {
-    setGame : React.Dispatch<React.SetStateAction<GameType | null>>;
-    setError : React.Dispatch<React.SetStateAction<ResponseMessageType | null>>;
-    setAllowAction : React.Dispatch<React.SetStateAction<boolean>>;
-    fireAction : boolean;
+    setGame: React.Dispatch<React.SetStateAction<GameType | null>>;
+    setError: React.Dispatch<React.SetStateAction<ResponseMessageType | null>>;
+    setAllowAction: React.Dispatch<React.SetStateAction<boolean>>;
+    fireAction: boolean;
     next: boolean;
 }
 
-const DraftControl = (draftControlProps : DraftControlProps) => {
+const DraftControl = (draftControlProps: DraftControlProps) => {
     const { meta } = useGame();
     const { currentPlayer } = usePlayer();
     const { selectedTerritory, outgoingSelectedTerritory, setSelectedTerritory, setOutgoingSelectedTerritory } = useTerritory();
-    const [ troops, setTroops] = useState<number>(1);
+    const [troops, setTroops] = useState<number>(1);
 
     const { mutate, isLoading } = useMutation(gameApi.draft, {
-		onSuccess: (data: GameType) => {
-			draftControlProps.setGame(data);
-		},
-		onError: (e: any) => {
-			const rmt = e.response.data as ResponseMessageType;
-			console.log(rmt);
-			draftControlProps.setError(rmt);
-		}
-	});
+        onSuccess: (data: GameType) => {
+            draftControlProps.setGame(data);
+        },
+        onError: (e: any) => {
+            const rmt = e.response.data as ResponseMessageType;
+            console.log(rmt);
+            draftControlProps.setError(rmt);
+        }
+    });
 
     const draft = () => {
-        mutate({gameId: meta?.uuid!, territoryId: outgoingSelectedTerritory?.uuid!, troops});
+        mutate({ gameId: meta?.uuid!, territoryId: outgoingSelectedTerritory?.uuid!, troops });
         setTroops(1);
         setOutgoingSelectedTerritory(null);
     };
 
     const skip = () => {
-        mutate({gameId: meta?.uuid!, territoryId: currentPlayer!.playerTerritories[0].territory.uuid, troops: currentPlayer!.troops});
+        mutate({ gameId: meta?.uuid!, territoryId: currentPlayer!.playerTerritories[0].territory.uuid, troops: currentPlayer!.troops });
         setTroops(1);
         setOutgoingSelectedTerritory(null);
     };
 
     useEffect(() => {
-        if(draftControlProps.fireAction) {
+        if (draftControlProps.fireAction) {
             draft();
         }
     }, [draftControlProps.fireAction]);
 
     useEffect(() => {
-        if(draftControlProps.next && !isLoading) {
+        if (draftControlProps.next && !isLoading) {
             skip();
         }
     }, [draftControlProps.next, isLoading]);
@@ -66,15 +66,15 @@ const DraftControl = (draftControlProps : DraftControlProps) => {
             if (selectedTerritory?.uuid === outgoingSelectedTerritory?.uuid) {
                 setOutgoingSelectedTerritory(null);
                 setSelectedTerritory(null);
-            } else if (gameUtils.validatePlayerTerritory(currentPlayer!, selectedTerritory!)){
+            } else if (gameUtils.validatePlayerTerritory(currentPlayer!, selectedTerritory!)) {
                 setOutgoingSelectedTerritory(selectedTerritory);
                 setSelectedTerritory(null);
             }
         }
-    }, [selectedTerritory]); 
+    }, [selectedTerritory]);
 
     useEffect(() => {
-        if(outgoingSelectedTerritory !== null) {
+        if (outgoingSelectedTerritory !== null) {
             draftControlProps.setAllowAction(true);
         } else {
             draftControlProps.setAllowAction(false);
@@ -83,7 +83,7 @@ const DraftControl = (draftControlProps : DraftControlProps) => {
 
     if (isLoading) {
         return (
-            <div style={{display: "flex", width: "100%", alignItems:"center"}}>
+            <div style={{ display: "flex", width: "100%", alignItems: "center" }}>
                 <Typography color="ghostwhite" variant="h4">
                     Drafting
                 </Typography>
@@ -92,23 +92,23 @@ const DraftControl = (draftControlProps : DraftControlProps) => {
     }
 
     return (
-        <div style={{width: "100%"}}>
-            {outgoingSelectedTerritory !== null ? 
-                <div style={{display: "flex", width: "100%", alignItems:"center"}}>
-                    <div style={{display: "flex", width: "25%", alignItems:"center", justifyContent:"center"}}>
+        <div style={{ width: "100%" }}>
+            {outgoingSelectedTerritory !== null ?
+                <div style={{ display: "flex", width: "100%", alignItems: "center" }}>
+                    <div style={{ display: "flex", width: "25%", alignItems: "center", justifyContent: "center" }}>
                         <Typography color="ghostwhite" variant="h4">
                             {troops}
                         </Typography>
                     </div>
-                    <div style={{display: "flex", width: "75%", marginLeft:"5%", marginRight:"5%", alignItems:"center"}}>
+                    <div style={{ display: "flex", width: "75%", marginLeft: "5%", marginRight: "5%", alignItems: "center" }}>
                         <Slider min={1} max={currentPlayer?.troops} defaultValue={1} aria-label="Default"
-                        onChange={(e, val) => {setTroops(val as number);}} color="secondary"/>
+                            onChange={(e, val) => { setTroops(val as number); }} color="secondary" />
                     </div>
                 </div>
-            :
-                <div style={{display: "flex", width: "100%", alignItems:"center"}}>
+                :
+                <div style={{ display: "flex", width: "100%", alignItems: "center" }}>
                     <Typography color="ghostwhite" variant="h4">
-                        You have {currentPlayer?.troops} {currentPlayer!.troops > 1? "troops" : "troop"} available.
+                        You have {currentPlayer?.troops} {currentPlayer!.troops > 1 ? "troops" : "troop"} available.
                     </Typography>
                 </div>
             }

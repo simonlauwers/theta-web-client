@@ -10,19 +10,19 @@ import usePhase from "../../../hooks/context-hooks/game/UsePhase";
 import ResponseMessageType from "../../../types/ResponseMessageType";
 
 interface PollControlProps {
-    setGame : React.Dispatch<React.SetStateAction<GameType | null>>;
-    setError : React.Dispatch<React.SetStateAction<ResponseMessageType | null>>;
+    setGame: React.Dispatch<React.SetStateAction<GameType | null>>;
+    setError: React.Dispatch<React.SetStateAction<ResponseMessageType | null>>;
 }
 
-const PollControl = (pollControlProps : PollControlProps) => {
+const PollControl = (pollControlProps: PollControlProps) => {
     const { meta } = useGame();
     const { lastUpdate } = usePhase();
-    
+
     useQuery(
         "pollGame",
         async () => {
             try {
-                const data = await gameApi.pollGame({uuid: meta!.uuid, lastUpdate : lastUpdate});
+                const data = await gameApi.pollGame({ uuid: meta!.uuid, lastUpdate: lastUpdate });
                 if (data.status === 202) {
                     pollControlProps.setGame(data.data);
                 }
@@ -35,7 +35,7 @@ const PollControl = (pollControlProps : PollControlProps) => {
 
         },
         {
-          refetchInterval: 1000,
+            refetchInterval: 1000,
         }
     );
 

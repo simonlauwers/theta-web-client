@@ -29,7 +29,7 @@ const GameInitializer = (gameInitializerProps: GameInitializerProps) => {
 
 	const { mutate } = useMutation(gameApi.game, {
 		onSuccess: (data: GameType) => {
-			setMeta({ uuid: data.uuid, scenarioUuid: data.scenario.uuid });
+			setMeta({ uuid: data.uuid, scenarioUuid: data.scenario.uuid, gameMode: data.gameMode });
 			setCreator(data.creator.uuid);
 			setMaxTime(data.maxTime);
 			setMap(data.scenario.map);
@@ -51,9 +51,9 @@ const GameInitializer = (gameInitializerProps: GameInitializerProps) => {
 	}, []);
 
 	return (
-			<div>
-				<LoadingScreen/>
-			</div>
+		<div>
+			<LoadingScreen />
+		</div>
 	);
 };
 

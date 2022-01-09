@@ -27,8 +27,10 @@ export const TerritoryProvider: FC = ({ children }) => {
 	const [incomingSelectedTerritory, setIncomingSelectedTerritory] = useState<TerritoryType | null>(null);
 
 	return (
-		<TerritoryContext.Provider value={{selectedTerritory, outgoingSelectedTerritory, incomingSelectedTerritory,
-        setSelectedTerritory, setOutgoingSelectedTerritory, setIncomingSelectedTerritory}}>
+		<TerritoryContext.Provider value={{
+			selectedTerritory, outgoingSelectedTerritory, incomingSelectedTerritory,
+			setSelectedTerritory, setOutgoingSelectedTerritory, setIncomingSelectedTerritory
+		}}>
 			{children}
 		</TerritoryContext.Provider>
 	);

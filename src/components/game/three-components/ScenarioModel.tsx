@@ -58,8 +58,8 @@ const ScenarioModel = (scenarioModelProps: ScenarioModelProps) => {
 							.find(territory => territory.resourceIndex === parseInt(territoryMesh.name.slice(1)))!} />
 				))
 			}
-			
-			<LineModel territories={scenarioModelProps.map.areas.flatMap(area => area.territories)} territoryMeshes={territoryMeshes}/>
+
+			<LineModel territories={scenarioModelProps.map.areas.flatMap(area => area.territories)} territoryMeshes={territoryMeshes} />
 		</group>
 	);
 };

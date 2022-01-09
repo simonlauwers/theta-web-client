@@ -1,6 +1,6 @@
 {
   "name": "risk-theta-webclient",
-  "version": "0.9.1",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@bigheads/core": "^0.3.3",

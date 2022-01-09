@@ -37,7 +37,7 @@ function App() {
 				<SettingsProvider>
 					<SocketContext.Provider value={socket}>
 						<ErrorHandlerProvider>
-							<ErrorSnackBar/>
+							<ErrorSnackBar />
 							<Router>
 								<Routes>
 									<Route path="/" element={<PrivateRoute />}>
@@ -53,10 +53,10 @@ function App() {
 											<Route path="/multi/hostOrJoin" element={<RandomGameOrHost />} />
 											<Route path="/:gameId/lobby" element={<Lobby />} />
 											<Route path="/:gameId/chat" element={<Chat />} />
-		
+
 										</Route>
 									</Route>
-		
+
 									<Route element={<AuthLayout />}>
 										<Route path="/login" element={<Login />} />
 										<Route path="/signup" element={<Register />} />
@@ -66,7 +66,7 @@ function App() {
 									</Route>
 									<Route path="/game/:gameUuid" element={<Game />} />
 									<Route path="*" element={<NotFoundScreen />} />
-		
+
 								</Routes>
 							</Router>
 						</ErrorHandlerProvider>

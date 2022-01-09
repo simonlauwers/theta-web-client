@@ -20,14 +20,14 @@ const Controls = () => {
 	const { phase, setPhase, setLastUpdate } = usePhase();
 	const { currentPlayer, setPlayers, setCurrentPlayer } = usePlayer();
 	const { user } = useAuth();
-	const { setError} = useError();
+	const { setError } = useError();
 
-	const [ game, setGame ] = useState<GameType | null>(null);
-	const [ allowAction, setAllowAction ] = useState(false);
-	const [ fireAction, setFireAction ] = useState(false);
-	const [ next, setNext ] = useState(false);
-	const [ backgroundColor, setBackgroundColor ] = useState<string>("");
-	const [ hover, setHover ] = useState(false);
+	const [game, setGame] = useState<GameType | null>(null);
+	const [allowAction, setAllowAction] = useState(false);
+	const [fireAction, setFireAction] = useState(false);
+	const [next, setNext] = useState(false);
+	const [backgroundColor, setBackgroundColor] = useState<string>("");
+	const [hover, setHover] = useState(false);
 
 	useEffect(() => {
 		if (game !== null) {
@@ -40,7 +40,7 @@ const Controls = () => {
 	}, [game]);
 
 	useEffect(() => {
-		if(fireAction) {
+		if (fireAction) {
 			setFireAction(false);
 		}
 	}, [fireAction]);
@@ -51,50 +51,53 @@ const Controls = () => {
 
 	return (
 		<>
-			{maxTime > 0 && <Timer next={next} setNext={setNext}/>}
-			<div style={{position: "absolute", bottom: 0, left: 0, userSelect: "none", overflow:"none"}}>
-				<div style={{height : "15vh", width : "60vw", display: "flex"}}>
-					<div style={{padding: "2rem", 
-									width: currentPlayer?.user.uuid === user?.userId && !currentPlayer?.aiPlayer ? "60%" : "0%", 
-									height: "100%", background: backgroundColor, display: "flex", alignContent: "center",
-									transition: "width 1s, background 1s"
-								}}>
-						<div style={{display: "flex", alignItems:"center", width:"100%"}}>
-							{(currentPlayer?.user.uuid === user?.userId && !currentPlayer?.aiPlayer) ? 
-							<>
-								{phase === "DRAFT" && <DraftControl setGame={setGame} setError={setError} 
-								setAllowAction={setAllowAction} fireAction={fireAction} next={next}/>}
-								{phase === "ATTACK" && <AttackControl setGame={setGame} setError={setError}
-								setAllowAction={setAllowAction} fireAction={fireAction} next={next}/>}
-								{phase === "FORTIFY" && <FortifyControl setGame={setGame} setError={setError}
-								setAllowAction={setAllowAction} fireAction={fireAction} next={next}/>}
-							</>
-							:
-							<>
-								<PollControl setGame={setGame} setError={setError}/>
-								{currentPlayer?.aiPlayer && user?.userId === creator && <AiControl setError={setError}/>}
-							</>
+			{maxTime > 0 && <Timer next={next} setNext={setNext} />}
+			<div style={{ position: "absolute", bottom: 0, left: 0, userSelect: "none", overflow: "none" }}>
+				<div style={{ height: "15vh", width: "60vw", display: "flex" }}>
+					<div style={{
+						padding: "2rem",
+						width: currentPlayer?.user.uuid === user?.userId && !currentPlayer?.aiPlayer ? "60%" : "0%",
+						height: "100%", background: backgroundColor, display: "flex", alignContent: "center",
+						transition: "width 1s, background 1s"
+					}}>
+						<div style={{ display: "flex", alignItems: "center", width: "100%" }}>
+							{(currentPlayer?.user.uuid === user?.userId && !currentPlayer?.aiPlayer) ?
+								<>
+									{phase === "DRAFT" && <DraftControl setGame={setGame} setError={setError}
+										setAllowAction={setAllowAction} fireAction={fireAction} next={next} />}
+									{phase === "ATTACK" && <AttackControl setGame={setGame} setError={setError}
+										setAllowAction={setAllowAction} fireAction={fireAction} next={next} />}
+									{phase === "FORTIFY" && <FortifyControl setGame={setGame} setError={setError}
+										setAllowAction={setAllowAction} fireAction={fireAction} next={next} />}
+								</>
+								:
+								<>
+									<PollControl setGame={setGame} setError={setError} />
+									{currentPlayer?.aiPlayer && user?.userId === creator && <AiControl setError={setError} />}
+								</>
 							}
 						</div>
 					</div>
-					<div style={{width: "40%", height: "100%", 
-					background: backgroundColor, 
-					display: "flex", 
-					alignItems: "center", 
-					borderTopRightRadius: "1rem",
-					transition: "background: 1s"}}>
-						<div style={{display: "flex", alignItems: "center"}}>
-							<h1 onClick={() => {if(allowAction) {setFireAction(true);}}}
-							onMouseEnter={() => {if(allowAction) {setHover(true);}}}
-							onMouseLeave={() => {setHover(false);}}
-							style={{ 
-							fontSize: "10vh", 
-							margin: 0,
-							transition: "color 1s, text-shadow 1s",
-							color: allowAction ? hover ? success[400] : "#D23F57" : "white",
-							cursor: allowAction ? "pointer" : "default",
-							textShadow: allowAction ? "0px 0px 20px black" : ""
-							}}><b>{phase}</b></h1>
+					<div style={{
+						width: "40%", height: "100%",
+						background: backgroundColor,
+						display: "flex",
+						alignItems: "center",
+						borderTopRightRadius: "1rem",
+						transition: "background: 1s"
+					}}>
+						<div style={{ display: "flex", alignItems: "center" }}>
+							<h1 onClick={() => { if (allowAction) { setFireAction(true); } }}
+								onMouseEnter={() => { if (allowAction) { setHover(true); } }}
+								onMouseLeave={() => { setHover(false); }}
+								style={{
+									fontSize: "10vh",
+									margin: 0,
+									transition: "color 1s, text-shadow 1s",
+									color: allowAction ? hover ? success[400] : "#D23F57" : "white",
+									cursor: allowAction ? "pointer" : "default",
+									textShadow: allowAction ? "0px 0px 20px black" : ""
+								}}><b>{phase}</b></h1>
 						</div>
 					</div>
 				</div>

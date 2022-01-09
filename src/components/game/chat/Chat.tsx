@@ -4,12 +4,12 @@ import { SocketContext } from "../../../contexts/ChatContext";
 import useAuth from "../../../hooks/context-hooks/UseAuth";
 import axios from "axios";
 import { useFormik } from "formik";
-import { useParams } from "react-router";
 import "./Chat.css";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
-import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 import { Message } from "./Message";
 import MessageType from "../../../types/MessageType";
+import usePlayer from "../../../hooks/context-hooks/game/UsePlayer";
+import useGame from "../../../hooks/context-hooks/game/UseGame";
 
 interface MessageValues {
     message: string
@@ -17,12 +17,11 @@ interface MessageValues {
 
 
 const Chat = () => {
-    console.log("chat rerender");
+    const { players } = usePlayer();
     const [hide, setHide] = useState<boolean>(false);
     const socket = useContext(SocketContext);
-    const [joined, setJoined] = useState(false);
     const { user } = useAuth();
-    const { gameId } = useParams();
+    const { meta } = useGame();
     const [messages, setMessages] = useState<MessageType[]>([]);
     const formik = useFormik({
         initialValues: {
@@ -30,27 +29,23 @@ const Chat = () => {
         },
         onSubmit: async (message: MessageValues) => {
             // do call
-            console.log(message.message);
-            sendMessage(message.message, gameId!);
+            sendMessage(message.message, meta!.uuid);
+            formik.values.message = "";
         },
     });
 
-    const handleInviteAccepted = useCallback(() => {
-        setJoined(true);
-    }, []);
 
     const handleJoinChat = useCallback(() => {
-        axios.post("http://localhost:3001/api/chat/user/link", {
+        console.log("joining chat");
+        axios.post(process.env.REACT_APP_SOCKET_URL! + "api/chat/user/link", {
             socketId: socket.id
         }, {
             headers: {
                 "x-authentication-id": user!.userId
             }
         }).then(() => {
-            // game id hier
-            socket.emit("request/room/join", "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa6");
+            socket.emit("request/room/join", meta!.uuid);
         });
-
     }, []);
 
     const sendMessage = (message: string, gameId: string) => {
@@ -60,50 +55,45 @@ const Chat = () => {
         });
     };
 
+    console.log("message state in component: ");
+    console.log(messages);
 
     useEffect(() => {
         handleJoinChat();
-        // subscribe to socket events
-        socket.on("response/room/join", (room) => {
-            console.log(room);
-            socket.emit("request/room/messages", room.id);
-        });
+    }, []);
 
-        socket.on("response/room/messages", (messages) => {
-            // Recieve all messages
-            setMessages(messages);
-            console.log("messages updated");
-        });
+    socket.on("response/room/join", (room) => {
+        console.log(room);
+        socket.emit("request/room/messages", room.id);
+    });
 
-        socket.on("response/message", (message) => {
-            // Single message append
-            console.log("new message");
-            console.log(message);
-        });
+    socket.on("response/room/messages", (messages) => {
+        // Recieve all messages
+        console.log("all messages all");
+        console.log(messages);
+        setMessages(messages);
+    });
 
-        socket.on("error", (message: string) => {
-            console.log(message);
-        });
-
-
-        return () => {
-            // before the component is destroyed
-            // unbind all event handlers used in this component
-            socket.off("JOIN_REQUEST_ACCEPTED", handleInviteAccepted);
+    socket.on("response/message", (incomingMessage: MessageType) => {
+        // Single message append
+        if (messages.findIndex(e => incomingMessage.id === e.id) === -1) {
+            const arr = messages;
+            arr.push(incomingMessage);
+            setMessages(arr);
         };
-    }, [socket]);
 
-    const handleMinimize = () => {
-        console.log("you clicked");
-        setHide(!hide);
-    };
+    });
+
+    socket.on("error", (message: string) => {
+        console.log(message);
+    });
+
     return (
 
         <section className="msger">
             <header className="msger-header">
                 <div className="msger-header-title">
                     <ChatBubbleIcon />
-                    <CloseFullscreenIcon onClick={handleMinimize} />
                 </div>
                 <div className="msger-header-options">
                     <span><i className="fas fa-cog"></i></span>
@@ -111,37 +101,20 @@ const Chat = () => {
             </header>
 
             <main className={hide ? "msger-chat hide" : "msger-chat"}>
-                <div className="msg left-msg">
-                    <div
-                        className="msg-img"
-                        style={{ backgroundImage: "url(url(https://image.flaticon.com/icons/svg/327/327779.svg)" }}
-                    ></div>
-
-                    <div className="msg-bubble">
-                        <div className="msg-info">
-                            <div className="msg-info-name">BOT</div>
-                            <div className="msg-info-time">12:45</div>
-                        </div>
-
-                        <div className="msg-text">
-                            Hi, welcome to SimpleChat! Go ahead and send me a message. 😄
-                        </div>
-                    </div>
-                </div>
                 {messages.map((msg) => {
                     return (<Message
                         message={msg.message}
-                        avatar=""
-                        displayName=""
-                        sentAt="13:39h"
+                        avatar={""}
+                        displayName={players.find(e => e.user.uuid === msg.UserId)!.name}
+                        sentAt={`${new Date(msg.createdAt).getHours()}:${new Date(msg.createdAt).getMinutes()}`}
                         key={msg.id}
-                        sentByMe={false} />);
+                        sentByMe={msg.UserId === user!.userId} />);
                 })}
             </main>
 
             <form className="msger-inputarea" onSubmit={formik.handleSubmit}>
                 <input type="text" id="message" name="message" value={formik.values.message}
-                    onChange={formik.handleChange} className="msger-input" placeholder="Enter your message..." />
+                    onChange={formik.handleChange} autoComplete="off" className="msger-input" placeholder="Enter your message..." />
                 <button type="submit" className="msger-send-btn">Send</button>
             </form>
         </section >
@@ -149,3 +122,4 @@ const Chat = () => {
 };
 
 export { Chat };
+

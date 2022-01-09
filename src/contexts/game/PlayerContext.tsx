@@ -4,25 +4,25 @@ import { useState, FC } from "react";
 import PlayerType from "../../types/Game/PlayerType";
 
 export interface PlayerContextType {
-    players : PlayerType[];
-    currentPlayer : PlayerType | null;
-    setPlayers : React.Dispatch<React.SetStateAction<PlayerType[]>>;
-    setCurrentPlayer : React.Dispatch<React.SetStateAction<PlayerType | null>>;
+	players: PlayerType[];
+	currentPlayer: PlayerType | null;
+	setPlayers: React.Dispatch<React.SetStateAction<PlayerType[]>>;
+	setCurrentPlayer: React.Dispatch<React.SetStateAction<PlayerType | null>>;
 }
 
 export const PlayerContext = createContext<PlayerContextType>({
-	players : [],
-	currentPlayer : null,
-	setPlayers : () => {},
-	setCurrentPlayer : () => {}
+	players: [],
+	currentPlayer: null,
+	setPlayers: () => { },
+	setCurrentPlayer: () => { }
 });
 
-export const PlayerProvider: FC = ({children}) => {
+export const PlayerProvider: FC = ({ children }) => {
 	const [players, setPlayers] = useState<PlayerType[]>([]);
 	const [currentPlayer, setCurrentPlayer] = useState<PlayerType | null>(null);
 
 	return (
-		<PlayerContext.Provider value={{players, currentPlayer, setPlayers, setCurrentPlayer}}>
+		<PlayerContext.Provider value={{ players, currentPlayer, setPlayers, setCurrentPlayer }}>
 			{children}
 		</PlayerContext.Provider>
 	);

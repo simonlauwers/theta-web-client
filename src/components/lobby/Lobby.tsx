@@ -17,7 +17,7 @@ import useErrorHandler from "../../hooks/context-hooks/UseErrorHandler";
 import ResponseMessageType from "../../types/ResponseMessageType";
 import useAuth from "../../hooks/context-hooks/UseAuth";
 import PlayerType from "../../types/Game/PlayerType";
-
+import axios from "axios";
 export const Lobby = () => {
 	const { gameId } = useParams();
 	const { setError } = useErrorHandler();
@@ -99,11 +99,15 @@ export const Lobby = () => {
 		}
 	});
 
-    const kick = (playerId : string) => {
-        kickPlayer({gameId: game!.uuid, playerId: playerId});
-    };
+	const kick = (playerId: string) => {
+		kickPlayer({ gameId: game!.uuid, playerId: playerId });
+	};
 
-	const initializeGame = () => {
+	const initializeGame = async () => {
+		await axios.post(process.env.REACT_APP_SOCKET_URL! + "api/chat/room", {
+			id: gameId!,
+			users: players.map((player) => player.user.uuid)
+		});
 		initGame(gameId!);
 	};
 
@@ -170,7 +174,7 @@ export const Lobby = () => {
 							<Button variant="contained" style={{ padding: 10, marginRight: 10 }} onClick={() => addAi()}><AddOutlined />Add AI Player</Button>
 						}
 						{game !== null && game!.creator.uuid === user!.userId &&
-						<Button variant="contained" style={{ padding: 10, marginRight: 10 }} disabled={players.length < 2} onClick={() => initializeGame()}><KeyboardArrowRightOutlinedIcon />Start game</Button>
+							<Button variant="contained" style={{ padding: 10, marginRight: 10 }} disabled={players.length < 2} onClick={() => initializeGame()}><KeyboardArrowRightOutlinedIcon />Start game</Button>
 						}
 					</Grid>
 				</Grid>

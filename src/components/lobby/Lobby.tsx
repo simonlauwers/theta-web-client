@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import * as gameApi from "../../api/game/GameApi";
-import GameType from "../../types/Game/GameType";
+import GameType from "../../types/game/GameType";
 import NewPlayerType from "../../types/NewPlayerType";
 import { LoadingScreen } from "../extra/LoadingScreen";
 import parsePlayerColor from "../../utils/game/PlayerColorParser";
@@ -140,7 +140,7 @@ export const Lobby = () => {
 						}
 						<Button variant="contained" style={{ padding: 10, marginRight: 10 }} disabled={players.length < 2} onClick={() => initializeGame()}><KeyboardArrowRightOutlinedIcon />Start game</Button>
 					</Grid>
- 
+
 
 
 				</Grid>

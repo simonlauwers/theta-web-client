@@ -5,15 +5,18 @@ import { useNavigate } from "react-router-dom";
 import useError from "../../hooks/context-hooks/game/UseError";
 import { convertErrorMessageToFriendlyMessage } from "../../utils/Utils";
 import { backgroundColor } from "../../theme/colors";
+import useErrorHandler from "../../hooks/context-hooks/UseErrorHandler";
 
 const ErrorHandler = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const { error, setError } = useError();
+    const { setError : setGlobalError } = useErrorHandler();
     const navigate = useNavigate();
 
     useEffect(() => {
 		if(error !== null) {            
             if (error.status === 409) {
+                setGlobalError({status: 409, message: "Oops it looks like the host left." , timestamp: ""});
                 navigate("/home");
             }
 			setTimeout(() => {setError(null);}, 3500);

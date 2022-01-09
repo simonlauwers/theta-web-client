@@ -79,7 +79,7 @@ export const Profile = () => {
 							<Typography sx={{ fontSize: 20, color: "white" }}>{user ? formatRelative(new Date(user.lastLogin), new Date()) : "Unknown"}</Typography>
 						</div>
 
-					</Grid>
+					</Grid>  
 				</Grid>
 			</Card>
 

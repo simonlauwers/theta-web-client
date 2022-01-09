@@ -19,6 +19,7 @@ import ResponseMessageType from "../../types/ResponseMessageType";
 import { Icon, Theme, useMediaQuery } from "@mui/material";
 import { backgroundColor } from "../../theme/colors";
 import { CloseOutlined, MenuOutlined } from "@mui/icons-material";
+import HelpOutlineSharpIcon from "@mui/icons-material/HelpOutlineSharp";
 
 const drawerWidth = 240;
 const iconColor = "989898";
@@ -68,6 +69,11 @@ export default function HomeLayoutDrawer(props: HomeLayoutDrawerProps) {
 			key: "settings",
 			icon: <Icon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }}><img src="./media/icons/settingsIcon.svg"></img></Icon>,
 			onClick: () => navigate("/settings")
+		},
+		{
+			key: "howtoplay",
+			icon: <HelpOutlineSharpIcon style={{ fontSize: "2.5em", marginLeft: "50%", color: iconColor }} />,
+			onClick: () => navigate("/howtoplay")
 		},
 		{
 			key: "logout",

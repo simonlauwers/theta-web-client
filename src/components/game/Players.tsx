@@ -8,6 +8,7 @@ import PlayerCard from "./PlayerCard";
 import { backgroundColor } from "../../theme/colors";
 import { useNavigate } from "react-router-dom";
 import "./animations.css"; 
+import usePhase from "../../hooks/context-hooks/game/UsePhase";
 
 interface PlayerState {
 	name : string;
@@ -19,6 +20,7 @@ const Players = () => {
 	const { creator } = useGame();
 	const { players, currentPlayer } = usePlayer();
 	const { user } = useAuth();
+	const { phase } = usePhase();
 	const navigate = useNavigate();
 
 	const [ playerStates, setPlayerStates ] = useState<PlayerState[]>([]);
@@ -68,7 +70,11 @@ const Players = () => {
 	}, [currentPlayer]);
 
 	useEffect(() => {
-		setDialog(`${current} is playing...`);
+		if (phase === "DRAFT") {
+			setDialog(`${current} is playing... \n They gained ${currentPlayer?.troops} troops.`);
+		} else {
+			setDialog(`${current} is playing...`);
+		}
 	}, [current]);
 
 	useEffect(() => {
@@ -105,7 +111,7 @@ const Players = () => {
 			display: "flex", justifyContent: "center", alignContent: "center", zIndex: 50, boxShadow: "inset 0 0 500px black", userSelect:"none",
 			background: "rgba(0,0,0,0.7)"}}>
 			<div style={{marginTop: "auto", marginBottom: "auto"}}>
-				<Typography variant="h1" color={"white"}>
+				<Typography variant="h1" color={"white"} style={{whiteSpace: "pre-wrap"}}>
 					{dialog}
 				</Typography>
 				</div>

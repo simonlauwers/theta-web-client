@@ -11,22 +11,20 @@ import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 import { Message } from "./Message";
 import MessageType from "../../../types/MessageType";
 import { useMutation } from "react-query";
+import usePlayer from "../../../hooks/context-hooks/game/UsePlayer";
+import useGame from "../../../hooks/context-hooks/game/UseGame";
 
 interface MessageValues {
     message: string
 };
 
-const players = [
-    "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1",
-    "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa2"
-];
 
 const Chat = () => {
+    const { players } = usePlayer();
     const [hide, setHide] = useState<boolean>(false);
     const socket = useContext(SocketContext);
-    const [joined, setJoined] = useState(false);
     const { user } = useAuth();
-    const { gameId } = useParams();
+    const { meta } = useGame();
     const [messages, setMessages] = useState<MessageType[]>([]);
     const formik = useFormik({
         initialValues: {
@@ -34,16 +32,14 @@ const Chat = () => {
         },
         onSubmit: async (message: MessageValues) => {
             // do call
-            sendMessage(message.message, gameId!);
+            sendMessage(message.message, meta!.uuid);
             formik.values.message = "";
         },
     });
 
-    const getAllMessages = () => {
-        socket.emit("request/room/messages", gameId);
-    };
 
     const handleJoinChat = useCallback(() => {
+        console.log("joining chat");
         axios.post(process.env.REACT_APP_SOCKET_URL! + "api/chat/user/link", {
             socketId: socket.id
         }, {
@@ -51,13 +47,13 @@ const Chat = () => {
                 "x-authentication-id": user!.userId
             }
         }).then(() => {
-            socket.emit("request/room/join", gameId);
+            socket.emit("request/room/join", meta!.uuid);
         });
     }, []);
 
     const handleCreateRoom = async () => {
         await axios.post(process.env.REACT_APP_SOCKET_URL! + "api/chat/room", {
-            id: gameId!,
+            id: meta!.uuid,
             users: players
         });
     };
@@ -90,7 +86,6 @@ const Chat = () => {
 
     socket.on("response/message", (incomingMessage: MessageType) => {
         // Single message append
-
         if (messages.findIndex(e => incomingMessage.id === e.id) === -1) {
             const arr = messages;
             arr.push(incomingMessage);
@@ -143,3 +138,4 @@ const Chat = () => {
 };
 
 export { Chat };
+

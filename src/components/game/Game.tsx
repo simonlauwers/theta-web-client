@@ -16,6 +16,7 @@ import ErrorHandler from "./ErrorHandler";
 import TerritoryCards from "./TerritoryCards";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import createTheme from "@mui/material/styles/createTheme";
+import { ChatContainer } from "./chat/ChatContainer";
 
 
 const Game = () => {
@@ -26,19 +27,19 @@ const Game = () => {
 		palette: {
 			primary: defaultTheme.palette.augmentColor({
 				color: {
-				main: "#E54C56"
-			},
+					main: "#E54C56"
+				},
 				name: "primary"
 			}),
 			secondary: defaultTheme.palette.augmentColor({
 				color: {
-				main: "#FFFFFF"
-			},
+					main: "#FFFFFF"
+				},
 				name: "secondary"
 			})
 		} as any
 	});
-	
+
 
 	return (
 		<GameProvider>
@@ -48,23 +49,24 @@ const Game = () => {
 						<TerritoryProvider>
 							<DiceProvider>
 								<ErrorProvider>
-									<ThemeProvider  theme={theme}>
-								{
-									initializing ?
-										<GameInitializer setInitializing={setInitializing} />
-										:
-										<>
-											<World />
-											<Dice />
-											<Players />
-											<Controls />
-											<Options />
-											<ErrorHandler />
-											<TerritoryCards />
-										</>
-								}
+									<ThemeProvider theme={theme}>
+										{
+											initializing ?
+												<GameInitializer setInitializing={setInitializing} />
+												:
+												<>
+													<World />
+													<Dice />
+													<Players />
+													<Controls />
+													<Options />
+													<ErrorHandler />
+													<TerritoryCards />
+													<ChatContainer />
+												</>
+										}
 									</ThemeProvider >
-								</ErrorProvider>	
+								</ErrorProvider>
 							</DiceProvider>
 						</TerritoryProvider>
 					</PlayerProvider>

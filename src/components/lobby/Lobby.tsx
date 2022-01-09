@@ -13,6 +13,7 @@ import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRig
 import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 import PersonIcon from "@mui/icons-material/Person";
+import axios from "axios";
 
 interface Player {
 	aiPlayer: boolean,
@@ -76,7 +77,11 @@ export const Lobby = () => {
 		}
 	});
 
-	const initializeGame = () => {
+	const initializeGame = async () => {
+		await axios.post(process.env.REACT_APP_SOCKET_URL! + "api/chat/room", {
+			id: gameId!,
+			users: players.map((player) => player.uuid)
+		});
 		initGame(gameId!);
 	};
 
@@ -140,7 +145,7 @@ export const Lobby = () => {
 						}
 						<Button variant="contained" style={{ padding: 10, marginRight: 10 }} disabled={players.length < 2} onClick={() => initializeGame()}><KeyboardArrowRightOutlinedIcon />Start game</Button>
 					</Grid>
- 
+
 
 
 				</Grid>

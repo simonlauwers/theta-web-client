@@ -37,7 +37,7 @@ const Chat = () => {
 
 	const handleJoinChat = useCallback(() => {
 		console.log("joining chat");
-		axios.post(process.env.REACT_APP_SOCKET_URL! + "api/chat/user/link", {
+		axios.post("https://theta-risk.com/api/chat/user/link", {
 			socketId: socket.id
 		}).then(() => {
 			socket.emit("request/room/join", meta!.uuid);

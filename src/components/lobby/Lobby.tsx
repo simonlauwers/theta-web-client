@@ -28,8 +28,9 @@ export const Lobby = () => {
 	const [gameCode, setGameCode] = useState<string>("");
 	const [gameMode, setGameMode] = useState<string>("");
 	const { user } = useAuth();
+	const [ gameLoading, setGameLoading ] = useState(false);
 
-	const { mutate } = useMutation("addPlayerToGame", gameApi.addPlayer, {
+	const { mutate, isLoading: playerLoading } = useMutation("addPlayerToGame", gameApi.addPlayer, {
 		onError: (e: any) => {
 			const rmt = e.response.data as ResponseMessageType;
 			setError(rmt);
@@ -78,6 +79,7 @@ export const Lobby = () => {
 			navigate(`/game/${data.uuid}`);
 		},
 		onError: (e: any) => {
+			setGameLoading(false);
 			const rmt = e.response.data as ResponseMessageType;
 			setError(rmt);
 		}
@@ -98,6 +100,7 @@ export const Lobby = () => {
 	};
 
 	const initializeGame = async () => {
+		setGameLoading(true);
 		try {
 			await axios.post("https://theta-risk.com/api/chat/room", {
 				id: gameId!,
@@ -115,7 +118,7 @@ export const Lobby = () => {
 
 
 	return (
-		isLoading ? <LoadingScreen></LoadingScreen> :
+		isLoading || gameLoading ? <LoadingScreen></LoadingScreen> :
 			<div>
 				<h1 style={{ color: "white" }} >Game lobby</h1>
 				<p style={{ color: "white", fontSize: 16, marginTop: -10 }}>Prepare yourself to become the conquerer of the world.</p>
@@ -169,10 +172,15 @@ export const Lobby = () => {
 
 					<Grid item xs={12}>
 						{gameMode.toUpperCase() === "SINGLE" && gameMode !== "" &&
-							<Button variant="contained" style={{ padding: 10, marginRight: 10 }} onClick={() => addAi()}><AddOutlined />Add AI Player</Button>
+						<>
+							{
+								<Button variant="contained" style={{ padding: 10, marginRight: 10 }} onClick={() => addAi()}><AddOutlined /> {playerLoading? "Creating a friend" : "Add AI Player"} </Button>
+							}
+						</>
+
 						}
 						{game !== null && game!.creator.uuid === user!.userId &&
-							<Button variant="contained" style={{ padding: 10, marginRight: 10 }} disabled={players.length < 2} onClick={() => initializeGame()}><KeyboardArrowRightOutlinedIcon />Start game</Button>
+							<Button variant="contained" style={{ padding: 10, marginRight: 10 }} disabled={players.length < 2} onClick={() => initializeGame()} ><KeyboardArrowRightOutlinedIcon />Start game</Button>
 						}
 					</Grid>
 				</Grid>

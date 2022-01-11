@@ -13,10 +13,6 @@ const ScenarioPreviewCard = (props: ScenarioPreviewCardProps) => {
 				{props.scenario.name}
 			</Typography>
 
-			<img style={{
-				marginLeft: "15%", marginTop: 10, marginBottom: 10
-			}} width={"70%"} src={props.scenario.image} alt={props.scenario.name} onDragStart={(e) => { e.preventDefault(); }} />
-
 			<img style={{ objectFit: "cover", padding: 5 }} width={"100%"} height={"100%"} src={props.scenario.image} alt={props.scenario.name} onDragStart={(e) => { e.preventDefault(); }} />
 		</div>
 	);

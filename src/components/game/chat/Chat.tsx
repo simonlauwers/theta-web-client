@@ -39,10 +39,6 @@ const Chat = () => {
 		console.log("joining chat");
 		axios.post(process.env.REACT_APP_SOCKET_URL! + "api/chat/user/link", {
 			socketId: socket.id
-		}, {
-			headers: {
-				"x-authentication-id": user!.userId
-			}
 		}).then(() => {
 			socket.emit("request/room/join", meta!.uuid);
 		});
@@ -57,14 +53,17 @@ const Chat = () => {
 
 	useEffect(() => {
 		handleJoinChat();
+		socket.on("connect", () => {
+			handleJoinChat();
+		});
 	}, []);
 
-	socket.on("response/room/join", (room) => {
+	socket.on("response/room/join", (room: any) => {
 		console.log(room);
 		socket.emit("request/room/messages", room.id);
 	});
 
-	socket.on("response/room/messages", (messages) => {
+	socket.on("response/room/messages", (messages: any) => {
 		// Recieve all messages
 		console.log(messages);
 		setMessages(messages);

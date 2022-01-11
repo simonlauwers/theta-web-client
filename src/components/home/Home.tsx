@@ -64,12 +64,12 @@ const Home = () => {
 									mobileMediaQuery ?
 										<Grid item xs={12} style={{ color: "white", gap: "20px" }}>
 											<Avatar onClick={() => navigate("/profile")} sx={{ bgcolor: "grey", width: 120, height: 120, boxShadow: 5, ":hover": { cursor: "pointer" } }}><img src={user!.profilePicture} onDragStart={(e) => { e.preventDefault(); }} /></Avatar>
-											<Typography variant="h4">Welcome back {user!.displayName}!</Typography>
+											<Typography variant="h4" sx={{ overflow: "hidden" }}>Welcome back {user!.displayName}!</Typography>
 										</Grid>
 										:
 										<Grid item xs={12} md={6} style={{ color: "white", paddingTop: "80px", display: "flex", flexDirection: "row", alignItems: "center", gap: "20px" }}>
 											<Avatar onClick={() => navigate("/profile")} sx={{ bgcolor: "grey", width: 180, height: 180, boxShadow: 5, ":hover": { cursor: "pointer" } }}><img src={user!.profilePicture} onDragStart={(e) => { e.preventDefault(); }} /></Avatar>
-											<Typography variant="h4">Welcome back {user!.displayName}!</Typography>
+											<Typography variant="h4" sx={{ overflow: "hidden" }} > Welcome back {user!.displayName}!</Typography>
 										</Grid>
 								}
 							</Grid>

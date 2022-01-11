@@ -21,7 +21,7 @@ const PlayerCard = (playerCardProps: PlayerCardProps) => {
 				borderTopLeftRadius: "1rem", borderBottomLeftRadius: "1rem"
 			}}>
 				<div style={{ display: "flex", alignItems: "center", width: "100%" }}>
-					<div style={{ display: "flex", alignItems: "center" }}>
+					<div style={{ display: "flex", alignItems: "center", overflow: "hidden" }}>
 						<h1 style={{
 							fontSize: "100%",
 							margin: 0, color: "white",

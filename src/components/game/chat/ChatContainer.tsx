@@ -9,7 +9,7 @@ export const ChatContainer = () => {
             {
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 meta!.gameMode.toUpperCase() !== "SINGLE" &&
-                <div style={{ position: "absolute", height: "35vh", width: "35vh", bottom: 0, left: 1600 }}>
+                <div style={{ position: "fixed", height: "35vh", width: "35vh", bottom: 0, right: "5vh" }}>
                     <Chat />
                 </div>
             }

@@ -77,7 +77,7 @@ export const Lobby = () => {
 	const { mutate: initGame } = useMutation(gameApi.initializeGame, {
 		onSuccess: async (data: GameType) => {
 			try {
-				await axios.post("https://theta-risk.com/api/chat/room", {
+				await axios.post("https://theta-risk.com/chat/room", {
 					id: gameId!,
 					users: players.map((player) => player.user.uuid)
 				});

@@ -56,7 +56,7 @@ const Home = () => {
 								<Grid item xs={12} md={6} style={{ color: "white" }}>
 									<h1 style={{ fontSize: "8em", margin: "0px 0 40px -9px" }}>RISK</h1>
 									{mobileMediaQuery ? <p style={{ marginTop: "-3em", fontSize: "1.5em" }}>You played 10 hours in total.</p> :
-										<p style={{ marginTop: "-3em", fontSize: "2em" }}>You played {hoursPlayed === null || hoursPlayed === undefined ? "x" : hoursPlayed} hours in total.</p>
+										<p style={{ marginTop: "-3em", fontSize: "2em" }}>You played {hoursPlayed === null || hoursPlayed === undefined ? "x" : hoursPlayed.toFixed(2)} hours in total.</p>
 									}
 									<Button style={{ marginTop: "-2em" }} variant="contained" sx={{ backgroundColor: "secondary[100]" }} onClick={() => { playSfxSound(); navigate("/stats"); }}>See all stats</Button>
 								</Grid>

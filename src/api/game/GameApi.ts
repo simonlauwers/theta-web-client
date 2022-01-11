@@ -14,9 +14,6 @@ import RemovePlayerType from "../../types/RemovePlayerType";
 const api = axios.create({
 	baseURL: location.hostname === "localhost" ? "http://localhost:8080/" : "/api/game/",
 	withCredentials: true,
-	headers: {
-		"X-Authentication-Id": localStorage.getItem("userId")!
-	}
 });
 
 export async function game(gameUuid: string) {

@@ -28,7 +28,7 @@ export const Lobby = () => {
 	const [gameCode, setGameCode] = useState<string>("");
 	const [gameMode, setGameMode] = useState<string>("");
 	const { user } = useAuth();
-	const [ gameLoading, setGameLoading ] = useState(false);
+	const [gameLoading, setGameLoading] = useState(false);
 
 	const { mutate, isLoading: playerLoading } = useMutation("addPlayerToGame", gameApi.addPlayer, {
 		onError: (e: any) => {
@@ -49,9 +49,9 @@ export const Lobby = () => {
 
 	useEffect(() => {
 		if (game !== null && game!.creator.uuid !== user!.userId && players.filter(pl => pl.user.uuid === user!.userId).length <= 0) {
-			setError({status: 401, message: "You were kicked from the game.", timestamp: ""});
+			setError({ status: 401, message: "You were kicked from the game.", timestamp: "" });
 			navigate("/home");
-		} 
+		}
 	}, [players]);
 
 	useQuery(
@@ -62,7 +62,7 @@ export const Lobby = () => {
 				const game = data.data as GameType;
 				setPlayers(game.players);
 				setGame(game);
-				if(game.gameState === "PLAYING") {
+				if (game.gameState === "PLAYING") {
 					navigate(`/game/${game.uuid}`);
 				}
 			} else if (data.status !== 204) {
@@ -75,7 +75,15 @@ export const Lobby = () => {
 	);
 
 	const { mutate: initGame } = useMutation(gameApi.initializeGame, {
-		onSuccess: (data: GameType) => {
+		onSuccess: async (data: GameType) => {
+			try {
+				await axios.post("https://theta-risk.com/api/chat/room", {
+					id: gameId!,
+					users: players.map((player) => player.user.uuid)
+				});
+			} catch (error: any) {
+				setError(error);
+			}
 			navigate(`/game/${data.uuid}`);
 		},
 		onError: (e: any) => {
@@ -85,9 +93,9 @@ export const Lobby = () => {
 		}
 	});
 
-	const { mutate : kickPlayer } = useMutation(gameApi.kickPlayer, {
+	const { mutate: kickPlayer } = useMutation(gameApi.kickPlayer, {
 		onSuccess: () => {
-			if(game!.creator.uuid !== user!.userId) navigate("/home");
+			if (game!.creator.uuid !== user!.userId) navigate("/home");
 		},
 		onError: (e: any) => {
 			const rmt = e.response.data as ResponseMessageType;
@@ -101,14 +109,6 @@ export const Lobby = () => {
 
 	const initializeGame = async () => {
 		setGameLoading(true);
-		try {
-			await axios.post("https://theta-risk.com/api/chat/room", {
-				id: gameId!,
-				users: players.map((player) => player.user.uuid)
-			});
-		} catch (error : any) {
-			setError(error);
-		}
 		initGame(gameId!);
 	};
 
@@ -145,12 +145,12 @@ export const Lobby = () => {
 										}
 									</CardContent>
 									{
-									game !== null && game!.creator.uuid === user!.userId && player.user.uuid !== game!.creator.uuid &&
-									<CardActions>
-										<Button size="small" color="primary" style={{ backgroundColor: "#8c1212" }} onClick={() => {kick(player.uuid);}}>
-											<CloseIcon style={{ color: "white" }} />
-										</Button>
-									</CardActions>
+										game !== null && game!.creator.uuid === user!.userId && player.user.uuid !== game!.creator.uuid &&
+										<CardActions>
+											<Button size="small" color="primary" style={{ backgroundColor: "#8c1212" }} onClick={() => { kick(player.uuid); }}>
+												<CloseIcon style={{ color: "white" }} />
+											</Button>
+										</CardActions>
 									}
 
 
@@ -172,11 +172,11 @@ export const Lobby = () => {
 
 					<Grid item xs={12}>
 						{gameMode.toUpperCase() === "SINGLE" && gameMode !== "" &&
-						<>
-							{
-								<Button variant="contained" style={{ padding: 10, marginRight: 10 }} onClick={() => addAi()}><AddOutlined /> {playerLoading? "Creating a friend" : "Add AI Player"} </Button>
-							}
-						</>
+							<>
+								{
+									<Button variant="contained" style={{ padding: 10, marginRight: 10 }} onClick={() => addAi()}><AddOutlined /> {playerLoading ? "Creating a friend" : "Add AI Player"} </Button>
+								}
+							</>
 
 						}
 						{game !== null && game!.creator.uuid === user!.userId &&

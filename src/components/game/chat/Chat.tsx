@@ -34,10 +34,20 @@ const Chat = () => {
 		},
 	});
 
+	useEffect(() => {
+		if(socket.connected){
+			axios.post("https://theta-risk.com/chat/user/link", {
+					socketId: socket.id
+				}).then(s => {
+					socket.emit("request/room/join", meta!.uuid);
+				});
+		};
+	}, [socket]);
+
 
 	const handleJoinChat = useCallback(() => {
 		console.log("joining chat");
-		axios.post("https://theta-risk.com/api/chat/user/link", {
+		axios.post("https://theta-risk.com/chat/user/link", {
 			socketId: socket.id
 		}).then(() => {
 			socket.emit("request/room/join", meta!.uuid);
@@ -53,9 +63,6 @@ const Chat = () => {
 
 	useEffect(() => {
 		handleJoinChat();
-		socket.on("connect", () => {
-			handleJoinChat();
-		});
 	}, []);
 
 	socket.on("response/room/join", (room: any) => {

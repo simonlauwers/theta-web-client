@@ -1,6 +1,6 @@
 # Thèta Web Client
 This repo is our React front-end for our micro-service Risk game we are making.<br>
-Checkout our [promo video](https://www.youtube.com/watch?v=U-rB_P4w14w&t=90s&ab_channel=NathanDesign)!
+Checkout our [promo video](https://www.youtube.com/watch?v=U-rB_P4w14w&ab_channel=NathanDesign)!
 
 ## ⚠️ Disclaimer
 This is a micro-service of a bigger 3D Risk-game application. This project was imported from Gitlab where all our micro-service-repositories live.
